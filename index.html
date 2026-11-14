@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bibi Lacoste — El Rumbo del Recuerdo</title>
+  
+  <!-- Google Fonts: Cormorant Garamond, Cinzel & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0C0A08;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #E6DFD5;
+    }
+
+    /* Ambient Warm Atmosphere */
+    #ambient-background {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 48%, #1E1610 0%, #100C09 58%, #050403 100%);
+      pointer-events: none;
+      z-index: 1;
+      transition: background 2.5s ease;
+    }
+
+    #grain-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(240, 215, 185, 0.035) 1px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.9;
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      cursor: pointer;
+    }
+
+    #webgl-canvas.cosmos-mode {
+      cursor: grab;
+    }
+
+    #webgl-canvas.cosmos-mode:active {
+      cursor: grabbing;
+    }
+
+    /* Constellation Vector Layer (Connecting Thread) */
+    #constellation-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      transition: opacity 1.2s ease;
+    }
+
+    /* Floating Words Container */
+    #words-container {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .floating-word-node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translate(-50%, -50%) scale(0.9);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-word-node.revealed {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .word-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.45rem;
+      letter-spacing: 0.14em;
+      color: #F4EAE0;
+      text-shadow: 0 0 25px rgba(226, 184, 134, 0.4), 0 3px 15px rgba(0, 0, 0, 0.95);
+      white-space: nowrap;
+      transition: all 0.5s ease;
+    }
+
+    @media (min-width: 768px) {
+      .word-text {
+        font-size: 1.85rem;
+      }
+    }
+
+    .node-pin {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #D6A46A;
+      box-shadow: 0 0 14px rgba(214, 164, 106, 0.9);
+      margin-top: 6px;
+      transition: all 0.5s ease;
+    }
+
+    /* Editorial UI Frame */
+    .ui-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.2rem 2.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .ui-layer {
+        padding: 1.5rem 1.25rem;
+      }
+    }
+
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .artist-brand {
+      letter-spacing: 0.3em;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #C7B59D;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+    }
+
+    .artist-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: #7D7061;
+      text-transform: uppercase;
+      margin-top: 2px;
+      transition: all 0.8s ease;
+    }
+
+    .progress-pills {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: opacity 0.8s ease;
+    }
+
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(214, 164, 106, 0.35);
+      background: transparent;
+      transition: all 0.6s ease;
+    }
+
+    .progress-dot.active {
+      background: #D6A46A;
+      box-shadow: 0 0 10px rgba(214, 164, 106, 0.85);
+      border-color: #D6A46A;
+    }
+
+    /* Active Layer Narrative Feedback */
+    #layer-feedback {
+      position: absolute;
+      bottom: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #D6A46A;
+      font-weight: 400;
+      pointer-events: none;
+      transition: all 0.5s ease;
+      white-space: nowrap;
+      text-shadow: 0 0 16px rgba(0, 0, 0, 0.95);
+      opacity: 0.95;
+    }
+
+    @media (max-width: 640px) {
+      #layer-feedback {
+        bottom: 5rem;
+        white-space: normal;
+        max-width: 90%;
+      }
+    }
+
+    /* Bottom Interactive Action */
+    .bottom-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      text-align: center;
+    }
+
+    .sound-toggle {
+      pointer-events: auto;
+      background: none;
+      border: 1px solid rgba(163, 150, 134, 0.2);
+      color: #8C7F72;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sound-toggle:hover {
+      border-color: #D6A46A;
+      color: #E6DFD5;
+    }
+
+    /* Phase 2: Cosmos Navigation Cue (Top-Center) */
+    #cosmos-nav-bar {
+      position: absolute;
+      top: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 15;
+    }
+
+    #cosmos-nav-bar.visible {
+      opacity: 1;
+    }
+
+    .cosmos-nav-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: #D6A46A;
+    }
+
+    .cosmos-nav-sub {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.60rem;
+      letter-spacing: 0.18em;
+      color: #9C8E7E;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Phase 2: Cosmos Quote Card (Glassmorphism Bottom) */
+    #cosmos-quote-card {
+      position: absolute;
+      bottom: 4.8rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 20;
+      max-width: 90%;
+      width: 580px;
+      background: rgba(18, 14, 11, 0.72);
+      border: 1px solid rgba(214, 164, 106, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1.1rem 1.8rem;
+      border-radius: 6px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    #cosmos-quote-card.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cosmos-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.60rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #D6A46A;
+      margin-bottom: 0.35rem;
+    }
+
+    .cosmos-quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.25rem;
+      color: #F8EFE4;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
+
+    @keyframes pulseSlow {
+      0%, 100% { opacity: 0.35; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+  </style>
+</head>
+<body class="h-full">
+
+  <div id="ambient-background"></div>
+  <div id="grain-overlay"></div>
+
+  <!-- Three.js Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Constellation SVG: Progressive Connecting Thread -->
+  <svg id="constellation-svg">
+    <defs>
+      <!-- Translucent Cotton & Flax Thread Gradient -->
+      <linearGradient id="threadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#D6A46A" stop-opacity="0.30"/>
+        <stop offset="50%" stop-color="#F5E8D3" stop-opacity="0.40"/>
+        <stop offset="100%" stop-color="#C48858" stop-opacity="0.30"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Navigation Thread (Delicate dashed line - - - - - - -) -->
+    <path id="thread-path" d="" fill="none" stroke="url(#threadGradient)" stroke-width="1.3" stroke-dasharray="8 6" stroke-linecap="round"></path>
+  </svg>
+
+  <!-- Dispersed Words Layer (Revealed progressively per touch) -->
+  <div id="words-container">
+    <!-- Node 0: Touch 1 -->
+    <div class="floating-word-node" id="node-0" data-x="0.16" data-y="0.22">
+      <span class="word-text">Toda memoria</span>
+      <span class="node-pin"></span>
+    </div>
+
+    <!-- Node 1: Touch 2 -->
+    <div class="floating-word-node" id="node-1" data-x="0.82" data-y="0.25">
+      <span class="word-text">es un viaje</span>
+      <span class="node-pin"></span>
+    </div>
+
+    <!-- Node 2: Touch 3 -->
+    <div class="floating-word-node" id="node-2" data-x="0.84" data-y="0.72">
+      <span class="word-text">que busca</span>
+      <span class="node-pin"></span>
+    </div>
+
+    <!-- Node 3: Touch 4 -->
+    <div class="floating-word-node" id="node-3" data-x="0.17" data-y="0.70">
+      <span class="word-text">su rumbo.</span>
+      <span class="node-pin"></span>
+    </div>
+  </div>
+
+  <!-- Phase 2: Cosmos Navigation Cue -->
+  <div id="cosmos-nav-bar">
+    <div class="cosmos-nav-title">• COSMOS DE LA MATERIA •</div>
+    <div class="cosmos-nav-sub">Arrastra para orbitar • Ruedita o pellizco para zoom • Roza un fragmento</div>
+  </div>
+
+  <!-- Phase 2: Cosmos Quote Card -->
+  <div id="cosmos-quote-card">
+    <div class="cosmos-tag" id="quote-tag">• MATERIA & ESTRATOS •</div>
+    <div class="cosmos-quote-text" id="quote-text">"Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento."</div>
+  </div>
+
+  <!-- Editorial UI Frame -->
+  <div class="ui-layer">
+    <!-- Top Header -->
+    <div class="top-meta">
+      <div id="brand-container">
+        <div class="artist-brand">Bibi Lacoste</div>
+      </div>
+      
+      <!-- 4 Discovery Steps Indicator -->
+      <div class="progress-pills">
+        <div class="progress-dot" id="dot-0"></div>
+        <div class="progress-dot" id="dot-1"></div>
+        <div class="progress-dot" id="dot-2"></div>
+        <div class="progress-dot" id="dot-3"></div>
+      </div>
+    </div>
+
+    <!-- Active Layer Feedback -->
+    <div id="layer-feedback"></div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-bar">
+      <button class="sound-toggle" id="soundBtn" onclick="toggleAudioFeedback()">
+        Sonido: Textura
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       APPLICATION STATE & ARCHITECTURE
+       ======================================================== */
+    let appState = 'FASE1'; // 'FASE1' | 'TRANSITION' | 'COSMOS'
+    let currentStep = 0;    // 0 to 4 in Fase 1
+    let isUnlocked = false;
+
+    /* ========================================================
+       1. GENERATE PROCEDURAL BURLAP (ARPILLERA) + PAPER TEXTURE
+       ======================================================== */
+    const textCanvas = document.createElement('canvas');
+    textCanvas.width = 1024;
+    textCanvas.height = 1024;
+    const textCtx = textCanvas.getContext('2d');
+    let burlapTexture;
+
+    function createBurlapPath(ctx, w, h, margin) {
+      ctx.beginPath();
+      const steps = 60;
+      
+      // Top frayed edge
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const px = margin + t * (w - 2 * margin);
+        const noise = Math.sin(t * 30) * 4 + Math.cos(t * 60) * 3 + (Math.sin(t * 90) * 2);
+        const py = margin + noise;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+
+      // Right edge
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const py = margin + t * (h - 2 * margin);
+        const noise = Math.sin(t * 32) * 4 + Math.cos(t * 64) * 3 + (Math.cos(t * 95) * 2);
+        const px = (w - margin) + noise;
+        ctx.lineTo(px, py);
+      }
+
+      // Bottom edge
+      for (let i = 0; i <= steps; i++) {
+        const t = 1 - (i / steps);
+        const px = margin + t * (w - 2 * margin);
+        const noise = Math.sin(t * 28) * 4 + Math.cos(t * 55) * 3 + (Math.sin(t * 85) * 2);
+        const py = (h - margin) + noise;
+        ctx.lineTo(px, py);
+      }
+
+      // Left edge
+      for (let i = 0; i <= steps; i++) {
+        const t = 1 - (i / steps);
+        const py = margin + t * (h - 2 * margin);
+        const noise = Math.sin(t * 34) * 4 + Math.cos(t * 68) * 3 + (Math.cos(t * 92) * 2);
+        const px = margin + noise;
+        ctx.lineTo(px, py);
+      }
+
+      ctx.closePath();
+    }
+
+    function drawBurlapLayer(step) {
+      const w = textCanvas.width;
+      const h = textCanvas.height;
+      const ctx = textCtx;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Soft Ambient Drop Shadow
+      ctx.save();
+      createBurlapPath(ctx, w, h, 70);
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
+      ctx.shadowBlur = 45;
+      ctx.shadowOffsetY = 24;
+      ctx.fillStyle = 'rgba(12, 10, 6, 0.9)';
+      ctx.fill();
+      ctx.restore();
+
+      // 2. Draw Burlap & Paper Body
+      ctx.save();
+      createBurlapPath(ctx, w, h, 70);
+      ctx.clip();
+
+      const baseGrad = ctx.createRadialGradient(w * 0.4, h * 0.4, 50, w/2, h/2, w * 0.65);
+      baseGrad.addColorStop(0.0, '#B89B74');
+      baseGrad.addColorStop(0.6, '#A1835C');
+      baseGrad.addColorStop(1.0, '#785D3B');
+      ctx.fillStyle = baseGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Coarse Burlap Weave
+      const threadSpacing = 16;
+      ctx.lineWidth = 3.5;
+
+      for (let y = 60; y < h - 60; y += threadSpacing) {
+        ctx.strokeStyle = (Math.floor(y / threadSpacing) % 2 === 0) ? 'rgba(74, 54, 32, 0.45)' : 'rgba(215, 185, 145, 0.35)';
+        ctx.beginPath();
+        ctx.moveTo(60, y + (Math.sin(y) * 2));
+        ctx.lineTo(w - 60, y + (Math.cos(y) * 2));
+        ctx.stroke();
+      }
+
+      for (let x = 60; x < w - 60; x += threadSpacing) {
+        ctx.strokeStyle = (Math.floor(x / threadSpacing) % 2 === 0) ? 'rgba(64, 46, 26, 0.5)' : 'rgba(230, 200, 160, 0.4)';
+        ctx.beginPath();
+        ctx.moveTo(x + (Math.cos(x) * 2), 60);
+        ctx.lineTo(x + (Math.sin(x) * 2), h - 60);
+        ctx.stroke();
+      }
+
+      // Hand-Pressed Paper Pulp Wash
+      const paperWash = ctx.createLinearGradient(60, 60, w - 60, h - 60);
+      paperWash.addColorStop(0.0, 'rgba(240, 228, 210, 0.48)');
+      paperWash.addColorStop(0.4, 'rgba(215, 195, 168, 0.28)');
+      paperWash.addColorStop(1.0, 'rgba(180, 150, 115, 0.38)');
+      ctx.fillStyle = paperWash;
+      ctx.fillRect(0, 0, w, h);
+
+      // Frayed Threads
+      ctx.strokeStyle = 'rgba(220, 190, 150, 0.65)';
+      ctx.lineWidth = 1.6;
+      for (let i = 0; i < 180; i++) {
+        const side = Math.floor(Math.random() * 4);
+        let fx, fy, dx, dy;
+        if (side === 0) { fx = 70 + Math.random() * (w - 140); fy = 70; dx = (Math.random()-0.5)*15; dy = -12 - Math.random()*25; }
+        else if (side === 1) { fx = w - 70; fy = 70 + Math.random() * (h - 140); dx = 12 + Math.random()*25; dy = (Math.random()-0.5)*15; }
+        else if (side === 2) { fx = 70 + Math.random() * (w - 140); fy = h - 70; dx = (Math.random()-0.5)*15; dy = 12 + Math.random()*25; }
+        else { fx = 70; fy = 70 + Math.random() * (h - 140); dx = -12 - Math.random()*25; dy = (Math.random()-0.5)*15; }
+
+        ctx.beginPath();
+        ctx.moveTo(fx, fy);
+        ctx.lineTo(fx + dx, fy + dy);
+        ctx.stroke();
+      }
+
+      // Archival Stamp
+      ctx.save();
+      ctx.translate(w/2, h/2);
+
+      ctx.strokeStyle = 'rgba(55, 38, 22, 0.55)';
+      ctx.lineWidth = 3.5;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath();
+      ctx.arc(0, 0, 160, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.font = '700 28px "Cinzel", serif';
+      ctx.fillStyle = 'rgba(55, 38, 22, 0.75)';
+      ctx.textAlign = 'center';
+      ctx.letterSpacing = '6px';
+      ctx.fillText('BIBIANA LACOSTE', 0, -35);
+
+      ctx.font = 'italic 400 24px "Cormorant Garamond", serif';
+      ctx.fillStyle = 'rgba(90, 55, 30, 0.85)';
+      ctx.fillText('• Tejido del Recuerdo •', 0, 10);
+
+      ctx.font = '600 20px "Cinzel", serif';
+      ctx.fillStyle = 'rgba(55, 38, 22, 0.7)';
+      ctx.fillText('1967 • TALLER TIGRE', 0, 50);
+
+      // Progressive Layer Markings on Burlap
+      if (step >= 1) {
+        ctx.fillStyle = 'rgba(165, 80, 45, 0.35)';
+        ctx.beginPath();
+        ctx.arc(0, -90, 80, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.font = 'italic 500 22px "Cormorant Garamond", serif';
+        ctx.fillStyle = '#3A1E10';
+        ctx.fillText('Taipas de arroz', 0, -85);
+      }
+
+      if (step >= 2) {
+        ctx.strokeStyle = 'rgba(140, 60, 35, 0.65)';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(-120, 80, 240, 45);
+        ctx.font = '600 16px "Cinzel", serif';
+        ctx.fillStyle = 'rgba(140, 60, 35, 0.85)';
+        ctx.fillText('Distancias de ultramar', 0, 108);
+      }
+
+      if (step >= 3) {
+        ctx.fillStyle = 'rgba(245, 235, 218, 0.75)';
+        ctx.fillRect(-140, -15, 280, 40);
+        ctx.font = 'italic 500 20px "Cormorant Garamond", serif';
+        ctx.fillStyle = '#26160A';
+        ctx.fillText('Cítricos que transforman paisajes', 0, 12);
+      }
+
+      if (step >= 4) {
+        ctx.strokeStyle = '#D4A054';
+        ctx.lineWidth = 4;
+        ctx.shadowColor = 'rgba(212, 160, 84, 0.8)';
+        ctx.shadowBlur = 14;
+        ctx.strokeRect(-190, -190, 380, 380);
+      }
+
+      ctx.restore();
+      ctx.restore();
+
+      if (burlapTexture) burlapTexture.needsUpdate = true;
+    }
+
+    function initBurlapTexture() {
+      drawBurlapLayer(0);
+      burlapTexture = new THREE.CanvasTexture(textCanvas);
+      burlapTexture.anisotropy = 16;
+      return burlapTexture;
+    }
+
+    /* ========================================================
+       2. THREE.JS SCENE SETUP & LIGHTING
+       ======================================================== */
+    const canvas = document.getElementById('webgl-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 6.8);
+
+    const keyLight = new THREE.DirectionalLight(0xFFE4C2, 1.55);
+    keyLight.position.set(3.2, 4.0, 3.8);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.DirectionalLight(0xC49A6C, 1.1);
+    rimLight.position.set(-3.5, 2.0, -1.0);
+    scene.add(rimLight);
+
+    const ambientLight = new THREE.AmbientLight(0x453526, 1.3);
+    scene.add(ambientLight);
+
+    // BASE RESTING POSE FOR FASE 1 RELIC
+    const basePose = {
+      rotX: -0.48,
+      rotY: 0.44,
+      rotZ: -0.10
+    };
+
+    // Burlap Relic Group
+    const burlapGroup = new THREE.Group();
+    burlapGroup.position.set(0, 0.18, 0);
+    burlapGroup.rotation.set(basePose.rotX, basePose.rotY, basePose.rotZ);
+    scene.add(burlapGroup);
+
+    const patchW = 1.15;
+    const patchH = 1.35;
+    const patchGeo = new THREE.PlaneGeometry(patchW, patchH, 24, 28);
+
+    const posAttr = patchGeo.attributes.position;
+    for (let i = 0; i < posAttr.count; i++) {
+      const u = (posAttr.getX(i) / patchW);
+      const v = (posAttr.getY(i) / patchH);
+      const curl = (Math.pow(u, 2) * 0.08) - (Math.pow(v, 2) * 0.05);
+      const wave = Math.sin(u * Math.PI * 2) * 0.025 * Math.cos(v * Math.PI * 2);
+      posAttr.setZ(i, curl + wave);
+    }
+    patchGeo.computeVertexNormals();
+
+    const burlapMat = new THREE.MeshStandardMaterial({
+      map: initBurlapTexture(),
+      transparent: true,
+      roughness: 0.92,
+      metalness: 0.02,
+      side: THREE.DoubleSide
+    });
+
+    const burlapMesh = new THREE.Mesh(patchGeo, burlapMat);
+    burlapGroup.add(burlapMesh);
+
+    /* ========================================================
+       3. VOLUMETRIC POLVO DE LADRILLO & GOLD DUST PARTICLES
+       ======================================================== */
+    const particleCount = 1600;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePos = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
+    const particleVelocities = new Float32Array(particleCount * 3);
+    const particleSeeds = new Float32Array(particleCount);
+
+    const brickPalette = [
+      new THREE.Color(0xBA4E32), // Polvo de ladrillo / terracota
+      new THREE.Color(0xD06440), // Arcilla cocida cálida
+      new THREE.Color(0x8E3218), // Ladrillo envejecido profundo
+      new THREE.Color(0xC55735), // Rojo de teja colonial
+      new THREE.Color(0x9E3F24)  // Siena tostada
+    ];
+
+    const goldFlaxPalette = [
+      new THREE.Color(0xE2C8A4), // Lino crudo
+      new THREE.Color(0xCFB38A), // Pulpa de papel artesanal
+      new THREE.Color(0xF3E5D0)  // Fibra de algodón
+    ];
+
+    const earthCharcoalPalette = [
+      new THREE.Color(0x4E2E1D), // Tierra fértil
+      new THREE.Color(0x382115)  // Carbón vegetal
+    ];
+
+    const micaColor = new THREE.Color(0xFFF4D6); // Destello de mica
+
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      particlePos[i3] = (Math.random() - 0.5) * 36;
+      particlePos[i3 + 1] = (Math.random() - 0.5) * 28;
+      particlePos[i3 + 2] = (Math.random() - 0.5) * 32 - 2;
+
+      const r = Math.random();
+      let col;
+      if (r < 0.45) {
+        col = brickPalette[Math.floor(Math.random() * brickPalette.length)];
+      } else if (r < 0.80) {
+        col = goldFlaxPalette[Math.floor(Math.random() * goldFlaxPalette.length)];
+      } else if (r < 0.95) {
+        col = earthCharcoalPalette[Math.floor(Math.random() * earthCharcoalPalette.length)];
+      } else {
+        col = micaColor;
+      }
+
+      particleColors[i3] = col.r;
+      particleColors[i3 + 1] = col.g;
+      particleColors[i3 + 2] = col.b;
+
+      particleVelocities[i3] = (Math.random() - 0.5) * 0.08;
+      particleVelocities[i3 + 1] = 0.16 + Math.random() * 0.38;
+      particleVelocities[i3 + 2] = (Math.random() - 0.5) * 0.05;
+
+      particleSeeds[i] = Math.random() * 100;
+    }
+
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+    particleGeo.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+
+    function createSoftParticleTexture() {
+      const c = document.createElement('canvas');
+      c.width = 64;
+      c.height = 64;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0.0, 'rgba(255, 255, 255, 1.0)');
+      grad.addColorStop(0.25, 'rgba(255, 255, 255, 0.85)');
+      grad.addColorStop(0.65, 'rgba(255, 255, 255, 0.25)');
+      grad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(c);
+    }
+
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.13,
+      vertexColors: true,
+      map: createSoftParticleTexture(),
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+      blending: THREE.NormalBlending
+    });
+
+    const particleSystem = new THREE.Points(particleGeo, particleMat);
+    scene.add(particleSystem);
+
+    let particleSpeedMultiplier = 1.0;
+
+    /* ========================================================
+       4. FEATHER FLUTTER DETACHMENT PHYSICS (FASE 1)
+       ======================================================== */
+    const fallingLeaves = [];
+
+    function spawnDetachedFeatherLayer() {
+      const leafMat = burlapMat.clone();
+      leafMat.transparent = true;
+      leafMat.opacity = 0.95;
+
+      const leafMesh = new THREE.Mesh(patchGeo.clone(), leafMat);
+      leafMesh.position.copy(burlapGroup.position);
+      leafMesh.rotation.copy(burlapGroup.rotation);
+      scene.add(leafMesh);
+
+      fallingLeaves.push({
+        mesh: leafMesh,
+        birthTime: performance.now(),
+        life: 2.1,
+        vx: (Math.random() - 0.5) * 0.28,
+        vy: -0.15,
+        wobbleFreq: 3.5 + Math.random() * 1.5,
+        wobbleAmp: 0.75 + Math.random() * 0.35,
+        rotSpeedX: (Math.random() - 0.5) * 1.8,
+        rotSpeedY: (Math.random() - 0.5) * 1.2,
+        rotSpeedZ: (Math.random() - 0.5) * 1.5
+      });
+    }
+
+    function updateFallingLeaves(now, dt) {
+      for (let i = fallingLeaves.length - 1; i >= 0; i--) {
+        const leaf = fallingLeaves[i];
+        const age = (now - leaf.birthTime) / 1000;
+
+        if (age >= leaf.life) {
+          scene.remove(leaf.mesh);
+          leaf.mesh.geometry.dispose();
+          leaf.mesh.material.dispose();
+          fallingLeaves.splice(i, 1);
+          continue;
+        }
+
+        const fallSpeed = 0.85 + age * 0.5;
+        leaf.mesh.position.y -= fallSpeed * dt;
+        leaf.mesh.position.x += Math.sin(age * leaf.wobbleFreq) * leaf.wobbleAmp * dt + leaf.vx * dt;
+        leaf.mesh.position.z += Math.cos(age * leaf.wobbleFreq * 0.7) * 0.2 * dt;
+
+        leaf.mesh.rotation.x += leaf.rotSpeedX * dt;
+        leaf.mesh.rotation.y += leaf.rotSpeedY * dt;
+        leaf.mesh.rotation.z += Math.sin(age * leaf.wobbleFreq) * 1.2 * dt;
+
+        const progress = age / leaf.life;
+        leaf.mesh.material.opacity = Math.max(0, 1.0 - Math.pow(progress, 1.5));
+      }
+    }
+
+    /* ========================================================
+       5. FASE 2: COSMOS 3D COLLAGE FRAGMENTS (OLAFUR ELIASSON)
+       ======================================================== */
+    const cosmosGroup = new THREE.Group();
+    cosmosGroup.visible = false;
+    scene.add(cosmosGroup);
+
+    const cosmosFragmentsData = [
+      {
+        id: 0,
+        concept: "Materia & Estratos",
+        quote: "Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento.",
+        type: "solapado",
+        pos: { x: -3.2, y: 1.5, z: -3.5 },
+        rot: { x: 0.12, y: 0.35, z: -0.08 },
+        scale: { w: 1.7, h: 2.2 }
+      },
+      {
+        id: 1,
+        concept: "Archivo & Distancia",
+        quote: "Las distancias de ultramar y la memoria que resiste al paso del tiempo.",
+        type: "prensa",
+        pos: { x: 3.4, y: 1.9, z: -4.8 },
+        rot: { x: -0.15, y: -0.42, z: 0.12 },
+        scale: { w: 1.7, h: 2.3 }
+      },
+      {
+        id: 2,
+        concept: "Taipas del Sur",
+        quote: "Las plantaciones de arroz sembradas por mi abuelo y mi padre en el sur.",
+        type: "arrozales",
+        pos: { x: -1.8, y: -2.0, z: -3.0 },
+        rot: { x: -0.28, y: 0.22, z: 0.18 },
+        scale: { w: 2.0, h: 1.5 }
+      },
+      {
+        id: 3,
+        concept: "Pulpa & Recuerdo",
+        quote: "El papel reciclado no es un soporte; es el cuerpo vivo de la memoria.",
+        type: "algodon",
+        pos: { x: 2.4, y: -1.7, z: -3.8 },
+        rot: { x: 0.24, y: -0.32, z: -0.14 },
+        scale: { w: 1.5, h: 1.9 }
+      },
+      {
+        id: 4,
+        concept: "La Siembra",
+        quote: "Olivares y cítricos que transformaron con paciencia el paisaje.",
+        type: "citricos",
+        pos: { x: -4.2, y: -0.3, z: -6.2 },
+        rot: { x: 0.08, y: 0.45, z: -0.22 },
+        scale: { w: 1.8, h: 2.4 }
+      },
+      {
+        id: 5,
+        concept: "El Oficio",
+        quote: "Tres décadas de investigación empírica en el silencio del taller de Tigre.",
+        type: "arquitectura",
+        pos: { x: 1.4, y: 2.7, z: -6.8 },
+        rot: { x: -0.22, y: -0.18, z: 0.05 },
+        scale: { w: 2.1, h: 1.6 }
+      },
+      {
+        id: 6,
+        concept: "Rescate & Permanencia",
+        quote: "La huella cotidiana que se rescata y se transforma en permanencia.",
+        type: "chocolat",
+        pos: { x: 4.0, y: -0.6, z: -7.5 },
+        rot: { x: 0.18, y: -0.48, z: 0.15 },
+        scale: { w: 1.7, h: 2.2 }
+      },
+      {
+        id: 7,
+        concept: "Trama & Ausencia",
+        quote: "Entretejer los vacíos para que la ausencia tome cuerpo y presencia.",
+        type: "disgregado",
+        pos: { x: -2.0, y: 2.4, z: -8.2 },
+        rot: { x: -0.12, y: 0.28, z: -0.16 },
+        scale: { w: 1.6, h: 2.0 }
+      },
+      {
+        id: 8,
+        concept: "Estratigrafía",
+        quote: "Cada capa superpuesta oculta un secreto y devela otro rumbo.",
+        type: "acrilico",
+        pos: { x: 0.5, y: -2.5, z: -6.4 },
+        rot: { x: 0.32, y: -0.12, z: 0.10 },
+        scale: { w: 2.1, h: 1.7 }
+      },
+      {
+        id: 9,
+        concept: "Raíz Viva",
+        quote: "La naturaleza como testigo mudo de las generaciones que pasaron.",
+        type: "araucaria",
+        pos: { x: -3.5, y: -2.3, z: -7.8 },
+        rot: { x: -0.20, y: 0.38, z: 0.08 },
+        scale: { w: 1.8, h: 2.2 }
+      }
+    ];
+
+    function createDeckledShape(ctx, w, h, m) {
+      ctx.beginPath();
+      const steps = 40;
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const x = m + t * (w - 2 * m);
+        const y = m + (Math.sin(t * 24) * 3 + Math.cos(t * 48) * 2);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const y = m + t * (h - 2 * m);
+        const x = (w - m) + (Math.sin(t * 26) * 3 + Math.cos(t * 52) * 2);
+        ctx.lineTo(x, y);
+      }
+      for (let i = 0; i <= steps; i++) {
+        const t = 1 - i / steps;
+        const x = m + t * (w - 2 * m);
+        const y = (h - m) + (Math.sin(t * 22) * 3 + Math.cos(t * 44) * 2);
+        ctx.lineTo(x, y);
+      }
+      for (let i = 0; i <= steps; i++) {
+        const t = 1 - i / steps;
+        const y = m + t * (h - 2 * m);
+        const x = m + (Math.sin(t * 28) * 3 + Math.cos(t * 56) * 2);
+        ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+
+    function createFragmentTexture(type) {
+      const c = document.createElement('canvas');
+      c.width = 512;
+      c.height = 512;
+      const ctx = c.getContext('2d');
+      const w = 512, h = 512;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.save();
+      createDeckledShape(ctx, w, h, 28);
+      ctx.clip();
+
+      if (type === 'solapado') {
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0.0, '#1E494E');
+        g.addColorStop(0.4, '#2E666C');
+        g.addColorStop(1.0, '#1A3C40');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#C89344';
+        ctx.fillRect(60, 180, 400, 110);
+        ctx.fillStyle = '#9E3A20';
+        ctx.fillRect(120, 240, 280, 80);
+
+        ctx.fillStyle = 'rgba(235, 225, 205, 0.45)';
+        ctx.fillRect(80, 80, 220, 60);
+
+        ctx.strokeStyle = 'rgba(20, 15, 12, 0.65)';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(90, 140, 320, 220);
+      } 
+      else if (type === 'prensa') {
+        ctx.fillStyle = '#EBDCBA';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = 'rgba(50, 40, 30, 0.15)';
+        ctx.fillRect(40, 40, 432, 40);
+
+        ctx.fillStyle = 'rgba(40, 30, 20, 0.55)';
+        for (let y = 110; y < 450; y += 14) {
+          ctx.fillRect(50, y, 190, 4);
+          ctx.fillRect(265, y, 195, 4);
+        }
+
+        ctx.save();
+        ctx.translate(360, 340);
+        ctx.rotate(-0.25);
+        ctx.strokeStyle = 'rgba(160, 45, 30, 0.75)';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(-50, -50, 100, 100);
+        ctx.font = '600 13px "Cinzel", serif';
+        ctx.fillStyle = 'rgba(160, 45, 30, 0.85)';
+        ctx.textAlign = 'center';
+        ctx.fillText('ULTRAMAR', 0, -10);
+        ctx.fillText('1967', 0, 15);
+        ctx.restore();
+      }
+      else if (type === 'arrozales') {
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0.0, '#8A341A');
+        g.addColorStop(0.5, '#682410');
+        g.addColorStop(1.0, '#3D150A');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = 'rgba(215, 175, 110, 0.55)';
+        ctx.lineWidth = 2.5;
+        for (let y = 60; y < h; y += 45) {
+          ctx.beginPath();
+          ctx.moveTo(30, y);
+          ctx.bezierCurveTo(180, y + 20, 340, y - 20, 480, y + 10);
+          ctx.stroke();
+        }
+
+        ctx.font = 'italic 400 18px "Cormorant Garamond", serif';
+        ctx.fillStyle = 'rgba(240, 220, 190, 0.7)';
+        ctx.fillText('Taipas do Sul', 70, 420);
+      }
+      else if (type === 'algodon') {
+        ctx.fillStyle = '#F5EFE4';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#1A1410';
+        ctx.fillRect(100, 120, 120, 160);
+        ctx.fillRect(270, 200, 140, 180);
+
+        ctx.strokeStyle = '#D4A455';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(80, 90, 340, 320);
+
+        ctx.font = 'italic 500 20px "Cormorant Garamond", serif';
+        ctx.fillStyle = '#3A281A';
+        ctx.fillText('El tejido de la memoria', 110, 80);
+      }
+      else if (type === 'citricos') {
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0.0, '#4E5A35');
+        g.addColorStop(0.6, '#735028');
+        g.addColorStop(1.0, '#3A2412');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#D69E38';
+        ctx.beginPath();
+        ctx.arc(260, 240, 90, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(240, 225, 200, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(90, 90, 330, 330);
+      }
+      else if (type === 'arquitectura') {
+        ctx.fillStyle = '#26333D';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+        ctx.lineWidth = 1;
+        for (let x = 40; x < w; x += 30) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+        }
+        for (let y = 40; y < h; y += 30) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+        }
+
+        ctx.strokeStyle = '#C9A36A';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(256, 256, 120, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.font = '600 15px "Cinzel", serif';
+        ctx.fillStyle = '#E8D2B0';
+        ctx.fillText('TALLER TIGRE', 180, 260);
+      }
+      else if (type === 'chocolat') {
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0.0, '#2D1B12');
+        g.addColorStop(0.7, '#1A0E08');
+        g.addColorStop(1.0, '#0E0704');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#D8AA42';
+        ctx.fillRect(160, 160, 190, 190);
+
+        ctx.fillStyle = 'rgba(245, 235, 220, 0.7)';
+        ctx.fillRect(130, 130, 80, 80);
+      }
+      else if (type === 'disgregado') {
+        ctx.fillStyle = 'rgba(28, 20, 14, 0.6)';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = 'rgba(220, 190, 150, 0.35)';
+        ctx.lineWidth = 2;
+        for (let y = 30; y < h; y += 18) {
+          ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(482, y); ctx.stroke();
+        }
+        for (let x = 30; x < w; x += 18) {
+          ctx.beginPath(); ctx.moveTo(x, 30); ctx.lineTo(x, 482); ctx.stroke();
+        }
+      }
+      else if (type === 'acrilico') {
+        ctx.fillStyle = '#8E381C';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#C85C36';
+        ctx.fillRect(60, 80, 380, 160);
+
+        ctx.fillStyle = '#EAD6B8';
+        ctx.fillRect(100, 220, 300, 140);
+
+        ctx.fillStyle = '#2A180E';
+        ctx.fillRect(150, 140, 180, 200);
+      }
+      else { // araucaria
+        ctx.fillStyle = '#C29858';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#2A3822';
+        ctx.beginPath();
+        ctx.moveTo(256, 80);
+        ctx.lineTo(390, 420);
+        ctx.lineTo(122, 420);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(255, 245, 225, 0.6)';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(60, 60, 392, 392);
+      }
+
+      ctx.restore();
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.anisotropy = 8;
+      return tex;
+    }
+
+    const fragmentMeshes = [];
+
+    cosmosFragmentsData.forEach((data, idx) => {
+      const geo = new THREE.PlaneGeometry(data.scale.w, data.scale.h, 12, 12);
+      
+      const pos = geo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const u = pos.getX(i) / data.scale.w;
+        const v = pos.getY(i) / data.scale.h;
+        const curl = Math.sin(u * Math.PI) * 0.04 - Math.cos(v * Math.PI) * 0.03;
+        pos.setZ(i, curl);
+      }
+      geo.computeVertexNormals();
+
+      const mat = new THREE.MeshStandardMaterial({
+        map: createFragmentTexture(data.type),
+        transparent: true,
+        opacity: 0.0,
+        roughness: 0.88,
+        metalness: 0.04,
+        side: THREE.DoubleSide,
+        emissive: new THREE.Color(0x000000)
+      });
+
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(data.pos.x, data.pos.y, data.pos.z);
+      mesh.rotation.set(data.rot.x, data.rot.y, data.rot.z);
+      mesh.userData = {
+        data: data,
+        basePos: { ...data.pos },
+        baseRot: { ...data.rot },
+        floatPhase: idx * 1.35,
+        targetScale: 1.0,
+        currentScale: 1.0,
+        targetEmissive: 0.0
+      };
+
+      cosmosGroup.add(mesh);
+      fragmentMeshes.push(mesh);
+    });
+
+    /* ========================================================
+       6. PROGRESSIVE DISCOVERY (FASE 1) & TRANSITION TO COSMOS
+       ======================================================== */
+    const layersData = [
+      { text: "Toda memoria", title: "Tierra y origen", desc: "Taipas de arroz" },
+      { text: "es un viaje", title: "Desarraigo", desc: "Distancias de ultramar" },
+      { text: "que busca", title: "Oficios", desc: "Cítricos que transforman paisajes" },
+      { text: "su rumbo.", title: "Memoria", desc: "El papel como recuerdo" }
+    ];
+
+    const feedbackEl = document.getElementById('layer-feedback');
+
+    function advanceBurlapStep() {
+      if (appState !== 'FASE1') return;
+
+      if (currentStep < 4) {
+        spawnDetachedFeatherLayer();
+
+        const node = document.getElementById(`node-${currentStep}`);
+        if (node) node.classList.add('revealed');
+
+        const dot = document.getElementById(`dot-${currentStep}`);
+        if (dot) dot.classList.add('active');
+
+        playBurlapTearSound(currentStep);
+        drawBurlapLayer(currentStep + 1);
+
+        const currentData = layersData[currentStep];
+        currentStep++;
+
+        feedbackEl.innerHTML = `<span style="color:#D6A46A; letter-spacing:0.24em; font-size:0.75rem; font-family:'Cinzel', serif;">• ${currentData.title.toUpperCase()} •</span><br><span style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#EBD9C8; letter-spacing:0.04em;">${currentData.desc}</span>`;
+
+        if (currentStep === 4) {
+          isUnlocked = true;
+          canvas.classList.add('unlocked');
+          playHarmonicMemoryChime();
+
+          setTimeout(() => {
+            if (appState === 'FASE1') {
+              feedbackEl.innerHTML = `<span style="color:#E2B886; letter-spacing:0.28em; font-size:0.75rem; font-family:'Cinzel', serif;">• EL RUMBO ESTÁ TRAZADO •</span><br><span style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#FFF0D4; letter-spacing:0.04em;">Toca para abrir el cosmos</span>`;
+            }
+          }, 1600);
+        }
+      } else {
+        triggerCosmosTransition();
+      }
+    }
+
+    let transitionStartTime = 0;
+    const transitionDuration = 2.4;
+
+    function triggerCosmosTransition() {
+      if (appState !== 'FASE1') return;
+      appState = 'TRANSITION';
+      transitionStartTime = performance.now();
+
+      playCosmosTransitionSound();
+
+      const n0 = document.getElementById('node-0');
+      const n1 = document.getElementById('node-1');
+      const n2 = document.getElementById('node-2');
+      const n3 = document.getElementById('node-3');
+
+      if (n0) { n0.style.transition = 'transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease'; n0.style.transform = 'translate(-280%, -240%) scale(0.5)'; n0.style.opacity = '0'; }
+      if (n1) { n1.style.transition = 'transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease'; n1.style.transform = 'translate(280%, -240%) scale(0.5)'; n1.style.opacity = '0'; }
+      if (n2) { n2.style.transition = 'transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease'; n2.style.transform = 'translate(280%, 240%) scale(0.5)'; n2.style.opacity = '0'; }
+      if (n3) { n3.style.transition = 'transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease'; n3.style.transform = 'translate(-280%, 240%) scale(0.5)'; n3.style.opacity = '0'; }
+
+      const svgThread = document.getElementById('constellation-svg');
+      if (svgThread) {
+        svgThread.style.transition = 'opacity 1.0s ease';
+        svgThread.style.opacity = '0';
+      }
+
+      if (feedbackEl) {
+        feedbackEl.style.transition = 'opacity 0.8s ease';
+        feedbackEl.style.opacity = '0';
+      }
+
+      const pills = document.querySelector('.progress-pills');
+      if (pills) {
+        pills.style.transition = 'opacity 0.8s ease';
+        pills.style.opacity = '0';
+      }
+    }
+
+    /* ========================================================
+       7. CONSTELLATION SVG THREAD DYNAMICS (FASE 1)
+       ======================================================== */
+    const nodes = [
+      document.getElementById('node-0'),
+      document.getElementById('node-1'),
+      document.getElementById('node-2'),
+      document.getElementById('node-3')
+    ];
+
+    const threadPath = document.getElementById('thread-path');
+
+    const nodeOscillations = [
+      { speed: 0.8, phase: 0.0, ampX: 7, ampY: 9 },
+      { speed: 0.7, phase: 1.5, ampX: 9, ampY: 7 },
+      { speed: 0.9, phase: 3.0, ampX: 7, ampY: 10 },
+      { speed: 0.75, phase: 4.5, ampX: 8, ampY: 8 }
+    ];
+
+    function splitCubicBezier(p0, p1, p2, p3, t) {
+      const u = 1 - t;
+      const p01 = { x: u * p0.x + t * p1.x, y: u * p0.y + t * p1.y };
+      const p12 = { x: u * p1.x + t * p2.x, y: u * p1.y + t * p2.y };
+      const p23 = { x: u * p2.x + t * p3.x, y: u * p2.y + t * p3.y };
+
+      const p012 = { x: u * p01.x + t * p12.x, y: u * p01.y + t * p12.y };
+      const p123 = { x: u * p12.x + t * p23.x, y: u * p12.y + t * p23.y };
+
+      const p0123 = { x: u * p012.x + t * p123.x, y: u * p012.y + t * p123.y };
+
+      return { cp1: p01, cp2: p012, end: p0123 };
+    }
+
+    let threadProgress = 0;
+
+    function updateConstellation(time, dt, mouseParallaxX, mouseParallaxY) {
+      if (appState !== 'FASE1') return;
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const points = [];
+
+      nodes.forEach((node, idx) => {
+        const baseX = parseFloat(node.getAttribute('data-x')) * w;
+        const baseY = parseFloat(node.getAttribute('data-y')) * h;
+        const osc = nodeOscillations[idx];
+
+        const curX = baseX + Math.sin(time * osc.speed + osc.phase) * osc.ampX + mouseParallaxX * 16 * (idx % 2 === 0 ? 1 : -1);
+        const curY = baseY + Math.cos(time * osc.speed + osc.phase) * osc.ampY + mouseParallaxY * 16 * (idx < 2 ? 1 : -1);
+
+        node.style.left = `${curX}px`;
+        node.style.top = `${curY}px`;
+
+        points.push({ x: curX, y: curY + 24 });
+      });
+
+      const targetProgress = Math.max(0, currentStep - 1);
+
+      if (threadProgress < targetProgress) {
+        threadProgress = Math.min(targetProgress, threadProgress + dt * 0.85);
+      }
+
+      if (threadProgress > 0 && points.length >= 2) {
+        let d = `M ${points[0].x} ${points[0].y}`;
+        const totalSegments = Math.min(3, points.length - 1);
+
+        for (let i = 0; i < totalSegments; i++) {
+          if (threadProgress <= i) break;
+
+          const p0 = points[i];
+          const p3 = points[i + 1];
+          const cp1 = { x: p0.x + (p3.x - p0.x) * 0.5, y: p0.y - 25 };
+          const cp2 = { x: p3.x - (p3.x - p0.x) * 0.2, y: p3.y - 30 };
+
+          if (threadProgress >= i + 1) {
+            d += ` C ${cp1.x} ${cp1.y}, ${cp2.x} ${cp2.y}, ${p3.x} ${p3.y}`;
+          } else {
+            const t = threadProgress - i;
+            const easeT = t * (2 - t);
+            const sub = splitCubicBezier(p0, cp1, cp2, p3, Math.max(0.001, Math.min(1.0, easeT)));
+            d += ` C ${sub.cp1.x} ${sub.cp1.y}, ${sub.cp2.x} ${sub.cp2.y}, ${sub.end.x} ${sub.end.y}`;
+            break;
+          }
+        }
+        threadPath.setAttribute('d', d);
+      } else {
+        threadPath.setAttribute('d', '');
+      }
+    }
+
+    /* ========================================================
+       8. INTERACTION & RAYCASTING DYNAMICS (FLUID ORBIT & ZOOM)
+       ======================================================== */
+    let mouseNorm = { x: 0, y: 0 };
+    let mousePixels = { x: 0, y: 0 };
+    let targetTilt = { x: basePose.rotX, y: basePose.rotY };
+    let isDragging = false;
+    let prevMouse = { x: 0, y: 0 };
+    let freeRotation = { x: 0, y: 0 };
+
+    // Fluid Cosmos Camera Controls (Smooth Zoom, Orbit, Parallax)
+    let targetZoom = 1.8;   // Controls distance (-2.8 close up, +6.5 wide view)
+    let currentZoom = 1.8;
+    let targetYaw = 0.0;    // Horizontal orbit angle
+    let currentYaw = 0.0;
+    let targetPitch = 0.0;  // Vertical orbit angle
+    let currentPitch = 0.0;
+    let parallax = { x: 0, y: 0 };
+
+    const raycaster = new THREE.Raycaster();
+    let hoveredFragment = null;
+    let quoteCardTimer = null;
+
+    const quoteCard = document.getElementById('cosmos-quote-card');
+    const quoteTag = document.getElementById('quote-tag');
+    const quoteText = document.getElementById('quote-text');
+
+    window.addEventListener('pointerdown', (e) => {
+      initAudio();
+
+      if (appState === 'FASE1') {
+        advanceBurlapStep();
+        return;
+      }
+
+      if (appState === 'COSMOS') {
+        isDragging = true;
+        prevMouse.x = e.clientX;
+        prevMouse.y = e.clientY;
+        checkFragmentInteraction();
+      }
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      mousePixels.x = e.clientX;
+      mousePixels.y = e.clientY;
+      mouseNorm.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseNorm.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      if (appState === 'FASE1') {
+        if (!isUnlocked) {
+          targetTilt.x = basePose.rotX + mouseNorm.y * 0.22;
+          targetTilt.y = basePose.rotY + mouseNorm.x * 0.28;
+        } else if (isDragging) {
+          const dx = e.clientX - prevMouse.x;
+          const dy = e.clientY - prevMouse.y;
+          freeRotation.y += dx * 0.008;
+          freeRotation.x += dy * 0.008;
+          prevMouse.x = e.clientX;
+          prevMouse.y = e.clientY;
+        }
+      } else if (appState === 'COSMOS') {
+        // Natural subtle mouse parallax when not dragging
+        parallax.x = mouseNorm.x * 0.38;
+        parallax.y = mouseNorm.y * 0.26;
+
+        // Smooth orbital rotation when dragging
+        if (isDragging) {
+          const dx = e.clientX - prevMouse.x;
+          const dy = e.clientY - prevMouse.y;
+          targetYaw -= dx * 0.0042;
+          targetPitch = Math.max(-0.45, Math.min(0.45, targetPitch + dy * 0.0035));
+          prevMouse.x = e.clientX;
+          prevMouse.y = e.clientY;
+        }
+
+        checkFragmentInteraction();
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDragging = false;
+    });
+
+    // MOUSE WHEEL ZOOM (In & Out)
+    window.addEventListener('wheel', (e) => {
+      if (appState !== 'COSMOS') return;
+      e.preventDefault();
+      const zoomStep = Math.sign(e.deltaY) * 0.65;
+      targetZoom = Math.max(-2.8, Math.min(6.5, targetZoom + zoomStep));
+    }, { passive: false });
+
+    // TOUCH PINCH-TO-ZOOM (Two-finger gesture on touchscreens / trackpads)
+    let initialPinchDist = null;
+    let initialPinchZoom = null;
+
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 2 && appState === 'COSMOS') {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        initialPinchDist = Math.hypot(dx, dy);
+        initialPinchZoom = targetZoom;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2 && initialPinchDist !== null && appState === 'COSMOS') {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.hypot(dx, dy);
+        const factor = (initialPinchDist - dist) * 0.015;
+        targetZoom = Math.max(-2.8, Math.min(6.5, initialPinchZoom + factor));
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (e.touches.length < 2) {
+        initialPinchDist = null;
+      }
+    });
+
+    function checkFragmentInteraction() {
+      if (appState !== 'COSMOS') return;
+
+      raycaster.setFromCamera(mouseNorm, camera);
+      const intersects = raycaster.intersectObjects(fragmentMeshes);
+
+      if (intersects.length > 0) {
+        const hit = intersects[0].object;
+        if (hoveredFragment !== hit) {
+          if (hoveredFragment) {
+            hoveredFragment.userData.targetScale = 1.0;
+            hoveredFragment.userData.targetEmissive = 0.0;
+          }
+          hoveredFragment = hit;
+          hoveredFragment.userData.targetScale = 1.15;
+          hoveredFragment.userData.targetEmissive = 0.45;
+
+          const data = hit.userData.data;
+          quoteTag.textContent = `• ${data.concept.toUpperCase()} •`;
+          quoteText.textContent = `"${data.quote}"`;
+          quoteCard.classList.add('visible');
+
+          playFragmentChime(data.id);
+
+          clearTimeout(quoteCardTimer);
+          quoteCardTimer = setTimeout(() => {
+            if (!hoveredFragment) quoteCard.classList.remove('visible');
+          }, 4500);
+        }
+      } else {
+        if (hoveredFragment) {
+          hoveredFragment.userData.targetScale = 1.0;
+          hoveredFragment.userData.targetEmissive = 0.0;
+          hoveredFragment = null;
+        }
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    /* ========================================================
+       9. WEB AUDIO PROCEDURAL SOUND SYSTEM
+       ======================================================== */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAudioFeedback() {
+      initAudio();
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundBtn');
+      btn.textContent = soundEnabled ? "Sonido: Textura" : "Sonido: Silencio";
+      btn.style.borderColor = soundEnabled ? "#D6A46A" : "rgba(163, 150, 134, 0.2)";
+    }
+
+    function playBurlapTearSound(step) {
+      if (!soundEnabled || !audioCtx) return;
+
+      const bufferSize = audioCtx.sampleRate * 0.35;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(650 + step * 180, audioCtx.currentTime);
+      filter.Q.setValueAtTime(2.2, audioCtx.currentTime);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.09, audioCtx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.32);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      noise.start();
+      noise.stop(audioCtx.currentTime + 0.35);
+    }
+
+    function playHarmonicMemoryChime() {
+      if (!soundEnabled || !audioCtx) return;
+
+      const chord = [261.63, 329.63, 392.00, 523.25];
+      chord.forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        const startTime = audioCtx.currentTime + idx * 0.09;
+        gain.gain.setValueAtTime(0.0001, startTime);
+        gain.gain.linearRampToValueAtTime(0.045, startTime + 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 2.2);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(startTime);
+        osc.stop(startTime + 2.25);
+      });
+    }
+
+    function playCosmosTransitionSound() {
+      if (!soundEnabled || !audioCtx) return;
+
+      // Deep resonant wind sweep
+      const bufferSize = audioCtx.sampleRate * 2.5;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(140, audioCtx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(850, audioCtx.currentTime + 1.2);
+      filter.frequency.exponentialRampToValueAtTime(220, audioCtx.currentTime + 2.4);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.8);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.45);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      noise.start();
+      noise.stop(audioCtx.currentTime + 2.5);
+
+      // Low drone swell
+      const drone = audioCtx.createOscillator();
+      const droneGain = audioCtx.createGain();
+      drone.type = 'triangle';
+      drone.frequency.setValueAtTime(65.4, audioCtx.currentTime);
+      drone.frequency.linearRampToValueAtTime(98.0, audioCtx.currentTime + 1.8);
+
+      droneGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      droneGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 1.0);
+      droneGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.4);
+
+      drone.connect(droneGain);
+      droneGain.connect(audioCtx.destination);
+      drone.start();
+      drone.stop(audioCtx.currentTime + 2.5);
+    }
+
+    function playFragmentChime(idx) {
+      if (!soundEnabled || !audioCtx) return;
+
+      const notes = [392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
+      const freq = notes[idx % notes.length];
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.038, audioCtx.currentTime + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.6);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 1.65);
+    }
+
+    /* ========================================================
+       10. MAIN ANIMATION LOOP
+       ======================================================== */
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+      const now = performance.now();
+
+      // 1. UPDATE PARTICLES (Volumetric Polvo de Ladrillo & Gold Dust)
+      const positions = particleSystem.geometry.attributes.position.array;
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+        const baseVy = particleVelocities[i3 + 1];
+        const seed = particleSeeds[i];
+
+        positions[i3 + 1] -= baseVy * particleSpeedMultiplier * delta * 2.2;
+        positions[i3] += Math.sin(time * 0.8 + seed) * 0.08 * delta;
+
+        if (appState === 'TRANSITION') {
+          positions[i3 + 2] += (particleSpeedMultiplier * 1.6) * delta;
+        }
+
+        if (positions[i3 + 1] < -14) {
+          positions[i3 + 1] = 14;
+          positions[i3] = (Math.random() - 0.5) * 36;
+          positions[i3 + 2] = (Math.random() - 0.5) * 32 - 2;
+        }
+
+        if (positions[i3 + 2] > 10) {
+          positions[i3 + 2] = -22;
+        }
+      }
+      particleSystem.geometry.attributes.position.needsUpdate = true;
+
+      // 2. STATE SPECIFIC UPDATES
+      if (appState === 'FASE1') {
+        const idleFloatY = Math.sin(time * 0.8) * 0.04;
+        const idleRollZ = Math.sin(time * 0.6) * 0.02;
+
+        burlapGroup.position.y = 0.18 + idleFloatY;
+
+        const targetRotX = targetTilt.x + freeRotation.x;
+        const targetRotY = targetTilt.y + freeRotation.y;
+        const targetRotZ = basePose.rotZ + idleRollZ;
+
+        burlapGroup.rotation.x += (targetRotX - burlapGroup.rotation.x) * 0.06;
+        burlapGroup.rotation.y += (targetRotY - burlapGroup.rotation.y) * 0.06;
+        burlapGroup.rotation.z += (targetRotZ - burlapGroup.rotation.z) * 0.06;
+
+        updateFallingLeaves(now, delta);
+        updateConstellation(time, delta, mouseNorm.x, mouseNorm.y);
+      } 
+      else if (appState === 'TRANSITION') {
+        const elapsed = (now - transitionStartTime) / 1000;
+        const progress = Math.min(1.0, elapsed / transitionDuration);
+
+        const ease = progress < 0.5 
+          ? 4 * progress * progress * progress 
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        // Relic expands and dissolves into camera
+        burlapGroup.scale.setScalar(1.0 + ease * 4.4);
+        burlapGroup.position.z = 0.0 + ease * 2.8;
+        burlapMat.opacity = Math.max(0, 1.0 - ease * 1.35);
+
+        // Camera hyperzoom forward through center of particles
+        camera.position.z = THREE.MathUtils.lerp(6.8, 1.8, ease);
+
+        // Dynamic FOV warp (warp speed effect)
+        const fovWarp = Math.sin(progress * Math.PI) * 24;
+        camera.fov = 35 + fovWarp;
+        camera.updateProjectionMatrix();
+
+        // Particle hyper-speed surge
+        particleSpeedMultiplier = 1.0 + Math.sin(progress * Math.PI) * 14.0;
+
+        // Cosmos fragments fade in during second half of warp
+        if (progress > 0.40) {
+          cosmosGroup.visible = true;
+          const cosmosFade = (progress - 0.40) / 0.60;
+          fragmentMeshes.forEach(mesh => {
+            mesh.material.opacity = cosmosFade;
+          });
+        }
+
+        if (progress >= 1.0) {
+          appState = 'COSMOS';
+          burlapGroup.visible = false;
+          particleSpeedMultiplier = 1.35;
+          camera.fov = 42;
+          camera.updateProjectionMatrix();
+
+          canvas.classList.add('cosmos-mode');
+
+          const cosmosNav = document.getElementById('cosmos-nav-bar');
+          if (cosmosNav) cosmosNav.classList.add('visible');
+
+          const brandContainer = document.getElementById('brand-container');
+          if (brandContainer) {
+            brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div><div class="artist-sub" style="color:#D6A46A; letter-spacing:0.26em; font-size:0.62rem; text-transform:uppercase; margin-top:3px;">Cosmos de la Materia • Exploración 3D</div>';
+          }
+        }
+      }
+      else if (appState === 'COSMOS') {
+        // Smooth spherical orbital camera with zoom & pitch/yaw
+        currentZoom += (targetZoom - currentZoom) * 0.085;
+        currentYaw += (targetYaw - currentYaw) * 0.085;
+        currentPitch += (targetPitch - currentPitch) * 0.085;
+
+        const totalYaw = currentYaw + parallax.x * 0.28;
+        const totalPitch = currentPitch + parallax.y * 0.20;
+
+        const centerZ = -5.2;
+        const radius = Math.max(1.8, currentZoom + 5.2);
+
+        const camX = Math.sin(totalYaw) * radius * Math.cos(totalPitch);
+        const camY = Math.sin(totalPitch) * radius;
+        const camZ = centerZ + Math.cos(totalYaw) * radius * Math.cos(totalPitch);
+
+        camera.position.set(camX, camY, camZ);
+        camera.lookAt(0, 0, centerZ);
+
+        // Floating Collage Fragments Organic Breathing
+        fragmentMeshes.forEach((mesh, idx) => {
+          const bp = mesh.userData.basePos;
+          const br = mesh.userData.baseRot;
+          const phase = mesh.userData.floatPhase;
+
+          mesh.position.y = bp.y + Math.sin(time * 0.75 + phase) * 0.12;
+          mesh.position.x = bp.x + Math.cos(time * 0.55 + phase * 1.4) * 0.08;
+          mesh.position.z = bp.z + Math.sin(time * 0.65 + phase * 0.8) * 0.08;
+
+          mesh.rotation.x = br.x + Math.sin(time * 0.6 + phase) * 0.06;
+          mesh.rotation.y = br.y + Math.cos(time * 0.5 + phase * 1.2) * 0.08;
+          mesh.rotation.z = br.z + Math.sin(time * 0.7 + phase * 0.5) * 0.04;
+
+          // Smooth scale and emissive hover interpolation
+          mesh.userData.currentScale += (mesh.userData.targetScale - mesh.userData.currentScale) * 0.1;
+          mesh.scale.setScalar(mesh.userData.currentScale);
+
+          const curEm = mesh.material.emissive.r;
+          const targetEm = mesh.userData.targetEmissive;
+          const nextEm = curEm + (targetEm - curEm) * 0.12;
+          mesh.material.emissive.setRGB(nextEm * 0.84, nextEm * 0.64, nextEm * 0.42);
+        });
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
