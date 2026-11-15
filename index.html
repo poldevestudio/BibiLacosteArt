@@ -474,7 +474,7 @@
       margin-top: 2px;
     }
 
-    /* Climax: Consolidated Artwork Card */
+    /* Climax: Consolidated Artwork Card (Semi-transparent Glassmorphism) */
     #artwork-reveal-card {
       position: absolute;
       bottom: 2.0rem;
@@ -483,13 +483,13 @@
       z-index: 35;
       width: calc(100% - 2.5rem);
       max-width: 480px;
-      background: rgba(14, 11, 9, 0.92);
-      border: 1px solid rgba(214, 164, 106, 0.50);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      padding: 1.4rem 1.6rem;
-      border-radius: 6px;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.92), 0 0 45px rgba(214, 164, 106, 0.25);
+      background: rgba(10, 8, 6, 0.45);
+      border: 1px solid rgba(214, 164, 106, 0.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1.15rem 1.45rem;
+      border-radius: 8px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(214, 164, 106, 0.12);
       text-align: center;
       opacity: 0;
       pointer-events: none;
@@ -502,48 +502,42 @@
       pointer-events: auto;
     }
 
-    .reveal-badge {
-      font-family: 'Cinzel', serif;
-      font-size: 0.54rem;
-      letter-spacing: 0.32em;
-      color: #D6A46A;
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
-    }
-
     .reveal-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
+      font-size: 2.15rem;
       font-weight: 300;
       color: #FAF4ED;
       letter-spacing: 0.04em;
       line-height: 1.1;
       margin: 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
     }
 
     .reveal-meta {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.62rem;
+      font-size: 0.60rem;
       letter-spacing: 0.16em;
-      color: #A39686;
+      color: #C8BAA8;
       text-transform: uppercase;
-      margin-top: 0.35rem;
+      margin-top: 0.30rem;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
     }
 
     .reveal-quote {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
-      color: #DCD2C5;
-      margin: 0.8rem 0 1.1rem;
-      line-height: 1.4;
+      font-size: 1.02rem;
+      color: #EDE4D8;
+      margin: 0.65rem 0 1.0rem;
+      line-height: 1.38;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
     }
 
     .btn-open-catalog {
-      background: #D6A46A;
+      background: rgba(214, 164, 106, 0.90);
       color: #0E0B09;
-      border: none;
-      padding: 0.75rem 1.6rem;
+      border: 1px solid rgba(255, 230, 195, 0.4);
+      padding: 0.72rem 1.6rem;
       border-radius: 4px;
       font-family: 'Cinzel', serif;
       font-size: 0.65rem;
@@ -555,7 +549,8 @@
       align-items: center;
       gap: 0.55rem;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 18px rgba(214, 164, 106, 0.4);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 164, 106, 0.35);
+      backdrop-filter: blur(4px);
     }
 
     .btn-open-catalog:hover {
@@ -567,19 +562,20 @@
     @media (max-width: 600px) {
       #artwork-reveal-card {
         bottom: 1.0rem;
-        padding: 1.0rem 1.2rem;
+        padding: 0.90rem 1.15rem;
         width: calc(100% - 1.8rem);
+        background: rgba(10, 8, 6, 0.48);
       }
       .reveal-title {
         font-size: 1.65rem;
       }
       .reveal-quote {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
         margin: 0.4rem 0 0.8rem;
         line-height: 1.35;
       }
       .btn-open-catalog {
-        padding: 0.65rem 1.2rem;
+        padding: 0.62rem 1.25rem;
         font-size: 0.58rem;
       }
     }
@@ -1337,7 +1333,6 @@
 
   <!-- Phase 3 Climax: Consolidated Artwork Card -->
   <div id="artwork-reveal-card">
-    <div class="reveal-badge">&bull; OBRA CONSOLIDADA &bull;</div>
     <h2 class="reveal-title">Solapado</h2>
     <div class="reveal-meta">2025 &bull; Acr&iacute;lico y t&eacute;cnica mixta &bull; 70 &times; 50 cm</div>
     <p class="reveal-quote">&ldquo;Donde el desarraigo y la memoria familiar se convierten en permanencia.&rdquo;</p>
