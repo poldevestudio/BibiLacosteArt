@@ -20,7 +20,7 @@
       -webkit-user-select: none;
       margin: 0;
       padding: 0;
-      touch-action: none;
+      /* touch-action enabled */
     }
 
     body, html {
@@ -30,7 +30,6 @@
       background-color: #0C0A08;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #E6DFD5;
-      touch-action: none;
     }
 
     /* Ambient Warm Atmosphere */
@@ -579,16 +578,32 @@
     /* ========================================================
        INTEGRATED DARK CURATORIAL BIOGRAPHY & CONTACT STYLES
        ======================================================== */
+    #experience-container,
+    #webgl-canvas {
+      touch-action: none;
+    }
+
     html.catalog-unlocked {
       overflow-y: auto !important;
-      overflow-x: clip !important;
+      overflow-x: hidden !important;
       height: auto !important;
+      min-height: 100% !important;
       touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch !important;
     }
     body.catalog-unlocked {
       overflow: visible !important;
       height: auto !important;
+      min-height: 100% !important;
       touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    #catalog-section,
+    #catalog-section * {
+      touch-action: pan-y !important;
+      user-select: auto;
+      -webkit-user-select: auto;
     }
 
     #catalog-section {
@@ -2539,6 +2554,15 @@
     let parallax = { x: 0, y: 0 };
 
     // Touch gesture tracking
+    
+    function isCatalogInteraction(e) {
+      if (document.body.classList.contains('catalog-unlocked')) {
+        if (window.scrollY > 10) return true;
+        if (e && e.target && e.target.closest('#catalog-section')) return true;
+      }
+      return false;
+    }
+
     let isTouch = false;
     let touchStart = { x: 0, y: 0 };
     let touchMoveDist = 0;
@@ -2555,7 +2579,7 @@
 
     // MOUSE EVENTS (DESKTOP)
     window.addEventListener('mousedown', (e) => {
-      if (isTouch || window.scrollY > 80) return;
+      if (isTouch || isCatalogInteraction() || window.scrollY > 80) return;
       initAudio();
 
       if (appState === 'FASE1') {
@@ -2572,7 +2596,7 @@
     });
 
     window.addEventListener('mousemove', (e) => {
-      if (isTouch || window.scrollY > 80) return;
+      if (isTouch || isCatalogInteraction() || window.scrollY > 80) return;
       mousePixels.x = e.clientX;
       mousePixels.y = e.clientY;
       mouseNorm.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -2621,7 +2645,7 @@
 
     // TOUCH EVENTS (MOBILE & TABLET: DIRECT FLUID ORBIT & PINCH)
     window.addEventListener('touchstart', (e) => {
-      if (window.scrollY > 80) return;
+      if (isCatalogInteraction(e) || window.scrollY > 80) return;
       isTouch = true;
       initAudio();
 
@@ -2642,7 +2666,7 @@
     }, { passive: false });
 
     window.addEventListener('touchmove', (e) => {
-      if (window.scrollY > 80) return;
+      if (isCatalogInteraction(e) || window.scrollY > 80 || appState === 'FASE3') return;
       if (e.cancelable) e.preventDefault();
       if (e.touches.length === 1 && isDragging) {
         const cx = e.touches[0].clientX;
@@ -2672,6 +2696,7 @@
     }, { passive: false });
 
     window.addEventListener('touchend', (e) => {
+      if (isCatalogInteraction(e)) return;
       if (e.touches.length === 0) {
         // Quick clean tap detection (finger didn't drag)
         if (touchMoveDist < 9) {
@@ -3158,8 +3183,11 @@
     function openIntegratedCatalog(targetId) {
       document.documentElement.classList.add('catalog-unlocked');
       document.body.classList.add('catalog-unlocked');
-      document.documentElement.style.overflow = 'auto';
-      document.body.style.overflow = 'auto';
+      document.documentElement.classList.remove('h-full');
+      document.body.classList.remove('h-full');
+      document.documentElement.style.overflowY = 'auto';
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflow = 'visible';
       
       let tid = targetId || 'catalog-section';
       if (tid === 'origen' || tid === 'biografia' || tid === 'inicio') tid = 'catalog-section';
@@ -3352,8 +3380,11 @@
     if (isDirectToContent) {
       document.documentElement.classList.add('catalog-unlocked');
       document.body.classList.add('catalog-unlocked');
-      document.documentElement.style.overflow = 'auto';
-      document.body.style.overflow = 'auto';
+      document.documentElement.classList.remove('h-full');
+      document.body.classList.remove('h-full');
+      document.documentElement.style.overflowY = 'auto';
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflow = 'visible';
 
       let targetId = 'catalog-section';
       if (initHash.includes('contacto')) {
