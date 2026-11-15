@@ -412,9 +412,857 @@
       0%, 100% { opacity: 0.35; transform: scale(0.9); }
       50% { opacity: 1; transform: scale(1.3); }
     }
-  </style>
+  
+    /* Phase 2 -> 3 Assemble Button */
+    #assemble-btn-container {
+      position: absolute;
+      bottom: 5.2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(25px);
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      width: calc(100% - 2.5rem);
+      max-width: 380px;
+    }
+
+    #assemble-btn-container.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .assemble-btn {
+      width: 100%;
+      background: rgba(18, 14, 11, 0.86);
+      border: 1px solid #D6A46A;
+      color: #F7EFE6;
+      padding: 0.80rem 1.6rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 0 35px rgba(214, 164, 106, 0.35), 0 10px 30px rgba(0, 0, 0, 0.85);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .assemble-btn:hover {
+      background: rgba(214, 164, 106, 0.22);
+      border-color: #F0C28A;
+      box-shadow: 0 0 50px rgba(214, 164, 106, 0.60), 0 12px 35px rgba(0, 0, 0, 0.9);
+      transform: scale(1.03);
+    }
+
+    .assemble-btn:active {
+      transform: scale(0.97);
+    }
+
+    .assemble-sparkle {
+      color: #D6A46A;
+      font-size: 1.15rem;
+      animation: pulseSparkle 2.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseSparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.85; }
+      50% { transform: scale(1.35) rotate(90deg); opacity: 1; filter: drop-shadow(0 0 10px #D6A46A); }
+    }
+
+    .assemble-text-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .assemble-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #FAF4ED;
+      font-weight: 500;
+    }
+
+    .assemble-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.50rem;
+      letter-spacing: 0.14em;
+      color: #D6A46A;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Climax: Consolidated Artwork Card */
+    #artwork-reveal-card {
+      position: absolute;
+      bottom: 2.0rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(35px);
+      z-index: 35;
+      width: calc(100% - 2.5rem);
+      max-width: 480px;
+      background: rgba(14, 11, 9, 0.90);
+      border: 1px solid rgba(214, 164, 106, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1.4rem 1.6rem;
+      border-radius: 6px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.90), 0 0 45px rgba(214, 164, 106, 0.25);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #artwork-reveal-card.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .reveal-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.54rem;
+      letter-spacing: 0.32em;
+      color: #D6A46A;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .reveal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: #FAF4ED;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .reveal-meta {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      color: #A39686;
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+    }
+
+    .reveal-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #DCD2C5;
+      margin: 0.8rem 0 1.1rem;
+      line-height: 1.4;
+    }
+
+    .btn-open-catalog {
+      background: #D6A46A;
+      color: #0E0B09;
+      border: none;
+      padding: 0.75rem 1.6rem;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 18px rgba(214, 164, 106, 0.4);
+    }
+
+    .btn-open-catalog:hover {
+      background: #E8BF8D;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(214, 164, 106, 0.6);
+    }
+
+
+    /* ========================================================
+       INTEGRATED DARK CURATORIAL CATALOG STYLES
+       ======================================================== */
+    body.catalog-unlocked {
+      overflow-y: auto !important;
+      touch-action: pan-y !important;
+    }
+
+    #catalog-section {
+      position: relative;
+      background: #090706;
+      color: #EDE4D8;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border-top: 1px solid rgba(214, 164, 106, 0.35);
+      z-index: 20;
+      min-height: 100vh;
+      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Sticky Sub-Header */
+    #catalog-nav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(10, 8, 7, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(214, 164, 106, 0.20);
+      transition: all 0.3s ease;
+    }
+
+    .catalog-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 768px) {
+      .catalog-nav-inner {
+        padding: 1.1rem 2.5rem;
+      }
+    }
+
+    .nav-brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.22em;
+      color: #F7EFE6;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .nav-brand-sub {
+      font-size: 0.52rem;
+      letter-spacing: 0.20em;
+      color: #D6A46A;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .catalog-links {
+      display: none;
+      gap: 2.2rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    @media (min-width: 860px) {
+      .catalog-links {
+        display: flex;
+      }
+    }
+
+    .catalog-links a {
+      color: #B5A898;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .catalog-links a:hover {
+      color: #D6A46A;
+    }
+
+    .btn-return-3d {
+      background: rgba(214, 164, 106, 0.12);
+      border: 1px solid rgba(214, 164, 106, 0.40);
+      color: #F0C28A;
+      font-family: 'Cinzel', serif;
+      font-size: 0.60rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-return-3d:hover {
+      background: rgba(214, 164, 106, 0.25);
+      border-color: #D6A46A;
+      box-shadow: 0 0 20px rgba(214, 164, 106, 0.35);
+      color: #FFF;
+    }
+
+    /* Hero Featured Work (Solapado) */
+    .catalog-hero {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 4.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .catalog-hero {
+        padding: 5.0rem 2.5rem 5.5rem;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.0rem;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 5fr 7fr;
+        gap: 4.5rem;
+      }
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: #D6A46A;
+      background: rgba(214, 164, 106, 0.08);
+      border: 1px solid rgba(214, 164, 106, 0.25);
+      padding: 0.35rem 0.85rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: #FAF4ED;
+      margin: 0 0 1.2rem;
+    }
+
+    .hero-desc {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #B8ACA0;
+      font-weight: 300;
+      margin-bottom: 2.0rem;
+    }
+
+    .hero-meta-box {
+      border-top: 1px solid rgba(214, 164, 106, 0.20);
+      padding-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .meta-item-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8C7F72;
+    }
+
+    .meta-item-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: #EDE4D8;
+      margin-top: 0.2rem;
+    }
+
+    .hero-frame-container {
+      position: relative;
+      background: #140F0C;
+      border: 1px solid rgba(214, 164, 106, 0.35);
+      padding: 1.2rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(214, 164, 106, 0.15);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .hero-frame-container:hover .hero-art-img {
+      transform: scale(1.025);
+    }
+
+    .hero-art-img {
+      width: 100%;
+      height: auto;
+      max-height: 580px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Selected Works Section */
+    .works-section {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 4.0rem 1.5rem 5.0rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.18);
+    }
+
+    @media (min-width: 768px) {
+      .works-section {
+        padding: 5.0rem 2.5rem 6.0rem;
+      }
+    }
+
+    .section-header-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 3.0rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-header-row {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    .section-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.28em;
+      color: #D6A46A;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.0rem, 3.5vw, 2.9rem);
+      font-weight: 300;
+      color: #FAF4ED;
+      margin: 0.3rem 0 0;
+    }
+
+    /* Filter Buttons */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.50rem;
+    }
+
+    .filter-tab {
+      background: transparent;
+      border: 1px solid rgba(214, 164, 106, 0.25);
+      color: #B5A898;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.50rem 0.95rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab:hover {
+      border-color: #D6A46A;
+      color: #EDE4D8;
+    }
+
+    .filter-tab.active {
+      background: #D6A46A;
+      border-color: #D6A46A;
+      color: #0E0B09;
+      font-weight: 600;
+      box-shadow: 0 0 16px rgba(214, 164, 106, 0.4);
+    }
+
+    /* Art Grid */
+    .art-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.2rem;
+    }
+
+    @media (min-width: 600px) {
+      .art-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.2rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .art-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.6rem;
+      }
+    }
+
+    .art-card {
+      background: #120E0C;
+      border: 1px solid rgba(214, 164, 106, 0.18);
+      padding: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .art-card:hover {
+      border-color: rgba(214, 164, 106, 0.65);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(214, 164, 106, 0.15);
+    }
+
+    .art-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #0E0A08;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .art-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .art-card:hover .art-thumb {
+      transform: scale(1.05);
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      font-size: 0.50rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+
+    .status-available {
+      background: rgba(214, 164, 106, 0.90);
+      color: #0E0B09;
+    }
+
+    .status-private {
+      background: rgba(30, 24, 20, 0.85);
+      border: 1px solid rgba(163, 150, 134, 0.3);
+      color: #9E9080;
+    }
+
+    .art-info {
+      margin-top: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .art-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: #FAF4ED;
+      font-weight: 400;
+      margin: 0;
+      transition: color 0.3s;
+    }
+
+    .art-card:hover .art-title {
+      color: #D6A46A;
+    }
+
+    .art-details {
+      font-size: 0.64rem;
+      color: #9C8E7E;
+      margin-top: 0.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    .art-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: #7D7061;
+    }
+
+    /* Biography & Territory Section */
+    .bio-section {
+      background: #0D0A08;
+      border-top: 1px solid rgba(214, 164, 106, 0.18);
+      border-bottom: 1px solid rgba(214, 164, 106, 0.18);
+      padding: 4.5rem 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .bio-section {
+        padding: 6.0rem 2.5rem;
+      }
+    }
+
+    .bio-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .bio-container {
+        grid-template-columns: 5fr 7fr;
+        gap: 5.0rem;
+      }
+    }
+
+    .bio-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: #BDB0A0;
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+    }
+
+    .bio-images-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .bio-img-card {
+      background: #140F0C;
+      border: 1px solid rgba(214, 164, 106, 0.22);
+      padding: 0.8rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .bio-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .bio-img-caption {
+      margin-top: 0.6rem;
+      font-size: 0.52rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8C7F72;
+      text-align: center;
+    }
+
+    /* Contact & Acquisition */
+    .contact-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5.0rem 1.5rem 6.0rem;
+      text-align: center;
+    }
+
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3.0rem;
+    }
+
+    @media (min-width: 640px) {
+      .contact-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .contact-card {
+      background: #140F0C;
+      border: 1px solid rgba(214, 164, 106, 0.22);
+      padding: 1.8rem 1.2rem;
+      border-radius: 4px;
+      transition: all 0.35s ease;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-card:hover {
+      border-color: #D6A46A;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(214, 164, 106, 0.2);
+    }
+
+    .contact-card-icon {
+      font-size: 1.4rem;
+      color: #D6A46A;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.20em;
+      color: #FAF4ED;
+      text-transform: uppercase;
+    }
+
+    .contact-card-sub {
+      font-size: 0.60rem;
+      color: #9C8E7E;
+      margin-top: 0.35rem;
+    }
+
+    /* Modal Inspection */
+    #art-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(6, 4, 3, 0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.0rem;
+    }
+
+    #art-modal.active {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background: #140F0C;
+      border: 1px solid rgba(214, 164, 106, 0.40);
+      max-width: 900px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      border-radius: 6px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: rgba(22, 17, 13, 0.8);
+      border: 1px solid rgba(214, 164, 106, 0.3);
+      color: #EDE4D8;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.25s;
+      z-index: 10;
+    }
+
+    .modal-close-btn:hover {
+      background: #D6A46A;
+      color: #0E0B09;
+    }
+
+    .modal-body-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .modal-body-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .modal-img-col {
+      background: #0A0807;
+      padding: 2.0rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-info-col {
+      padding: 2.2rem 2.0rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: #FAF4ED;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .modal-meta-list {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.72rem;
+      color: #B5A898;
+    }
+
+    .modal-inquire-btn {
+      margin-top: 2.0rem;
+      background: #D6A46A;
+      color: #0E0B09;
+      border: none;
+      padding: 0.85rem 1.6rem;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .modal-inquire-btn:hover {
+      background: #E8BF8D;
+      box-shadow: 0 0 25px rgba(214, 164, 106, 0.5);
+    }
+
+</style>
 </head>
 <body class="h-full">
+
+  <!-- 3D Experience Viewport (100vh) -->
+  <div id="experience-container" style="position:relative; width:100%; height:100vh; overflow:hidden;">
 
   <div id="ambient-background"></div>
   <div id="grain-overlay"></div>
@@ -476,6 +1324,31 @@
     <div class="cosmos-quote-text" id="quote-text">"Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento."</div>
   </div>
 
+  <!-- Phase 2 -> 3 Trigger Button (Appears after 5s in Cosmos) -->
+  <div id="assemble-btn-container">
+    <button id="assemble-btn" onclick="startAssemblagePhase()" class="assemble-btn">
+      <span class="assemble-sparkle">✦</span>
+      <div class="assemble-text-group">
+        <span class="assemble-title">Ensamblar Recuerdo</span>
+        <span class="assemble-subtitle">Unir los fragmentos en la obra</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Phase 3 Climax: Consolidated Artwork Card -->
+  <div id="artwork-reveal-card">
+    <div class="reveal-badge">• OBRA CONSOLIDADA •</div>
+    <h2 class="reveal-title">Solapado</h2>
+    <div class="reveal-meta">2025 &bull; Acrílico y técnica mixta &bull; 70 × 50 cm</div>
+    <p class="reveal-quote">"Donde el desarraigo y la memoria familiar se convierten en permanencia."</p>
+    <div>
+      <button onclick="openIntegratedCatalog()" class="btn-open-catalog">
+        <span>Ingresar al Catálogo Completo</span>
+        <span>↓</span>
+      </button>
+    </div>
+  </div>
+
   <!-- Editorial UI Frame -->
   <div class="ui-layer">
     <!-- Top Header -->
@@ -503,6 +1376,225 @@
       </button>
     </div>
   </div>
+  </div><!-- /#experience-container -->
+
+
+  <!-- ========================================================
+       INTEGRATED DARK CURATORIAL CATALOG SECTION
+       ======================================================== -->
+  <section id="catalog-section">
+
+    <!-- Sticky Navigation Bar -->
+    <nav id="catalog-nav">
+      <div class="catalog-nav-inner">
+        <div>
+          <div class="nav-brand-title">Bibi Lacoste</div>
+          <div class="nav-brand-sub">Catálogo de Obras &amp; Biografía</div>
+        </div>
+
+        <div class="catalog-links">
+          <a href="#solapado-hero">Obra Central</a>
+          <a href="#obras-catalogo">Obras</a>
+          <a href="#biografia">Origen &amp; Taller</a>
+          <a href="#contacto-adquisicion">Contacto</a>
+        </div>
+
+        <button onclick="returnTo3DExperience()" class="btn-return-3d">
+          <span>✦</span>
+          <span>Volver a la Brújula 3D</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Featured Work: Solapado -->
+    <div id="solapado-hero" class="catalog-hero">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-tag">Obra Clímax de la Experiencia</span>
+          <h1 class="hero-title">Solapado</h1>
+          <p class="hero-desc">
+            En <em>Solapado</em>, la memoria no se evoca como un recuerdo pasivo, sino como una arquitectura matérica viva. 
+            A través de estratos superpuestos de óleo mineral turquesa, pigmentos terrosos, recortes de prensa de ultramar y 
+            texturas de arrozal, la obra reconstruye el viaje migratorio familiar transformando el desarraigo en permanencia.
+          </p>
+
+          <div class="hero-meta-box">
+            <div>
+              <div class="meta-item-label">Técnica</div>
+              <div class="meta-item-val">Acrílico &amp; Mixta</div>
+            </div>
+            <div>
+              <div class="meta-item-label">Dimensiones</div>
+              <div class="meta-item-val">70 × 50 cm</div>
+            </div>
+            <div>
+              <div class="meta-item-label">Año / Estado</div>
+              <div class="meta-item-val" style="color:#D6A46A;">2025 · Disponible</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1.0rem; flex-wrap:wrap;">
+            <button onclick="openModal('art-1')" class="btn-open-catalog" style="font-size:0.62rem; padding:0.75rem 1.4rem;">
+              <span>Examinar en Alta Resolución</span>
+              <span>🔍</span>
+            </button>
+            <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20me%20interesa%20consultar%20por%20la%20obra%20Solapado%20(70x50cm)" target="_blank" class="btn-return-3d" style="font-size:0.62rem; padding:0.75rem 1.4rem; text-decoration:none;">
+              <span>Consultar Adquisición</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="hero-frame-container" onclick="openModal('art-1')">
+            <img src="assets/artworks/solapado_1.webp" alt="Solapado — Bibi Lacoste" class="hero-art-img" onerror="this.onerror=null; this.src='assets/artworks/page_2_img_0.webp';">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selected Works Catalog -->
+    <div id="obras-catalogo" class="works-section">
+      <div class="section-header-row">
+        <div>
+          <div class="section-tag">Colección Completa</div>
+          <h2 class="section-title">Obras Seleccionadas</h2>
+        </div>
+
+        <div class="filter-tabs">
+          <button onclick="filterWorks('all')" class="filter-tab active" data-filter="all">Todas (15)</button>
+          <button onclick="filterWorks('available')" class="filter-tab" data-filter="available">Disponibles (12)</button>
+          <button onclick="filterWorks('mixta')" class="filter-tab" data-filter="mixta">Técnica Mixta</button>
+          <button onclick="filterWorks('acrilico')" class="filter-tab" data-filter="acrilico">Acrílicos</button>
+        </div>
+      </div>
+
+      <div id="art-grid" class="art-grid">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- Biography, Origins & Territory -->
+    <div id="biografia" class="bio-section">
+      <div class="bio-container">
+        <div>
+          <div class="section-tag">Biografía &amp; Memoria</div>
+          <h2 class="section-title" style="margin-bottom:1.5rem;">Bibi Lacoste</h2>
+          <div class="bio-text">
+            <strong>Bibi Lacoste</strong> desarrolla su práctica artística desde la Provincia de Buenos Aires, 
+            con su taller radicado en el silencio fértil de Tigre y Belén de Escobar. Su producción explora 
+            las posibilidades de la abstracción lírica, el collage matérico y la estratigrafía poética del recuerdo.
+          </div>
+          <div class="bio-text">
+            Hija y nieta de familias migrantes procedentes de Francia y España, su herencia familiar está anclada a la tierra: 
+            las taipas y plantaciones de arroz sembradas por su abuelo y su padre en el Litoral entrerriano, y la paciente 
+            transformación del paisaje a través de olivares, cepas y cítricos. 
+          </div>
+          <div class="bio-text">
+            A lo largo de más de tres décadas de investigación empírica en su taller, el papel de algodón reciclado 
+            ha dejado de ser un simple soporte para convertirse en el cuerpo vivo de la memoria. Sus piezas 
+            se construyen por capas de acrílico denso, veladuras, grafismos con marcador y fragmentos impresos 
+            rescatados que dialogan entre la fragilidad del paso del tiempo y la permanencia del arte.
+          </div>
+          <div style="margin-top:2.0rem; display:flex; gap:1.8rem; flex-wrap:wrap;">
+            <a href="https://www.instagram.com/lacoste_bi/" target="_blank" style="color:#D6A46A; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
+              <span>Instagram @lacoste_bi</span>
+              <span>↗</span>
+            </a>
+            <a href="mailto:lacostebibiana08@gmail.com" style="color:#D6A46A; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
+              <span>lacostebibiana08@gmail.com</span>
+              <span>✉</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bio-images-grid">
+          <div class="bio-img-card" onclick="openModal('art-11')" style="cursor:pointer;">
+            <img src="assets/artworks/aquiles_11.webp" alt="Aquiles — Detalle" class="bio-img">
+            <div class="bio-img-caption">Aquiles · Fragmento &amp; Materia</div>
+          </div>
+          <div class="bio-img-card" onclick="openModal('art-4')" style="cursor:pointer; margin-top:2.0rem;">
+            <img src="assets/artworks/verano_4.webp" alt="Verano — Gesto" class="bio-img">
+            <div class="bio-img-caption">Verano · Energía del Gesto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact & Collector Acquisition -->
+    <div id="contacto-adquisicion" class="contact-section">
+      <div class="section-tag">Coleccionismo &amp; Diálogo</div>
+      <h2 class="section-title">Adquisición &amp; Contacto</h2>
+      <p style="color:#A39686; font-size:0.85rem; max-width:550px; margin:0.8rem auto 0; font-weight:300; line-height:1.6;">
+        Cada obra original incluye certificado de autenticidad firmado por la artista. 
+        Se realizan envíos con embalaje de conservación y seguro para colecciones nacionales e internacionales.
+      </p>
+
+      <div class="contact-cards-grid">
+        <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20consultar%20por%20obras%20disponibles" target="_blank" class="contact-card">
+          <div class="contact-card-icon">💬</div>
+          <div class="contact-card-title">WhatsApp Directo</div>
+          <div class="contact-card-sub">Atención personalizada para coleccionistas</div>
+        </a>
+
+        <a href="mailto:lacostebibiana08@gmail.com?subject=Consulta%20de%20Obras%20-%20Bibi%20Lacoste" class="contact-card">
+          <div class="contact-card-icon">✉</div>
+          <div class="contact-card-title">Correo Electrónico</div>
+          <div class="contact-card-sub">lacostebibiana08@gmail.com</div>
+        </a>
+
+        <div class="contact-card">
+          <div class="contact-card-icon">🏛</div>
+          <div class="contact-card-title">Visita a Taller</div>
+          <div class="contact-card-sub">Tigre / Belén de Escobar (Con cita previa)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="border-top:1px solid rgba(214, 164, 106, 0.15); padding:2.5rem 1.5rem; text-align:center; font-size:0.65rem; color:#7D7061; letter-spacing:0.14em; text-transform:uppercase;">
+      <div style="margin-bottom:0.8rem; font-family:'Cinzel', serif; color:#A89B8C; font-size:0.75rem;">
+        Bibi Lacoste &bull; El Rumbo del Recuerdo
+      </div>
+      <div>&copy; 2025 Bibi Lacoste. Todos los derechos reservados. Buenos Aires, Argentina.</div>
+    </footer>
+
+  </section>
+
+  <!-- High-Resolution Artwork Inspection Modal -->
+  <div id="art-modal">
+    <div class="modal-dialog">
+      <button onclick="closeModal()" class="modal-close-btn" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-body-grid">
+        <div class="modal-img-col">
+          <img id="modal-img" src="" alt="Obra de arte" class="modal-img">
+        </div>
+        <div class="modal-info-col">
+          <div>
+            <div id="modal-status-badge" class="section-tag" style="margin-bottom:0.4rem;">Disponible</div>
+            <h3 id="modal-title" class="modal-title">Título</h3>
+            <div class="modal-meta-list">
+              <div><strong style="color:#EDE4D8;">Técnica:</strong> <span id="modal-technique"></span></div>
+              <div><strong style="color:#EDE4D8;">Dimensiones:</strong> <span id="modal-dimensions"></span></div>
+              <div><strong style="color:#EDE4D8;">Año:</strong> <span id="modal-year"></span></div>
+              <div><strong style="color:#EDE4D8;">Soporte:</strong> Papel de algodón / soporte textil</div>
+            </div>
+            <p id="modal-desc" style="color:#A39686; font-size:0.80rem; line-height:1.6; margin-top:1.2rem; font-weight:300;">
+              Obra original realizada a mano con capas superpuestas de materia, grafismos y recortes de archivo. Incluye certificado de autenticidad.
+            </p>
+          </div>
+
+          <div>
+            <a id="modal-wa-btn" href="#" target="_blank" class="modal-inquire-btn">
+              <span>Consultar Adquisición vía WhatsApp</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <script>
     /* ========================================================
@@ -1266,6 +2358,286 @@
       return tex;
     }
 
+    
+    /* ========================================================
+       PHASE 3: MATERIC ASSEMBLAGE & CLIMAX SETUP
+       ======================================================== */
+    let cosmosTime = 0.0;
+    let assembleBtnVisible = false;
+    let assembleProgress = 0.0;
+    const assembleDuration = 5.2;
+
+    let needleMesh = null;
+    let solapadoMasterMesh = null;
+    let solapadoFrameMesh = null;
+    let gallerySpotlight = null;
+    let fragmentStartTransforms = [];
+
+    // 1. Create Compass Needle Mesh
+    function createCompassNeedleMesh() {
+      const needleGroup = new THREE.Group();
+
+      const northShape = new THREE.Shape();
+      northShape.moveTo(0, 0);
+      northShape.lineTo(-0.11, 0);
+      northShape.lineTo(0, 1.25);
+      northShape.lineTo(0.11, 0);
+      northShape.closePath();
+
+      const southShape = new THREE.Shape();
+      southShape.moveTo(0, 0);
+      southShape.lineTo(-0.11, 0);
+      southShape.lineTo(0, -1.25);
+      southShape.lineTo(0.11, 0);
+      southShape.closePath();
+
+      const extrudeSettings = { depth: 0.03, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 0.015, bevelThickness: 0.015 };
+
+      const northGeo = new THREE.ExtrudeGeometry(northShape, extrudeSettings);
+      const northMat = new THREE.MeshStandardMaterial({
+        color: 0xD6A46A,
+        metalness: 0.85,
+        roughness: 0.28,
+        emissive: 0x946A30,
+        emissiveIntensity: 0.45
+      });
+      const northMesh = new THREE.Mesh(northGeo, northMat);
+
+      const southGeo = new THREE.ExtrudeGeometry(southShape, extrudeSettings);
+      const southMat = new THREE.MeshStandardMaterial({
+        color: 0x6E5844,
+        metalness: 0.75,
+        roughness: 0.45
+      });
+      const southMesh = new THREE.Mesh(southGeo, southMat);
+
+      const ringGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.06, 32);
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: 0xE2BA82,
+        metalness: 0.90,
+        roughness: 0.20
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      ringMesh.rotation.x = Math.PI / 2;
+
+      const centerCapGeo = new THREE.SphereGeometry(0.08, 16, 16);
+      const centerCapMat = new THREE.MeshStandardMaterial({
+        color: 0xC45A36,
+        emissive: 0x8A2A10,
+        emissiveIntensity: 0.5,
+        roughness: 0.1
+      });
+      const capMesh = new THREE.Mesh(centerCapGeo, centerCapMat);
+      capMesh.position.z = 0.04;
+
+      needleGroup.add(northMesh);
+      needleGroup.add(southMesh);
+      needleGroup.add(ringMesh);
+      needleGroup.add(capMesh);
+
+      needleGroup.position.set(0, 0, -4.1);
+      needleGroup.visible = false;
+      return needleGroup;
+    }
+
+    // 2. Target Layout for the 10 Collage Fragments in "Solapado"
+    const fragmentTargetLayout = [
+      { pos: { x: -0.55, y: 0.85, z: -4.15 }, rot: { x: 0, y: 0, z: 0.02 }, scale: 0.95, layer: 3 },
+      { pos: { x: 0.60, y: 0.95, z: -4.17 }, rot: { x: 0, y: 0, z: -0.02 }, scale: 0.90, layer: 1 },
+      { pos: { x: -0.65, y: -0.80, z: -4.16 }, rot: { x: 0, y: 0, z: 0.03 }, scale: 0.92, layer: 1 },
+      { pos: { x: 0.55, y: -0.75, z: -4.16 }, rot: { x: 0, y: 0, z: -0.01 }, scale: 0.88, layer: 2 },
+      { pos: { x: -0.15, y: 0.10, z: -4.14 }, rot: { x: 0, y: 0, z: 0.04 }, scale: 0.85, layer: 2 },
+      { pos: { x: 0.45, y: 0.15, z: -4.16 }, rot: { x: 0, y: 0, z: -0.03 }, scale: 0.85, layer: 2 },
+      { pos: { x: 0.05, y: -0.45, z: -4.13 }, rot: { x: 0, y: 0, z: 0.02 }, scale: 0.80, layer: 3 },
+      { pos: { x: -0.75, y: 0.05, z: -4.15 }, rot: { x: 0, y: 0, z: -0.04 }, scale: 0.85, layer: 2 },
+      { pos: { x: 0.08, y: 1.15, z: -4.15 }, rot: { x: 0, y: 0, z: 0.01 }, scale: 0.90, layer: 3 },
+      { pos: { x: 0.70, y: -1.05, z: -4.14 }, rot: { x: 0, y: 0, z: -0.02 }, scale: 0.85, layer: 3 }
+    ];
+
+    // 3. Audio Synthesis for Phase 3
+    function playMagneticThudSound() {
+      if (!soundEnabled || !audioCtx) return;
+      initAudio();
+      const t = audioCtx.currentTime;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(65, t);
+      osc.frequency.exponentialRampToValueAtTime(32, t + 1.2);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(140, t);
+      filter.frequency.exponentialRampToValueAtTime(40, t + 1.2);
+
+      gain.gain.setValueAtTime(0.7, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 1.8);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(t);
+      osc.stop(t + 1.9);
+    }
+
+    function playPaperImpactSound(layer) {
+      if (!soundEnabled || !audioCtx) return;
+      initAudio();
+      const t = audioCtx.currentTime;
+
+      const bufSize = Math.floor(audioCtx.sampleRate * 0.12);
+      const buffer = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufSize * 0.25));
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 450 + layer * 180;
+      filter.Q.value = 2.5;
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.35, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      noise.start(t);
+    }
+
+    function playHarmonicResolutionChord() {
+      if (!soundEnabled || !audioCtx) return;
+      initAudio();
+      const t = audioCtx.currentTime;
+
+      const freqs = [130.81, 196.00, 261.63, 329.63, 392.00, 523.25];
+      freqs.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, t);
+
+        const startDelay = i * 0.08;
+        gain.gain.setValueAtTime(0.001, t);
+        gain.gain.setValueAtTime(0.18 / (i * 0.35 + 1), t + startDelay);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + startDelay + 4.2);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(t + startDelay);
+        osc.stop(t + startDelay + 4.3);
+      });
+    }
+
+    // 4. Start Assemblage Phase
+    function startAssemblagePhase() {
+      if (appState !== 'COSMOS') return;
+      appState = 'ASSEMBLING';
+      assembleProgress = 0.0;
+
+      const assembleBtn = document.getElementById('assemble-btn-container');
+      if (assembleBtn) assembleBtn.classList.remove('visible');
+
+      const cosmosNav = document.getElementById('cosmos-nav-bar');
+      if (cosmosNav) cosmosNav.classList.remove('visible');
+
+      const quoteCard = document.getElementById('cosmos-quote-card');
+      if (quoteCard) quoteCard.classList.remove('visible');
+
+      playMagneticThudSound();
+      if (navigator.vibrate) {
+        try { navigator.vibrate(30); } catch(e) {}
+      }
+
+      fragmentStartTransforms = fragmentMeshes.map(m => ({
+        pos: m.position.clone(),
+        rot: m.rotation.clone(),
+        scale: m.scale.x
+      }));
+
+      if (needleMesh) {
+        needleMesh.position.set(0, 0.15, -4.05);
+        needleMesh.rotation.set(0, 0, Math.PI / 2);
+        needleMesh.scale.set(0.1, 0.1, 0.1);
+        needleMesh.visible = true;
+      }
+    }
+
+
+    // Master Solapado Texture Loader with procedural fallback
+    const solapadoTexLoader = new THREE.TextureLoader();
+    let solapadoCanvasTexture = null;
+    try {
+      solapadoCanvasTexture = solapadoTexLoader.load('assets/artworks/solapado_1.webp', (t) => {
+        t.anisotropy = 4;
+        if (solapadoMasterMesh) {
+          solapadoMasterMesh.material.map = t;
+          solapadoMasterMesh.material.needsUpdate = true;
+        }
+      });
+    } catch(e) {
+      console.log('Using procedural fallback for Solapado');
+    }
+
+    // Master Canvas Mesh for Solapado (70x50 cm proportion: 3.1 x 4.34)
+    const solapadoGeo = new THREE.PlaneGeometry(3.1, 4.34, 32, 32);
+    const sPos = solapadoGeo.attributes.position;
+    for (let i = 0; i < sPos.count; i++) {
+      const vx = sPos.getX(i);
+      const vy = sPos.getY(i);
+      const vz = Math.sin(vx * 2.5) * 0.02 + Math.cos(vy * 3.0) * 0.02;
+      sPos.setZ(i, vz);
+    }
+    solapadoGeo.computeVertexNormals();
+
+    const solapadoMat = new THREE.MeshStandardMaterial({
+      map: solapadoCanvasTexture || createFragmentTexture('solapado'),
+      roughness: 0.65,
+      metalness: 0.08,
+      transparent: true,
+      opacity: 0.0,
+      side: THREE.DoubleSide
+    });
+    solapadoMasterMesh = new THREE.Mesh(solapadoGeo, solapadoMat);
+    solapadoMasterMesh.position.set(0, 0.15, -4.18);
+    solapadoMasterMesh.visible = false;
+    scene.add(solapadoMasterMesh);
+
+    // Floating Dark Walnut Wood Frame
+    const frameGeo = new THREE.BoxGeometry(3.26, 4.50, 0.12);
+    const frameMat = new THREE.MeshStandardMaterial({
+      color: 0x181310,
+      roughness: 0.85,
+      metalness: 0.10,
+      transparent: true,
+      opacity: 0.0
+    });
+    solapadoFrameMesh = new THREE.Mesh(frameGeo, frameMat);
+    solapadoFrameMesh.position.set(0, 0.15, -4.26);
+    solapadoFrameMesh.visible = false;
+    scene.add(solapadoFrameMesh);
+
+    // Authentic Brass Navigation Needle
+    needleMesh = createCompassNeedleMesh();
+    scene.add(needleMesh);
+
+    // Museum Gallery Spotlight
+    gallerySpotlight = new THREE.SpotLight(0xFFEEDD, 0.0, 16, Math.PI / 4.2, 0.4, 1.2);
+    gallerySpotlight.position.set(-2.2, 4.2, 0.8);
+    gallerySpotlight.target = solapadoMasterMesh;
+    scene.add(gallerySpotlight);
+
     const fragmentMeshes = [];
 
     cosmosFragmentsData.forEach((data, idx) => {
@@ -1591,7 +2963,7 @@
 
     // MOUSE EVENTS (DESKTOP)
     window.addEventListener('mousedown', (e) => {
-      if (isTouch) return;
+      if (isTouch || window.scrollY > 80) return;
       initAudio();
 
       if (appState === 'FASE1') {
@@ -1608,7 +2980,7 @@
     });
 
     window.addEventListener('mousemove', (e) => {
-      if (isTouch) return;
+      if (isTouch || window.scrollY > 80) return;
       mousePixels.x = e.clientX;
       mousePixels.y = e.clientY;
       mouseNorm.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -1627,6 +2999,13 @@
           prevMouse.y = e.clientY;
         }
       } else if (appState === 'COSMOS') {
+        // 5-second Cosmos exploration timer to reveal Assemble button
+        cosmosTime += delta;
+        if (cosmosTime >= 5.0 && !assembleBtnVisible) {
+          assembleBtnVisible = true;
+          const assembleBtn = document.getElementById('assemble-btn-container');
+          if (assembleBtn) assembleBtn.classList.add('visible');
+        }
         parallax.x = mouseNorm.x * 0.35;
         parallax.y = mouseNorm.y * 0.25;
 
@@ -1656,7 +3035,8 @@
     }, { passive: false });
 
     // TOUCH EVENTS (MOBILE & TABLET: SILKY FLUID ORBIT, INERTIA GLIDE, PINCH & TAP)
-    window.addEventListener('touchstart', (e) => {
+        window.addEventListener('touchstart', (e) => {
+      if (window.scrollY > 80 && appState === 'REVEALED') return;
       isTouch = true;
       initAudio();
 
@@ -1682,7 +3062,8 @@
       }
     }, { passive: false });
 
-    window.addEventListener('touchmove', (e) => {
+        window.addEventListener('touchmove', (e) => {
+      if (window.scrollY > 80 && appState === 'REVEALED') return;
       // Eliminate mobile browser pull-to-refresh / scroll conflicts
       if (e.cancelable) {
         e.preventDefault();
@@ -2075,10 +3456,406 @@
         });
       }
 
+      
+      else if (appState === 'ASSEMBLING') {
+        assembleProgress += delta;
+        const p = assembleProgress;
+
+        // Smooth camera lock on center
+        const aspect = getScreenAspect();
+        const responsiveZ = aspect < 1.0 ? -4.2 + (6.5 / Math.max(0.55, aspect * 1.25)) : 1.8;
+        camera.position.x += (0 - camera.position.x) * 0.08;
+        camera.position.y += (0.15 - camera.position.y) * 0.08;
+        camera.position.z += (responsiveZ - camera.position.z) * 0.08;
+        camera.lookAt(0, 0.15, -4.2);
+
+        // Needle birth and spin
+        if (needleMesh) {
+          if (p < 1.0) {
+            const needleScale = Math.min(1.0, p / 0.8);
+            needleMesh.scale.setScalar(needleScale);
+            needleMesh.rotation.z = Math.PI / 2 + p * Math.PI * 2;
+          } else if (p >= 3.4 && p < 5.0) {
+            // Needle glides to signature spot
+            const sigProgress = (p - 3.4) / 1.6;
+            const easeSig = sigProgress * (2 - sigProgress);
+            needleMesh.position.x = THREE.MathUtils.lerp(0, 1.05, easeSig);
+            needleMesh.position.y = THREE.MathUtils.lerp(0.15, -1.75, easeSig);
+            needleMesh.rotation.z = -Math.PI / 4 + Math.sin(p * 22) * 0.15; // caligraphic flourish
+          } else if (p >= 5.0) {
+            // Needle dissolves into ember
+            needleMesh.scale.multiplyScalar(0.92);
+            if (needleMesh.scale.x < 0.02) needleMesh.visible = false;
+          }
+        }
+
+        // Fragments Stratified Motion
+        fragmentMeshes.forEach((mesh, idx) => {
+          const target = fragmentTargetLayout[idx];
+          const start = fragmentStartTransforms[idx];
+          if (!start) return;
+
+          // Layered start times
+          const layerDelay = (target.layer - 1) * 0.55;
+          const travelDuration = 1.6;
+          const rawT = Math.max(0, Math.min(1.0, (p - 0.6 - layerDelay) / travelDuration));
+          // Cubic ease-out
+          const ease = 1 - Math.pow(1 - rawT, 3);
+
+          mesh.position.lerpVectors(start.pos, new THREE.Vector3(target.pos.x, target.pos.y, target.pos.z), ease);
+          
+          mesh.rotation.x = THREE.MathUtils.lerp(start.rot.x, target.rot.x, ease);
+          mesh.rotation.y = THREE.MathUtils.lerp(start.rot.y, target.rot.y, ease);
+          mesh.rotation.z = THREE.MathUtils.lerp(start.rot.z, target.rot.z, ease);
+
+          const curScale = THREE.MathUtils.lerp(start.scale, target.scale, ease);
+          mesh.scale.setScalar(curScale);
+
+          // Audio impact trigger at arrival
+          if (rawT >= 0.98 && !mesh.userData.impactPlayed) {
+            mesh.userData.impactPlayed = true;
+            playPaperImpactSound(target.layer);
+            if (navigator.vibrate) {
+              try { navigator.vibrate(14); } catch(e) {}
+            }
+            mesh.userData.targetEmissive = 0.65;
+          }
+          mesh.userData.targetEmissive = (mesh.userData.targetEmissive || 0) * 0.94;
+          if (mesh.material.emissive) {
+            mesh.material.emissiveIntensity = mesh.userData.targetEmissive;
+          }
+
+          // Fade out individual fragments as consolidated canvas fades in
+          if (p >= 2.8) {
+            const fadeT = Math.max(0, 1.0 - (p - 2.8) / 0.9);
+            mesh.material.opacity = fadeT;
+          }
+        });
+
+        // Consolidate Master Artwork Canvas
+        if (p >= 2.6) {
+          solapadoMasterMesh.visible = true;
+          solapadoFrameMesh.visible = true;
+          const canvasFade = Math.min(1.0, (p - 2.6) / 1.0);
+          solapadoMasterMesh.material.opacity = canvasFade;
+          solapadoFrameMesh.material.opacity = canvasFade;
+
+          if (gallerySpotlight) {
+            gallerySpotlight.intensity = Math.min(1.9, canvasFade * 1.9);
+          }
+        }
+
+        // Swirl particles into center
+        if (particlePositions) {
+          for (let i = 0; i < particleCount; i++) {
+            const i3 = i * 3;
+            if (p < 3.2) {
+              particlePositions[i3] *= 0.988; // inward pull
+              particlePositions[i3 + 1] *= 0.988;
+              particlePositions[i3 + 2] += (-4.2 - particlePositions[i3 + 2]) * 0.012;
+            }
+          }
+          particleGeo.attributes.position.needsUpdate = true;
+        }
+
+        // End of Assemblage -> REVEALED
+        if (p >= assembleDuration) {
+          appState = 'REVEALED';
+          playHarmonicResolutionChord();
+          if (navigator.vibrate) {
+            try { navigator.vibrate([40, 60, 40]); } catch(e) {}
+          }
+
+          const card = document.getElementById('artwork-reveal-card');
+          if (card) card.classList.add('visible');
+        }
+      }
+      else if (appState === 'REVEALED') {
+        // Gentle organic breathing of canvas and camera
+        if (solapadoMasterMesh) {
+          solapadoMasterMesh.rotation.y = Math.sin(time * 0.45) * 0.025;
+          solapadoMasterMesh.rotation.x = Math.cos(time * 0.35) * 0.018;
+          if (solapadoFrameMesh) {
+            solapadoFrameMesh.rotation.copy(solapadoMasterMesh.rotation);
+          }
+        }
+      }
+
+
       renderer.render(scene, camera);
     }
 
     animate();
+
+    /* ========================================================
+       CATALOG CLIENT LOGIC & ARTWORKS DATA
+       ======================================================== */
+    const artworks = [
+      {
+        id: "art-1",
+        title: "Solapado",
+        technique: "Acrílico & Técnica Mixta",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/solapado_1.webp",
+        available: true,
+        category: "acrilico"
+      },
+      {
+        id: "art-2",
+        title: "Maracuyá",
+        technique: "Acrílico",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/maracuy__2.webp",
+        available: true,
+        category: "acrilico"
+      },
+      {
+        id: "art-3",
+        title: "Cancelado",
+        technique: "Técnica mixta y collage",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/cancelado_3.webp",
+        available: false,
+        category: "mixta"
+      },
+      {
+        id: "art-4",
+        title: "Verano",
+        technique: "Acrílico",
+        dimensions: "50 × 35 cm",
+        year: "2025",
+        image: "assets/artworks/verano_4.webp",
+        available: false,
+        category: "acrilico"
+      },
+      {
+        id: "art-5",
+        title: "Otoño",
+        technique: "Acrílico",
+        dimensions: "50 × 35 cm",
+        year: "2025",
+        image: "assets/artworks/oto_o_5.webp",
+        available: true,
+        category: "acrilico"
+      },
+      {
+        id: "art-6",
+        title: "Chocolat d´Or",
+        technique: "Técnica mixta & pan de oro",
+        dimensions: "40 × 30 cm",
+        year: "2025",
+        image: "assets/artworks/chocolat_d_or_6.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-7",
+        title: "El Inicio",
+        technique: "Técnica mixta",
+        dimensions: "50 × 35 cm",
+        year: "2025",
+        image: "assets/artworks/el_inicio_7.webp",
+        available: false,
+        category: "mixta"
+      },
+      {
+        id: "art-8",
+        title: "Araucaria",
+        technique: "Técnica mixta sobre tela",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/araucaria_8.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-9",
+        title: "Sobriedad",
+        technique: "Técnica mixta",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/sobriedad_9.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-10",
+        title: "Reunidos",
+        technique: "Técnica mixta",
+        dimensions: "50 × 35 cm",
+        year: "2025",
+        image: "assets/artworks/reunidos_10.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-11",
+        title: "Aquiles",
+        technique: "Técnica mixta y collage",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/aquiles_11.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-12",
+        title: "Disgregado",
+        technique: "Técnica mixta y gasa",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/disgregado_12.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-13",
+        title: "San Colombano",
+        technique: "Acrílico",
+        dimensions: "70 × 50 cm",
+        year: "2025",
+        image: "assets/artworks/san_colombano_13.webp",
+        available: true,
+        category: "acrilico"
+      },
+      {
+        id: "art-14",
+        title: "Sueños",
+        technique: "Técnica mixta",
+        dimensions: "50 × 35 cm",
+        year: "2025",
+        image: "assets/artworks/sue_os_14.webp",
+        available: true,
+        category: "mixta"
+      },
+      {
+        id: "art-15",
+        title: "Virapitá",
+        technique: "Técnica mixta",
+        dimensions: "50 × 34,5 cm",
+        year: "2025",
+        image: "assets/artworks/virapit__15.webp",
+        available: true,
+        category: "mixta"
+      }
+    ];
+
+    function renderArtGrid(list) {
+      const grid = document.getElementById('art-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      list.forEach(art => {
+        const card = document.createElement('div');
+        card.className = 'art-card';
+        card.onclick = () => openModal(art.id);
+
+        card.innerHTML = `
+          <div class="art-img-wrap">
+            <img src="${art.image}" alt="${art.title} — Bibi Lacoste" class="art-thumb" loading="lazy">
+            <span class="status-badge ${art.available ? 'status-available' : 'status-private'}">
+              ${art.available ? 'Disponible' : 'Colección Privada'}
+            </span>
+          </div>
+          <div class="art-info">
+            <div>
+              <h3 class="art-title">${art.title}</h3>
+              <div class="art-details">${art.technique} &bull; ${art.dimensions}</div>
+            </div>
+            <div class="art-year">${art.year}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterWorks(category) {
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        if (tab.dataset.filter === category) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      let filtered = artworks;
+      if (category === 'available') {
+        filtered = artworks.filter(a => a.available);
+      } else if (category === 'mixta') {
+        filtered = artworks.filter(a => a.category === 'mixta');
+      } else if (category === 'acrilico') {
+        filtered = artworks.filter(a => a.category === 'acrilico');
+      }
+
+      renderArtGrid(filtered);
+    }
+
+    function openModal(id) {
+      const art = artworks.find(a => a.id === id);
+      if (!art) return;
+
+      document.getElementById('modal-img').src = art.image;
+      document.getElementById('modal-title').textContent = art.title;
+      document.getElementById('modal-technique').textContent = art.technique;
+      document.getElementById('modal-dimensions').textContent = art.dimensions;
+      document.getElementById('modal-year').textContent = art.year;
+
+      const badge = document.getElementById('modal-status-badge');
+      const waBtn = document.getElementById('modal-wa-btn');
+
+      if (art.available) {
+        badge.textContent = 'Disponible para Adquisición';
+        badge.style.color = '#D6A46A';
+        waBtn.style.display = 'flex';
+        waBtn.href = `https://wa.me/5491100000000?text=Hola%20Bibi,%20me%20interesa%20consultar%20por%20la%20obra%20${encodeURIComponent(art.title)}%20(${encodeURIComponent(art.dimensions)})`;
+      } else {
+        badge.textContent = 'Colección Privada (No disponible)';
+        badge.style.color = '#8C7F72';
+        waBtn.style.display = 'none';
+      }
+
+      const modal = document.getElementById('art-modal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('art-modal');
+      modal.classList.remove('active');
+      if (document.body.classList.contains('catalog-unlocked')) {
+        document.body.style.overflow = 'auto';
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    // Close modal on Escape or click backdrop
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('art-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'art-modal') closeModal();
+    });
+
+    function openIntegratedCatalog() {
+      document.body.classList.add('catalog-unlocked');
+      document.body.style.overflow = 'auto';
+      
+      const catalogEl = document.getElementById('catalog-section');
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: 'smooth' });
+      }
+      renderArtGrid(artworks);
+    }
+
+    function returnTo3DExperience() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
   </script>
 </body>
 </html>
