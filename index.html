@@ -1386,19 +1386,19 @@
       <div class="catalog-nav-inner">
         <div>
           <div class="nav-brand-title">Bibi Lacoste</div>
-          <div class="nav-brand-sub">Catálogo de Obras &amp; Biografía</div>
+          <div class="nav-brand-sub">Cat&aacute;logo de Obras &amp; Biograf&iacute;a</div>
         </div>
 
         <div class="catalog-links">
           <a href="#solapado-hero">Obra Central</a>
-          <a href="#obras-catalogo">Obras</a>
+          <a href="obras.html" style="color:#D6A46A; font-weight:600;">Obras (15) &rarr;</a>
           <a href="#biografia">Origen &amp; Taller</a>
           <a href="#contacto-adquisicion">Contacto</a>
         </div>
 
         <button onclick="returnTo3DExperience()" class="btn-return-3d">
-          <span>✦</span>
-          <span>Volver a la Brújula 3D</span>
+          <span>&#8634;</span>
+          <span>Volver a la Br&uacute;jula 3D</span>
         </button>
       </div>
     </nav>
@@ -1407,67 +1407,81 @@
     <div id="solapado-hero" class="catalog-hero">
       <div class="hero-grid">
         <div>
-          <span class="hero-tag">Obra Clímax de la Experiencia</span>
+          <span class="hero-tag">Obra Cl&iacute;max de la Experiencia</span>
           <h1 class="hero-title">Solapado</h1>
-          <p class="hero-desc">
-            En <em>Solapado</em>, la memoria no se evoca como un recuerdo pasivo, sino como una arquitectura matérica viva. 
-            A través de estratos superpuestos de óleo mineral turquesa, pigmentos terrosos, recortes de prensa de ultramar y 
-            texturas de arrozal, la obra reconstruye el viaje migratorio familiar transformando el desarraigo en permanencia.
-          </p>
-
-          <div class="hero-meta-box">
-            <div>
-              <div class="meta-item-label">Técnica</div>
-              <div class="meta-item-val">Acrílico &amp; Mixta</div>
+          <div class="hero-meta-row">
+            <div class="meta-item">
+              <span class="meta-item-label">A&ntilde;o</span>
+              <span class="meta-item-value">2025</span>
             </div>
-            <div>
-              <div class="meta-item-label">Dimensiones</div>
-              <div class="meta-item-val">70 × 50 cm</div>
+            <div class="meta-item">
+              <span class="meta-item-label">T&eacute;cnica</span>
+              <span class="meta-item-value">Acr&iacute;lico &amp; Mixta</span>
             </div>
-            <div>
-              <div class="meta-item-label">Año / Estado</div>
-              <div class="meta-item-val" style="color:#D6A46A;">2025 · Disponible</div>
+            <div class="meta-item">
+              <span class="meta-item-label">Dimensiones</span>
+              <span class="meta-item-value">70 &times; 50 cm</span>
             </div>
           </div>
-
-          <div style="display:flex; gap:1.0rem; flex-wrap:wrap;">
+          <p class="hero-quote">
+            &ldquo;Donde el desarraigo y la memoria familiar se convierten en permanencia. Cada capa de acr&iacute;lico solapa un recuerdo que resiste al olvido.&rdquo;
+          </p>
+          <div style="display:flex; flex-wrap:wrap; gap:1.0rem;">
             <button onclick="openModal('art-1')" class="btn-open-catalog" style="font-size:0.62rem; padding:0.75rem 1.4rem;">
-              <span>Examinar en Alta Resolución</span>
-              <span>🔍</span>
+              <span>Examinar en Alta Resoluci&oacute;n</span>
+              <span>&rarr;</span>
             </button>
-            <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20me%20interesa%20consultar%20por%20la%20obra%20Solapado%20(70x50cm)" target="_blank" class="btn-return-3d" style="font-size:0.62rem; padding:0.75rem 1.4rem; text-decoration:none;">
-              <span>Consultar Adquisición</span>
-              <span>→</span>
+            <a href="obras.html" class="btn-open-catalog" style="font-size:0.62rem; padding:0.75rem 1.4rem; background:rgba(214,164,106,0.15); border:1px solid rgba(214,164,106,0.5); color:#F0C28A; text-decoration:none;">
+              <span>Ver Cat&aacute;logo Completo (15 Obras)</span>
+              <span>&rarr;</span>
             </a>
           </div>
         </div>
 
-        <div>
-          <div class="hero-frame-container" onclick="openModal('art-1')">
-            <img src="assets/artworks/solapado_1.webp" alt="Solapado — Bibi Lacoste" class="hero-art-img" onerror="this.onerror=null; this.src='assets/artworks/page_2_img_0.webp';">
+        <div class="hero-visual">
+          <div class="hero-img-frame" onclick="openModal('art-1')" style="cursor:pointer;" title="Click para ampliar">
+            <img src="assets/artworks/solapado_1.webp" alt="Solapado - Bibi Lacoste" class="hero-img">
+            <div class="hero-status-pill">Disponible &bull; Taller Tigre</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Selected Works Catalog -->
+    <!-- Curated Works Spotlight Preview -->
     <div id="obras-catalogo" class="works-section">
       <div class="section-header-row">
         <div>
-          <div class="section-tag">Colección Completa</div>
+          <div class="section-tag">Colecci&oacute;n &bull; Selecci&oacute;n del Taller</div>
           <h2 class="section-title">Obras Seleccionadas</h2>
+          <p style="color:#A39686; font-size:0.88rem; max-width:640px; margin-top:0.4rem; font-weight:300; line-height:1.6;">
+            Una muestra de las piezas emblem&aacute;ticas del taller. El cat&aacute;logo completo de 15 obras est&aacute; organizado en una galer&iacute;a independiente con filtros por t&eacute;cnica y disponibilidad.
+          </p>
         </div>
 
-        <div class="filter-tabs">
-          <button onclick="filterWorks('all')" class="filter-tab active" data-filter="all">Todas (15)</button>
-          <button onclick="filterWorks('available')" class="filter-tab" data-filter="available">Disponibles (12)</button>
-          <button onclick="filterWorks('mixta')" class="filter-tab" data-filter="mixta">Técnica Mixta</button>
-          <button onclick="filterWorks('acrilico')" class="filter-tab" data-filter="acrilico">Acrílicos</button>
+        <div>
+          <a href="obras.html" class="btn-open-catalog" style="font-size:0.62rem; padding:0.75rem 1.4rem; text-decoration:none;">
+            <span>Explorar Cat&aacute;logo Completo (15 Obras)</span>
+            <span>&rarr;</span>
+          </a>
         </div>
       </div>
 
+      <!-- Preview Grid (3 Highlight Artworks) -->
       <div id="art-grid" class="art-grid">
         <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Call To Action Gateway to obras.html -->
+      <div style="margin-top:3.5rem; background:linear-gradient(135deg, rgba(20,16,13,0.85), rgba(10,8,6,0.92)); border:1px solid rgba(214,164,106,0.35); border-radius:6px; padding:2.8rem 2.0rem; text-align:center; box-shadow:0 12px 35px rgba(0,0,0,0.65);">
+        <span style="font-family:'Cinzel', serif; font-size:0.56rem; letter-spacing:0.26em; color:#D6A46A; text-transform:uppercase;">&#10022; GALER&Iacute;A EXCLUSIVA &#10022;</span>
+        <h3 style="font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem, 3.4vw, 2.7rem); font-weight:300; color:#FAF4ED; margin:0.6rem 0 0.8rem;">Colecci&oacute;n Completa de 15 Obras</h3>
+        <p style="color:#B5A898; font-size:0.90rem; max-width:600px; margin:0 auto 1.8rem; line-height:1.6; font-weight:300;">
+          Recorre las 15 piezas en su p&aacute;gina dedicada: filtra por acr&iacute;licos o t&eacute;cnica mixta, examina texturas en alta resoluci&oacute;n y consulta disponibilidad directa con el taller.
+        </p>
+        <a href="obras.html" class="btn-open-catalog" style="font-size:0.68rem; padding:0.85rem 2.2rem; text-decoration:none;">
+          <span>Ver Todas las Obras (15)</span>
+          <span>&rarr;</span>
+        </a>
       </div>
     </div>
 
@@ -1475,92 +1489,90 @@
     <div id="biografia" class="bio-section">
       <div class="bio-container">
         <div>
-          <div class="section-tag">Biografía &amp; Memoria</div>
-          <h2 class="section-title" style="margin-bottom:1.5rem;">Bibi Lacoste</h2>
-          <div class="bio-text">
-            <strong>Bibi Lacoste</strong> desarrolla su práctica artística desde la Provincia de Buenos Aires, 
-            con su taller radicado en el silencio fértil de Tigre y Belén de Escobar. Su producción explora 
-            las posibilidades de la abstracción lírica, el collage matérico y la estratigrafía poética del recuerdo.
-          </div>
-          <div class="bio-text">
-            Hija y nieta de familias migrantes procedentes de Francia y España, su herencia familiar está anclada a la tierra: 
-            las taipas y plantaciones de arroz sembradas por su abuelo y su padre en el Litoral entrerriano, y la paciente 
-            transformación del paisaje a través de olivares, cepas y cítricos. 
-          </div>
-          <div class="bio-text">
-            A lo largo de más de tres décadas de investigación empírica en su taller, el papel de algodón reciclado 
-            ha dejado de ser un simple soporte para convertirse en el cuerpo vivo de la memoria. Sus piezas 
-            se construyen por capas de acrílico denso, veladuras, grafismos con marcador y fragmentos impresos 
-            rescatados que dialogan entre la fragilidad del paso del tiempo y la permanencia del arte.
-          </div>
-          <div style="margin-top:2.0rem; display:flex; gap:1.8rem; flex-wrap:wrap;">
-            <a href="https://www.instagram.com/lacoste_bi/" target="_blank" style="color:#D6A46A; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
-              <span>Instagram @lacoste_bi</span>
-              <span>↗</span>
-            </a>
-            <a href="mailto:lacostebibiana08@gmail.com" style="color:#D6A46A; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
-              <span>lacostebibiana08@gmail.com</span>
-              <span>✉</span>
-            </a>
+          <span class="bio-tag">Biograf&iacute;a &amp; Territorio</span>
+          <h2 class="bio-title">El paisaje litoral, la pulpa y la permanencia</h2>
+          <p class="bio-text">
+            Nacida con ra&iacute;ces profundas en el litoral argentino, la infancia de Bibi Lacoste transcurri&oacute; entre los arrozales y olivares fundados por su abuelo y su padre en Entre R&iacute;os. Esas taipas de tierra, la humedad del r&iacute;o y los horizontes abiertos sembraron la sensibilidad por los estratos minerales, el barro y la memoria familiar.
+          </p>
+          <p class="bio-text">
+            Desde hace tres d&eacute;cadas desarrolla su investigaci&oacute;n pl&aacute;stica en su taller de Tigre y Bel&eacute;n de Escobar, combinando la elaboraci&oacute;n artesanal de pulpa de papel reciclado, fibras de lino, gasas y gruesas capas de acr&iacute;lico que rescatan recortes, cartas y estampillas de ultramar.
+          </p>
+          <div class="bio-quote">
+            &ldquo;Para m&iacute;, el papel no es un mero soporte: es el cuerpo vivo de la memoria que resiste al olvido.&rdquo;
           </div>
         </div>
 
-        <div class="bio-images-grid">
-          <div class="bio-img-card" onclick="openModal('art-11')" style="cursor:pointer;">
-            <img src="assets/artworks/aquiles_11.webp" alt="Aquiles — Detalle" class="bio-img">
-            <div class="bio-img-caption">Aquiles · Fragmento &amp; Materia</div>
-          </div>
-          <div class="bio-img-card" onclick="openModal('art-4')" style="cursor:pointer; margin-top:2.0rem;">
-            <img src="assets/artworks/verano_4.webp" alt="Verano — Gesto" class="bio-img">
-            <div class="bio-img-caption">Verano · Energía del Gesto</div>
+        <div class="bio-visuals">
+          <div class="bio-images-grid">
+            <div class="bio-img-card" onclick="openModal('art-8')" style="cursor:pointer;" title="Ver Araucaria">
+              <img src="assets/artworks/araucaria_8.webp" alt="Araucaria - Bibi Lacoste" class="bio-img">
+              <span class="bio-img-caption">Araucaria &bull; 2024</span>
+            </div>
+            <div class="bio-img-card" onclick="openModal('art-2')" style="cursor:pointer;" title="Ver Maracuyá">
+              <img src="assets/artworks/maracuy__2.webp" alt="Maracuyá - Bibi Lacoste" class="bio-img">
+              <span class="bio-img-caption">Maracuy&aacute; &bull; 2025</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Contact & Collector Acquisition -->
+    <!-- Contact & Acquisition -->
     <div id="contacto-adquisicion" class="contact-section">
-      <div class="section-tag">Coleccionismo &amp; Diálogo</div>
-      <h2 class="section-title">Adquisición &amp; Contacto</h2>
-      <p style="color:#A39686; font-size:0.85rem; max-width:550px; margin:0.8rem auto 0; font-weight:300; line-height:1.6;">
-        Cada obra original incluye certificado de autenticidad firmado por la artista. 
-        Se realizan envíos con embalaje de conservación y seguro para colecciones nacionales e internacionales.
+      <span class="contact-tag">Contacto &amp; Adquisici&oacute;n</span>
+      <h2 class="contact-title">Coordinar visita al taller o consulta de obras</h2>
+      <p class="contact-subtitle">
+        Las obras originales pueden ser visitadas de forma privada en el atelier de Tigre o enviadas con embalaje curatorial a todo el pa&iacute;s y el exterior.
       </p>
 
       <div class="contact-cards-grid">
         <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20consultar%20por%20obras%20disponibles" target="_blank" class="contact-card">
-          <div class="contact-card-icon">💬</div>
+          <div class="contact-icon">&#9993;</div>
           <div class="contact-card-title">WhatsApp Directo</div>
-          <div class="contact-card-sub">Atención personalizada para coleccionistas</div>
+          <div class="contact-card-desc">Atenci&oacute;n personalizada de la artista para cotizaciones y env&iacute;os.</div>
+          <span class="contact-link-arrow">Iniciar conversaci&oacute;n &rarr;</span>
         </a>
 
         <a href="mailto:lacostebibiana08@gmail.com?subject=Consulta%20de%20Obras%20-%20Bibi%20Lacoste" class="contact-card">
-          <div class="contact-card-icon">✉</div>
-          <div class="contact-card-title">Correo Electrónico</div>
-          <div class="contact-card-sub">lacostebibiana08@gmail.com</div>
+          <div class="contact-icon">&#9993;</div>
+          <div class="contact-card-title">Correo Electr&oacute;nico</div>
+          <div class="contact-card-desc">lacostebibiana08@gmail.com</div>
+          <span class="contact-link-arrow">Escribir email &rarr;</span>
         </a>
 
-        <div class="contact-card">
-          <div class="contact-card-icon">🏛</div>
-          <div class="contact-card-title">Visita a Taller</div>
-          <div class="contact-card-sub">Tigre / Belén de Escobar (Con cita previa)</div>
-        </div>
+        <a href="https://instagram.com/bibilacoste" target="_blank" class="contact-card">
+          <div class="contact-icon">&#9678;</div>
+          <div class="contact-card-title">Instagram del Taller</div>
+          <div class="contact-card-desc">@bibilacoste &bull; Registros de procesos, texturas y nuevos lienzos.</div>
+          <span class="contact-link-arrow">Seguir cuenta &rarr;</span>
+        </a>
       </div>
     </div>
 
     <!-- Footer -->
-    <footer style="border-top:1px solid rgba(214, 164, 106, 0.15); padding:2.5rem 1.5rem; text-align:center; font-size:0.65rem; color:#7D7061; letter-spacing:0.14em; text-transform:uppercase;">
-      <div style="margin-bottom:0.8rem; font-family:'Cinzel', serif; color:#A89B8C; font-size:0.75rem;">
-        Bibi Lacoste &bull; El Rumbo del Recuerdo
+    <footer class="catalog-footer">
+      <div class="footer-content">
+        <div class="footer-brand-title">Bibi Lacoste</div>
+        <div class="footer-brand-desc">Arte contempor&aacute;neo &bull; Memoria, materia y territorio</div>
+        <div class="footer-links">
+          <a href="#" onclick="returnTo3DExperience(); return false;">&#8634; Volver a la Br&uacute;jula 3D</a>
+          <a href="obras.html">Cat&aacute;logo Completo de Obras &rarr;</a>
+          <a href="#solapado-hero">Obra Central</a>
+          <a href="#biografia">Biograf&iacute;a</a>
+          <a href="#contacto-adquisicion">Contacto</a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2025 Bibi Lacoste. Todos los derechos reservados. Desarrollado con Three.js &amp; WebGL.
+        </div>
       </div>
-      <div>&copy; 2025 Bibi Lacoste. Todos los derechos reservados. Buenos Aires, Argentina.</div>
     </footer>
 
   </section>
 
+
   <!-- High-Resolution Artwork Inspection Modal -->
-  <div id="art-modal">
-    <div class="modal-dialog">
+  <div id="art-modal" class="modal-overlay">
+    <div class="modal-window">
       <button onclick="closeModal()" class="modal-close-btn" aria-label="Cerrar modal">&times;</button>
       <div class="modal-body-grid">
         <div class="modal-img-col">
@@ -1568,13 +1580,13 @@
         </div>
         <div class="modal-info-col">
           <div>
-            <div id="modal-status-badge" class="section-tag" style="margin-bottom:0.4rem;">Disponible</div>
-            <h3 id="modal-title" class="modal-title">Título</h3>
-            <div class="modal-meta-list">
-              <div><strong style="color:#EDE4D8;">Técnica:</strong> <span id="modal-technique"></span></div>
+            <div id="modal-status-container"></div>
+            <h2 id="modal-title" class="modal-title"></h2>
+            <div class="modal-spec-list">
+              <div><strong style="color:#EDE4D8;">T&eacute;cnica:</strong> <span id="modal-technique"></span></div>
               <div><strong style="color:#EDE4D8;">Dimensiones:</strong> <span id="modal-dimensions"></span></div>
-              <div><strong style="color:#EDE4D8;">Año:</strong> <span id="modal-year"></span></div>
-              <div><strong style="color:#EDE4D8;">Soporte:</strong> Papel de algodón / soporte textil</div>
+              <div><strong style="color:#EDE4D8;">A&ntilde;o:</strong> <span id="modal-year"></span></div>
+              <div><strong style="color:#EDE4D8;">Soporte:</strong> Bastidor entelado / soporte artesanal</div>
             </div>
             <p id="modal-desc" style="color:#A39686; font-size:0.80rem; line-height:1.6; margin-top:1.2rem; font-weight:300;">
               Obra original realizada a mano con capas superpuestas de materia, grafismos y recortes de archivo. Incluye certificado de autenticidad.
@@ -1583,8 +1595,8 @@
 
           <div>
             <a id="modal-wa-btn" href="#" target="_blank" class="modal-inquire-btn">
-              <span>Consultar Adquisición vía WhatsApp</span>
-              <span>→</span>
+              <span>Consultar Adquisici&oacute;n v&iacute;a WhatsApp</span>
+              <span>&rarr;</span>
             </a>
           </div>
         </div>
@@ -3701,6 +3713,9 @@
       }
     ];
 
+    // Curated Spotlight Selection for index.html (Solapado, Maracuyá, Araucaria)
+    const featuredArtworks = [artworks[0], artworks[1], artworks[7]];
+
     function renderArtGrid(list) {
       const grid = document.getElementById('art-grid');
       if (!grid) return;
@@ -3724,29 +3739,13 @@
             <h3 class="art-card-title">${art.title}</h3>
             <div class="art-card-technique">${art.technique}</div>
             <div class="art-card-dimensions">${art.dimensions} • ${art.year}</div>
+            <div style="margin-top:auto; padding-top:0.8rem;">
+              <span style="font-size:0.55rem; letter-spacing:0.16em; text-transform:uppercase; color:#D6A46A; font-weight:600;">Ver detalle &rarr;</span>
+            </div>
           </div>
         `;
         grid.appendChild(card);
       });
-    }
-
-    function filterWorks(category) {
-      document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
-      const activeBtn = Array.from(document.querySelectorAll('.filter-tab')).find(b => {
-        return b.getAttribute('onclick') && b.getAttribute('onclick').includes(category);
-      });
-      if (activeBtn) activeBtn.classList.add('active');
-
-      let filtered = artworks;
-      if (category === 'disponibles') {
-        filtered = artworks.filter(a => a.available);
-      } else if (category === 'mixta') {
-        filtered = artworks.filter(a => a.category === 'mixta');
-      } else if (category === 'acrilico') {
-        filtered = artworks.filter(a => a.category === 'acrilico');
-      }
-
-      renderArtGrid(filtered);
     }
 
     function openModal(id) {
@@ -3807,7 +3806,7 @@
       if (catalogEl) {
         catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      renderArtGrid(artworks);
+      renderArtGrid(featuredArtworks);
     }
 
     function returnTo3DExperience() {
