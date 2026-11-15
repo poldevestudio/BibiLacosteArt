@@ -577,7 +577,7 @@
 
 
     /* ========================================================
-       INTEGRATED DARK CURATORIAL CATALOG STYLES
+       INTEGRATED DARK CURATORIAL BIOGRAPHY & CONTACT STYLES
        ======================================================== */
     html.catalog-unlocked, body.catalog-unlocked {
       overflow-y: auto !important;
@@ -609,7 +609,7 @@
     }
 
     .catalog-nav-inner {
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0.9rem 1.5rem;
       display: flex;
@@ -621,7 +621,7 @@
 
     @media (min-width: 768px) {
       .catalog-nav-inner {
-        padding: 1.1rem 2.5rem;
+        padding: 1.1rem 2.0rem;
         flex-wrap: nowrap;
       }
     }
@@ -647,7 +647,7 @@
     .catalog-links {
       display: flex;
       align-items: center;
-      gap: 1.8rem;
+      gap: 2.0rem;
     }
 
     .catalog-links a {
@@ -707,221 +707,127 @@
       box-shadow: 0 0 15px rgba(214, 164, 106, 0.25);
     }
 
-    /* Solapado Featured Hero Section */
-    .catalog-hero {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4.5rem 1.5rem 4.0rem;
-    }
-
-    @media (min-width: 768px) {
-      .catalog-hero {
-        padding: 6.0rem 2.5rem 5.0rem;
-      }
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3.0rem;
-      align-items: center;
-    }
-
-    @media (min-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1.15fr 1fr;
-        gap: 4.5rem;
-      }
-    }
-
-    .hero-tag {
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      color: #D6A46A;
-      font-size: 0.70rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      display: inline-block;
-      margin-bottom: 0.8rem;
-    }
-
-    .hero-title {
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-      color: #FAF4ED;
-      font-weight: 400;
-      line-height: 1.1;
-      margin: 0 0 1.2rem 0;
-    }
-
-    .hero-desc {
-      font-family: 'Cormorant Garamond', 'Georgia', serif;
-      font-size: 1.18rem;
-      line-height: 1.7;
-      color: #C7BAAA;
-      font-style: italic;
-      margin-bottom: 2.0rem;
-    }
-
-    .hero-meta-box {
-      border-left: 2px solid #D6A46A;
-      padding-left: 1.4rem;
-      margin-bottom: 2.4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .meta-item-label {
-      font-size: 0.60rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #8C7E6E;
-      margin-bottom: 0.25rem;
-    }
-
-    .meta-item-val {
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: 0.88rem;
-      color: #FAF4ED;
-    }
-
-    .hero-artwork-frame {
-      position: relative;
-      border: 1px solid rgba(214, 164, 106, 0.35);
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(214, 164, 106, 0.15);
-      background: #120D0A;
-      aspect-ratio: 50 / 70;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-artwork-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.8s ease;
-    }
-
-    .hero-artwork-frame:hover img {
-      transform: scale(1.03);
-    }
-
-    /* Biografia & Origen Section */
+    /* Biografia & Origen Section - Clean Curatorial Presentation */
     .bio-section {
-      background: #0E0A08;
-      border-top: 1px solid rgba(214, 164, 106, 0.15);
-      border-bottom: 1px solid rgba(214, 164, 106, 0.15);
+      background: #0C0907;
       padding: 5.5rem 1.5rem;
     }
 
     @media (min-width: 768px) {
       .bio-section {
-        padding: 7.5rem 2.5rem;
+        padding: 7.0rem 2.5rem;
       }
     }
 
     .bio-container {
-      max-width: 1100px;
+      max-width: 960px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3.5rem;
-      align-items: center;
-    }
-
-    @media (min-width: 860px) {
-      .bio-container {
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 5.0rem;
-      }
     }
 
     .section-tag {
       font-family: 'Cinzel', 'Times New Roman', serif;
       color: #D6A46A;
-      font-size: 0.68rem;
+      font-size: 0.70rem;
       letter-spacing: 0.30em;
       text-transform: uppercase;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
     }
 
     .section-title {
       font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      font-size: clamp(2.0rem, 3.8vw, 3.0rem);
       color: #FAF4ED;
       font-weight: 400;
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .section-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #8C7E6E;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+
+    .bio-text-columns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.2rem;
+      margin-bottom: 3.0rem;
+    }
+
+    @media (min-width: 768px) {
+      .bio-text-columns {
+        grid-template-columns: 1fr 1fr;
+        gap: 3.5rem;
+      }
     }
 
     .bio-text {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      font-size: 0.94rem;
-      line-height: 1.85;
+      font-size: 0.96rem;
+      line-height: 1.9;
       color: #BDB0A2;
-      margin-bottom: 1.35rem;
+      margin-bottom: 1.4rem;
       font-weight: 300;
     }
 
     .bio-quote {
       font-family: 'Cormorant Garamond', 'Georgia', serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       font-style: italic;
       color: #F0DFC8;
       line-height: 1.6;
       border-left: 2px solid #D6A46A;
-      padding-left: 1.5rem;
-      margin: 2.2rem 0;
+      padding-left: 1.8rem;
+      margin: 3.0rem 0;
+      max-width: 800px;
     }
 
-    .bio-photos-grid {
+    .bio-pillars-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.15);
     }
 
-    .bio-photo-card {
-      position: relative;
-      border-radius: 3px;
-      overflow: hidden;
-      border: 1px solid rgba(214, 164, 106, 0.22);
-      aspect-ratio: 4 / 5;
-      background: #140E0B;
+    @media (min-width: 640px) {
+      .bio-pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-    .bio-photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
+    .bio-pillar-card {
+      background: #130E0B;
+      border: 1px solid rgba(214, 164, 106, 0.18);
+      padding: 1.8rem 1.4rem;
+      border-radius: 4px;
     }
 
-    .bio-photo-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .bio-photo-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0.6rem 0.8rem;
-      background: linear-gradient(transparent, rgba(10, 8, 6, 0.92));
-      font-size: 0.58rem;
-      letter-spacing: 0.16em;
+    .bio-pillar-title {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #D6A46A;
+      margin-bottom: 0.65rem;
+    }
+
+    .bio-pillar-desc {
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: #A39686;
+      font-weight: 300;
     }
 
     /* Obras Gateway to Dedicated obras.html */
     .catalog-gateway-section {
-      max-width: 1100px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 5.5rem 1.5rem;
+      padding: 0 1.5rem 5.5rem;
       text-align: center;
     }
 
@@ -972,7 +878,7 @@
       grid-template-columns: 1fr;
       gap: 1.5rem;
       margin-top: 3.2rem;
-      max-width: 1050px;
+      max-width: 960px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -1039,159 +945,6 @@
 
     .contact-card:hover .contact-card-action {
       color: #F0C28A !important;
-    }
-
-    /* Modal Inspection */
-    #art-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: rgba(6, 4, 3, 0.90);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1.0rem;
-    }
-
-    #art-modal.active {
-      display: flex;
-    }
-
-    .modal-dialog {
-      background: #140F0C;
-      border: 1px solid rgba(214, 164, 106, 0.40);
-      max-width: 900px;
-      width: 100%;
-      max-height: 92vh;
-      overflow-y: auto;
-      border-radius: 6px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95);
-      position: relative;
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      background: rgba(22, 17, 13, 0.8);
-      border: 1px solid rgba(214, 164, 106, 0.3);
-      color: #EDE4D8;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      z-index: 5;
-    }
-
-    .modal-close-btn:hover {
-      background: #D6A46A;
-      color: #0E0A08;
-    }
-
-    .modal-content-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-
-    @media (min-width: 720px) {
-      .modal-content-grid {
-        grid-template-columns: 1.15fr 1fr;
-      }
-    }
-
-    .modal-img-col {
-      background: #0B0807;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2.0rem;
-      border-bottom: 1px solid rgba(214, 164, 106, 0.15);
-    }
-
-    @media (min-width: 720px) {
-      .modal-img-col {
-        border-bottom: none;
-        border-right: 1px solid rgba(214, 164, 106, 0.15);
-      }
-    }
-
-    .modal-img-col img {
-      max-width: 100%;
-      max-height: 65vh;
-      object-fit: contain;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
-    }
-
-    .modal-info-col {
-      padding: 2.4rem 2.0rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .modal-title {
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: 1.6rem;
-      color: #FAF4ED;
-      margin: 0.4rem 0 1.2rem;
-    }
-
-    .modal-meta-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.0rem;
-      margin-bottom: 2.0rem;
-      border-top: 1px solid rgba(214, 164, 106, 0.15);
-      border-bottom: 1px solid rgba(214, 164, 106, 0.15);
-      padding: 1.2rem 0;
-    }
-
-    .modal-meta-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      color: #8C7E6E;
-    }
-
-    .modal-meta-value {
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: 0.88rem;
-      color: #FAF4ED;
-      margin-top: 0.2rem;
-    }
-
-    .modal-wa-btn {
-      background: #D6A46A;
-      color: #0E0A08;
-      border: none;
-      padding: 0.85rem 1.6rem;
-      border-radius: 9999px;
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      font-weight: 600;
-      text-decoration: none !important;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .modal-wa-btn:hover {
-      background: #F0C28A;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(214, 164, 106, 0.35);
-      color: #0E0A08 !important;
     }
 
 
@@ -1288,7 +1041,7 @@
     <div class="top-meta">
       <div id="brand-container">
         <div class="artist-brand">Bibi Lacoste</div>
-        <a href="#catalog-section" onclick="openIntegratedCatalog(); return false;" style="color:#D6A46A; font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; margin-top:3px; display:inline-block; opacity:0.85;">Ver Cat&aacute;logo Directo &rarr;</a>
+        <a href="#catalog-section" onclick="openIntegratedCatalog(); return false;" style="color:#D6A46A; font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; margin-top:3px; display:inline-block; opacity:0.85;">Ver Biograf&iacute;a &rarr;</a>
       </div>
       
       <!-- 4 Discovery Steps Indicator -->
@@ -1316,16 +1069,17 @@
 
 
   <!-- ========================================================
-       INTEGRATED DARK CURATORIAL CATALOG SECTION
+       INTEGRATED DARK CURATORIAL BIOGRAPHY & CONTACT SECTION
+       (ZERO ARTWORKS ON INDEX - DEDICATED TO OBRAS.HTML)
        ======================================================== -->
   <section id="catalog-section">
 
-    <!-- Sticky Navigation Bar -->
+    <!-- Sticky Navigation Bar (ORIGEN | OBRAS | CONTACTO) -->
     <nav id="catalog-nav">
       <div class="catalog-nav-inner">
         <div>
           <div class="nav-brand-title">Bibi Lacoste</div>
-          <div class="nav-brand-sub">Cat&aacute;logo de Obras &amp; Biograf&iacute;a</div>
+          <div class="nav-brand-sub">Biograf&iacute;a &amp; Trayectoria</div>
         </div>
 
         <div class="catalog-links">
@@ -1341,174 +1095,118 @@
       </div>
     </nav>
 
-    <!-- Hero Featured Work: Solapado -->
-    <div id="solapado-hero" class="catalog-hero">
-      <div class="hero-grid">
-        <div>
-          <span class="hero-tag">Obra Cl&iacute;max de la Experiencia</span>
-          <h1 class="hero-title">Solapado</h1>
-          <p class="hero-desc">
-            En <em>Solapado</em>, la memoria no se evoca como un recuerdo pasivo, sino como una arquitectura mat&eacute;rica viva. 
-            A trav&eacute;s de estratos superpuestos de &oacute;leo mineral turquesa, pigmentos terrosos, recortes de prensa de ultramar y 
-            texturas de arrozal, la obra reconstruye el viaje migratorio familiar transformando el desarraigo en permanencia.
-          </p>
-
-          <div class="hero-meta-box">
-            <div>
-              <div class="meta-item-label">T&eacute;cnica</div>
-              <div class="meta-item-val">Acr&iacute;lico &amp; Mixta</div>
-            </div>
-            <div>
-              <div class="meta-item-label">Dimensiones</div>
-              <div class="meta-item-val">70 &times; 50 cm</div>
-            </div>
-            <div>
-              <div class="meta-item-label">A&ntilde;o / Estado</div>
-              <div class="meta-item-val" style="color:#D6A46A;">2025 &bull; Disponible</div>
-            </div>
-          </div>
-
-          <div style="display:flex; gap:1.0rem; flex-wrap:wrap;">
-            <button onclick="openModal('art-1')" class="btn-open-catalog" style="font-size:0.62rem; padding:0.75rem 1.4rem;">
-              <span>Examinar en Alta Resoluci&oacute;n</span>
-              <span>&#128269;</span>
-            </button>
-            <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20me%20interesa%20consultar%20por%20la%20obra%20Solapado%20(70x50cm)" target="_blank" class="btn-return-3d" style="font-size:0.62rem; padding:0.75rem 1.4rem; text-decoration:none;">
-              <span>Consultar Adquisici&oacute;n</span>
-              <span>&rarr;</span>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <div class="hero-frame-container" onclick="openModal('art-1')">
-            <img src="assets/artworks/solapado_1.webp" alt="Solapado &mdash; Bibi Lacoste" class="hero-art-img" onerror="this.onerror=null; this.src='assets/artworks/page_2_img_0.webp';">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Biography, Origins & Territory (Sección Origen) -->
+    <!-- Biography, Origins & Territory (Sección Origen - Limpia y Editorial) -->
     <div id="biografia" class="bio-section">
       <div class="bio-container">
-        <div>
-          <div class="section-tag">Biograf&iacute;a &amp; Memoria</div>
-          <h2 class="section-title" style="margin-bottom:1.5rem;">Bibi Lacoste</h2>
-          <div class="bio-text">
-            <strong>Bibi Lacoste</strong> desarrolla su pr&aacute;ctica art&iacute;stica desde la Provincia de Buenos Aires, 
-            con su taller radicado en el silencio f&eacute;rtil de Tigre y Bel&eacute;n de Escobar. Su producci&oacute;n explora 
-            las posibilidades de la abstracci&oacute;n l&iacute;rica, el collage mat&eacute;rico y la estratigraf&iacute;a po&eacute;tica del recuerdo.
+        <div class="section-tag">&bull; BIOGRAF&Iacute;A &amp; TRAYECTORIA &bull;</div>
+        <h2 class="section-title">Bibi Lacoste</h2>
+        <div class="section-subtitle">Tigre &amp; Bel&eacute;n de Escobar, Buenos Aires</div>
+
+        <div class="bio-text-columns">
+          <div>
+            <div class="bio-text">
+              <strong>Bibi Lacoste</strong> desarrolla su pr&aacute;ctica art&iacute;stica desde la Provincia de Buenos Aires, 
+              con su taller radicado en el silencio f&eacute;rtil de Tigre y Bel&eacute;n de Escobar. Su producci&oacute;n explora 
+              las posibilidades de la abstracci&oacute;n l&iacute;rica, el collage mat&eacute;rico y la estratigraf&iacute;a po&eacute;tica del recuerdo.
+            </div>
+            <div class="bio-text">
+              Hija y nieta de familias migrantes procedentes de Francia y Espa&ntilde;a, su herencia familiar est&aacute; anclada a la tierra: 
+              las taipas y plantaciones de arroz sembradas por su abuelo y su padre en el Litoral entrerriano, y la paciente 
+              transformaci&oacute;n del paisaje a trav&eacute;s de olivares, cepas y c&iacute;tricos.
+            </div>
           </div>
-          <div class="bio-text">
-            Hija y nieta de familias migrantes procedentes de Francia y Espa&ntilde;a, su herencia familiar est&aacute; anclada a la tierra: 
-            las taipas y plantaciones de arroz sembradas por su abuelo y su padre en el Litoral entrerriano, y la paciente 
-            transformaci&oacute;n del paisaje a trav&eacute;s de olivares, cepas y c&iacute;tricos. 
-          </div>
-          <div class="bio-text">
-            A lo largo de m&aacute;s de tres d&eacute;cadas de investigaci&oacute;n emp&iacute;rica en su taller, el papel de algod&oacute;n reciclado 
-            ha dejado de ser un simple soporte para convertirse en el cuerpo vivo de la memoria. Sus piezas 
-            se construyen por capas de acr&iacute;lico denso, veladuras, grafismos con marcador y fragmentos impresos 
-            rescatados que dialogan entre la fragilidad del paso del tiempo y la permanencia del arte.
-          </div>
-          <div style="margin-top:2.0rem; display:flex; gap:1.8rem; flex-wrap:wrap;">
-            <a href="https://www.instagram.com/lacoste_bi/" target="_blank" style="color:#D6A46A; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
-              <span>Instagram @lacoste_bi</span>
-              <span>&rarr;</span>
-            </a>
-            <a href="mailto:lacostebibiana08@gmail.com" style="color:#D6A46A; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
-              <span>lacostebibiana08@gmail.com</span>
-              <span>&rarr;</span>
-            </a>
+
+          <div>
+            <div class="bio-text">
+              A lo largo de m&aacute;s de tres d&eacute;cadas de investigaci&oacute;n emp&iacute;rica en su taller, el papel de algod&oacute;n reciclado 
+              ha dejado de ser un simple soporte para convertirse en el cuerpo vivo de la memoria. Sus piezas 
+              se construyen por capas de acr&iacute;lico denso, veladuras, grafismos con marcadores al agua, 
+              pulpa de papel reciclado, fibras de lino y gasas que rescatan recortes, cartas y estampillas de ultramar.
+            </div>
+            <div class="bio-text">
+              En cada estrato, la artista no busca ilustrar un pasado est&aacute;tico, sino propiciar un encuentro mat&eacute;rico 
+              donde el espectador pueda palpar el peso del tiempo, el silencio del r&iacute;o y la permanencia de las ra&iacute;ces.
+            </div>
           </div>
         </div>
 
-        <div class="bio-images-grid">
-          <div class="bio-img-card" onclick="openModal('art-11')" style="cursor:pointer;">
-            <img src="assets/artworks/aquiles_11.webp" alt="Aquiles &mdash; Detalle" class="bio-img">
-            <div class="bio-img-caption">Aquiles &bull; Fragmento &amp; Materia</div>
+        <div class="bio-quote">
+          &ldquo;Para m&iacute;, el papel no es un mero soporte: es el cuerpo vivo de la memoria que resiste al olvido.&rdquo;
+        </div>
+
+        <div class="bio-pillars-grid">
+          <div class="bio-pillar-card">
+            <div class="bio-pillar-title">Materia &amp; Textura</div>
+            <div class="bio-pillar-desc">Papel de algod&oacute;n artesanal, fibras de lino, gasas quir&uacute;rgicas y pulpa reciclada elaborada en su taller.</div>
           </div>
-          <div class="bio-img-card" onclick="openModal('art-4')" style="cursor:pointer; margin-top:2.0rem;">
-            <img src="assets/artworks/verano_4.webp" alt="Verano &mdash; Gesto" class="bio-img">
-            <div class="bio-img-caption">Verano &bull; Energ&iacute;a del Gesto</div>
+          <div class="bio-pillar-card">
+            <div class="bio-pillar-title">Estratigraf&iacute;a</div>
+            <div class="bio-pillar-desc">Capas superpuestas de acr&iacute;lico, pigmentos terrosos, veladuras y &oacute;leos minerales de formulaci&oacute;n propia.</div>
+          </div>
+          <div class="bio-pillar-card">
+            <div class="bio-pillar-title">Memoria Viva</div>
+            <div class="bio-pillar-desc">Recortes de correspondencia, estampillas de ultramar y huellas del litoral que resignifican el desarraigo.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Contact & Collector Acquisition -->
+    <!-- Direct Gateway to Dedicated obras.html Catalog Page -->
+    <div class="catalog-gateway-section">
+      <div class="catalog-gateway-card">
+        <span class="section-tag">&#10022; CAT&Aacute;LOGO COMPLETO &#10022;</span>
+        <h2 class="section-title" style="margin-bottom:1.0rem;">Colecci&oacute;n de Obras Originales</h2>
+        <p style="color:#BDB0A2; font-size:1.0rem; max-width:620px; margin:0 auto; line-height:1.7; font-weight:300;">
+          Las quince obras originales de la colecci&oacute;n se encuentran catalogadas en su p&aacute;gina dedicada, con filtros por t&eacute;cnica y visualizador de alta resoluci&oacute;n.
+        </p>
+        <a href="obras.html" class="catalog-gateway-btn">
+          <span>Ingresar al Cat&aacute;logo de Obras (15)</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact & Acquisition Section -->
     <div id="contacto-adquisicion" class="contact-section">
-      <div class="section-tag">Coleccionismo &amp; Di&aacute;logo</div>
-      <h2 class="section-title">Adquisici&oacute;n &amp; Contacto</h2>
-      <p style="color:#A39686; font-size:0.85rem; max-width:550px; margin:0.8rem auto 0; font-weight:300; line-height:1.6;">
-        Cada obra original incluye certificado de autenticidad firmado por la artista. 
-        Se realizan env&iacute;os con embalaje de conservaci&oacute;n y seguro para colecciones nacionales e internacionales.
+      <div class="section-tag">&bull; CONTACTO &amp; ADQUISICI&Oacute;N &bull;</div>
+      <h2 class="section-title">Coordinar visita al taller o consulta de obras</h2>
+      <p style="color:#B3A89F; font-size:0.95rem; max-width:650px; margin:0.8rem auto 0; font-weight:300; line-height:1.6;">
+        Las obras originales pueden ser visitadas de forma privada en el atelier de Tigre o enviadas con embalaje curatorial a todo el pa&iacute;s y el exterior.
       </p>
 
       <div class="contact-cards-grid">
-        <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20consultar%20por%20obras%20disponibles" target="_blank" class="contact-card">
+        <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20coordinar%20una%20visita%20o%20consultar%20por%20obras" target="_blank" class="contact-card">
           <div class="contact-card-icon">&#128172;</div>
           <div class="contact-card-title">WhatsApp Directo</div>
-          <div class="contact-card-sub">Atenci&oacute;n personalizada para coleccionistas</div>
+          <div class="contact-card-sub">Atenci&oacute;n personalizada de la artista para cotizaciones y env&iacute;os.</div>
+          <div class="contact-card-action">Iniciar conversaci&oacute;n &rarr;</div>
         </a>
 
         <a href="mailto:lacostebibiana08@gmail.com?subject=Consulta%20de%20Obras%20-%20Bibi%20Lacoste" class="contact-card">
           <div class="contact-card-icon">&#9993;</div>
           <div class="contact-card-title">Correo Electr&oacute;nico</div>
           <div class="contact-card-sub">lacostebibiana08@gmail.com</div>
+          <div class="contact-card-action">Escribir email &rarr;</div>
         </a>
 
-        <div class="contact-card">
-          <div class="contact-card-icon">&#127963;</div>
-          <div class="contact-card-title">Visita a Taller</div>
-          <div class="contact-card-sub">Tigre / Bel&eacute;n de Escobar (Con cita previa)</div>
-        </div>
+        <a href="https://instagram.com/bibilacoste" target="_blank" class="contact-card">
+          <div class="contact-card-icon">&#9672;</div>
+          <div class="contact-card-title">Instagram del Taller</div>
+          <div class="contact-card-sub">@bibilacoste &bull; Registros de procesos, texturas y nuevos lienzos.</div>
+          <div class="contact-card-action">Seguir cuenta &rarr;</div>
+        </a>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer style="border-top:1px solid rgba(214, 164, 106, 0.15); padding:2.5rem 1.5rem; text-align:center; font-size:0.65rem; color:#7D7061; letter-spacing:0.14em; text-transform:uppercase;">
-      <div style="margin-bottom:0.8rem; font-family:'Cinzel', serif; color:#A89B8C; font-size:0.75rem;">
-        Bibi Lacoste &bull; El Rumbo del Recuerdo
+    <!-- Editorial Footer -->
+    <footer style="background:#070504; border-top:1px solid rgba(214, 164, 106, 0.15); padding:2.5rem 1.5rem; text-align:center;">
+      <div style="font-family:'Cinzel', serif; font-size:0.85rem; letter-spacing:0.22em; color:#FAF4ED; margin-bottom:0.4rem;">BIBI LACOSTE</div>
+      <div style="font-size:0.68rem; color:#8C7E6E; letter-spacing:0.16em; text-transform:uppercase;">
+        El Rumbo del Recuerdo &bull; Tigre &amp; Bel&eacute;n de Escobar &bull; 2025
       </div>
-      <div>&copy; 2025 Bibi Lacoste. Todos los derechos reservados. Buenos Aires, Argentina.</div>
     </footer>
 
   </section>
-
-
-  <!-- High-Resolution Artwork Inspection Modal -->
-  <div id="art-modal">
-    <div class="modal-dialog">
-      <button onclick="closeModal()" class="modal-close-btn" aria-label="Cerrar modal">&times;</button>
-      <div class="modal-body-grid">
-        <div class="modal-img-col">
-          <img id="modal-img" src="" alt="Obra de arte" class="modal-img">
-        </div>
-        <div class="modal-info-col">
-          <div>
-            <div id="modal-status-badge" class="section-tag" style="margin-bottom:0.4rem;">Disponible</div>
-            <h3 id="modal-title" class="modal-title">T&iacute;tulo</h3>
-            <div class="modal-meta-list">
-              <div><strong style="color:#EDE4D8;">T&eacute;cnica:</strong> <span id="modal-technique"></span></div>
-              <div><strong style="color:#EDE4D8;">Dimensiones:</strong> <span id="modal-dimensions"></span></div>
-              <div><strong style="color:#EDE4D8;">A&ntilde;o:</strong> <span id="modal-year"></span></div>
-              <div><strong style="color:#EDE4D8;">Soporte:</strong> Papel de algod&oacute;n / soporte textil</div>
-            </div>
-            <p id="modal-desc" style="color:#A39686; font-size:0.80rem; line-height:1.6; margin-top:1.2rem; font-weight:300;">
-              Obra original realizada a mano con capas superpuestas de materia, grafismos y recortes de archivo. Incluye certificado de autenticidad.
-            </p>
-          </div>
-
-          <div>
-            <a id="modal-wa-btn" href="#" target="_blank" class="modal-inquire-btn">
-              <span>Consultar Adquisici&oacute;n v&iacute;a WhatsApp</span>
-              <span>&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <script>
@@ -3449,210 +3147,8 @@
 
     
     /* ========================================================
-       CATALOG CLIENT LOGIC & ARTWORKS DATA
+       CLEAN BIOGRAPHY & NAVIGATION LOGIC (NO ARTWORKS ON INDEX)
        ======================================================== */
-    const artworks = [
-      {
-        id: "art-1",
-        title: "Solapado",
-        technique: "Acrílico & Técnica Mixta",
-        dimensions: "70 × 50 cm",
-        year: "2025",
-        image: "assets/artworks/solapado_1.webp",
-        available: true,
-        category: "acrilico"
-      },
-      {
-        id: "art-2",
-        title: "Maracuyá",
-        technique: "Acrílico",
-        dimensions: "70 × 50 cm",
-        year: "2025",
-        image: "assets/artworks/maracuy__2.webp",
-        available: true,
-        category: "acrilico"
-      },
-      {
-        id: "art-3",
-        title: "Cancelado",
-        technique: "Técnica mixta y collage",
-        dimensions: "70 × 50 cm",
-        year: "2025",
-        image: "assets/artworks/cancelado_3.webp",
-        available: false,
-        category: "mixta"
-      },
-      {
-        id: "art-4",
-        title: "Verano",
-        technique: "Acrílico",
-        dimensions: "50 × 35 cm",
-        year: "2025",
-        image: "assets/artworks/verano_4.webp",
-        available: false,
-        category: "acrilico"
-      },
-      {
-        id: "art-5",
-        title: "Otoño",
-        technique: "Acrílico",
-        dimensions: "50 × 35 cm",
-        year: "2025",
-        image: "assets/artworks/oto_o_5.webp",
-        available: true,
-        category: "acrilico"
-      },
-      {
-        id: "art-6",
-        title: "Chocolat d'Or",
-        technique: "Técnica mixta & pan de oro",
-        dimensions: "40 × 30 cm",
-        year: "2025",
-        image: "assets/artworks/chocolat_d_or_6.webp",
-        available: true,
-        category: "mixta"
-      },
-      {
-        id: "art-7",
-        title: "El Inicio",
-        technique: "Técnica mixta & grafismos",
-        dimensions: "70 × 50 cm",
-        year: "2024",
-        image: "assets/artworks/el_inicio_7.webp",
-        available: true,
-        category: "mixta"
-      },
-      {
-        id: "art-8",
-        title: "Araucaria",
-        technique: "Acrílico & fibras de lino",
-        dimensions: "70 × 50 cm",
-        year: "2024",
-        image: "assets/artworks/araucaria_8.webp",
-        available: true,
-        category: "acrilico"
-      },
-      {
-        id: "art-9",
-        title: "Sobriedad",
-        technique: "Acrílico & técnica mixta",
-        dimensions: "50 × 35 cm",
-        year: "2024",
-        image: "assets/artworks/sobriedad_9.webp",
-        available: false,
-        category: "acrilico"
-      },
-      {
-        id: "art-10",
-        title: "Reunidos",
-        technique: "Collage textil & óleo",
-        dimensions: "40 × 30 cm",
-        year: "2025",
-        image: "assets/artworks/reunidos_10.webp",
-        available: true,
-        category: "mixta"
-      },
-      {
-        id: "art-11",
-        title: "Aquiles",
-        technique: "Acrílico sobre lienzo",
-        dimensions: "60 × 50 cm",
-        year: "2025",
-        image: "assets/artworks/aquiles_11.webp",
-        available: true,
-        category: "acrilico"
-      },
-      {
-        id: "art-12",
-        title: "Disgregado",
-        technique: "Técnica mixta & papel desgarrado",
-        dimensions: "70 × 50 cm",
-        year: "2025",
-        image: "assets/artworks/disgregado_12.webp",
-        available: false,
-        category: "mixta"
-      },
-      {
-        id: "art-13",
-        title: "San Colombano",
-        technique: "Acrílico & sedimentos minerales",
-        dimensions: "60 × 40 cm",
-        year: "2024",
-        image: "assets/artworks/san_colombano_13.webp",
-        available: true,
-        category: "acrilico"
-      },
-      {
-        id: "art-14",
-        title: "Sueños",
-        technique: "Técnica mixta sobre papel",
-        dimensions: "50 × 35 cm",
-        year: "2025",
-        image: "assets/artworks/sue_os_14.webp",
-        available: true,
-        category: "mixta"
-      },
-      {
-        id: "art-15",
-        title: "Virapitá",
-        technique: "Acrílico & textura matérica",
-        dimensions: "70 × 50 cm",
-        year: "2025",
-        image: "assets/artworks/virapit__15.webp",
-        available: true,
-        category: "acrilico"
-      }
-    ];
-
-    function openModal(id) {
-      const art = artworks.find(a => a.id === id);
-      if (!art) return;
-
-      document.getElementById('modal-img').src = art.image;
-      document.getElementById('modal-title').innerText = art.title;
-      document.getElementById('modal-technique').innerText = art.technique;
-      document.getElementById('modal-dimensions').innerText = art.dimensions;
-      document.getElementById('modal-year').innerText = art.year;
-
-      const badge = document.getElementById('modal-status-badge');
-      if (badge) {
-        badge.innerText = art.available ? 'Disponible' : 'Colección Privada';
-      }
-
-      const waMsg = encodeURIComponent(`Hola Bibi, me interesa consultar por la obra "${art.title}" (${art.dimensions}, ${art.year}).`);
-      document.getElementById('modal-wa-btn').href = `https://wa.me/5491100000000?text=${waMsg}`;
-
-      const modal = document.getElementById('art-modal');
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('art-modal');
-      modal.classList.remove('active');
-      if (document.body.classList.contains('catalog-unlocked')) {
-        document.body.style.overflow = 'auto';
-        document.documentElement.style.overflow = 'auto';
-      } else {
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-      }
-    }
-
-    // Close modal on Escape or click backdrop
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    const modalBackdrop = document.getElementById('art-modal');
-    if (modalBackdrop) {
-      modalBackdrop.addEventListener('click', (e) => {
-        if (e.target.id === 'art-modal') closeModal();
-      });
-    }
-
-    // Unlocks scroll and glides smoothly to target section (defaults to 'biografia' / Origen)
     function openIntegratedCatalog(targetId) {
       document.documentElement.classList.add('catalog-unlocked');
       document.body.classList.add('catalog-unlocked');
@@ -3666,17 +3162,25 @@
     }
 
     function returnTo3DExperience() {
-      // 1. Reset full state back to Phase 1 Compass
-      resetExperienceToPhase1();
+      // Temporarily unlock overflow so smooth scroll executes smoothly
+      document.documentElement.style.overflow = 'auto';
+      document.body.style.overflow = 'auto';
 
-      // 2. Smoothly scroll back to top of experience viewport
-      const expEl = document.getElementById('experience-container');
-      if (expEl) {
-        expEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
       document.body.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Reset full 3D experience
+      resetExperienceToPhase1();
+
+      // After arriving at top, lock overflow back to the 3D experience
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }, 550);
     }
 
     function resetExperienceToPhase1() {
@@ -3691,8 +3195,6 @@
       // Unlock status reset
       document.documentElement.classList.remove('catalog-unlocked');
       document.body.classList.remove('catalog-unlocked');
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
 
       // Hide all Phase 2 / 3 UI elements
       const revealCard = document.getElementById('artwork-reveal-card');
@@ -3817,6 +3319,9 @@
       currentPitch = 0; targetPitch = 0;
       currentZoom = isMobileDevice() ? 3.0 : 1.8;
       targetZoom = currentZoom;
+
+      // Position constellation nodes immediately
+      updateConstellation(0, 0, 0, 0);
     }
 
 
