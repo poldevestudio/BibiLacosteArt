@@ -267,29 +267,24 @@
       color: #E6DFD5;
     }
 
-    /* Phase 2: Cosmos Navigation Cue (Responsive: Floating pill below header on mobile, Top-Center on desktop) */
+    /* Phase 2: Cosmos Navigation Cue (Responsive: Below header on mobile, Top-Center on desktop) */
     #cosmos-nav-bar {
       position: absolute;
-      top: 4.8rem;
+      top: 4.6rem;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 25;
-      width: calc(100% - 2rem);
-      max-width: 440px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 15;
+      width: 92%;
+      max-width: 460px;
     }
 
     @media (min-width: 768px) {
       #cosmos-nav-bar {
         top: 2.2rem;
-        width: auto;
-        max-width: none;
       }
     }
 
@@ -299,11 +294,10 @@
 
     .cosmos-nav-title {
       font-family: 'Cinzel', serif;
-      font-size: 0.60rem;
-      letter-spacing: 0.32em;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: #D6A46A;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
     }
 
     @media (min-width: 768px) {
@@ -317,29 +311,10 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.52rem;
       letter-spacing: 0.12em;
-      color: #D6A46A;
+      color: #9C8E7E;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 3px;
       line-height: 1.4;
-      background: rgba(18, 14, 11, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 0.38rem 0.95rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(214, 164, 106, 0.28);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
-      display: inline-block;
-    }
-
-    @media (max-width: 640px) {
-      .cosmos-nav-title {
-        display: none;
-      }
-      .cosmos-nav-sub {
-        font-size: 0.50rem;
-        letter-spacing: 0.10em;
-        padding: 0.32rem 0.78rem;
-      }
     }
 
     @media (min-width: 768px) {
@@ -413,6 +388,7 @@
       50% { opacity: 1; transform: scale(1.3); }
     }
   
+
     /* Phase 2 -> 3 Assemble Button */
     #assemble-btn-container {
       position: absolute;
@@ -587,6 +563,7 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(214, 164, 106, 0.6);
     }
+
 
 
     /* ========================================================
@@ -1257,7 +1234,8 @@
       box-shadow: 0 0 25px rgba(214, 164, 106, 0.5);
     }
 
-</style>
+
+  </style>
 </head>
 <body class="h-full">
 
@@ -1315,7 +1293,7 @@
   <!-- Phase 2: Cosmos Navigation Cue -->
   <div id="cosmos-nav-bar">
     <div class="cosmos-nav-title">• COSMOS DE LA MATERIA •</div>
-    <div class="cosmos-nav-sub">Arrastra para explorar • Pellizca para zoom • Toca una pieza</div>
+    <div class="cosmos-nav-sub">Arrastra para orbitar • Ruedita o pellizco para zoom • Toca un fragmento</div>
   </div>
 
   <!-- Phase 2: Cosmos Quote Card -->
@@ -1323,6 +1301,7 @@
     <div class="cosmos-tag" id="quote-tag">• MATERIA & ESTRATOS •</div>
     <div class="cosmos-quote-text" id="quote-text">"Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento."</div>
   </div>
+
 
   <!-- Phase 2 -> 3 Trigger Button (Appears after 5s in Cosmos) -->
   <div id="assemble-btn-container">
@@ -1349,12 +1328,14 @@
     </div>
   </div>
 
+
   <!-- Editorial UI Frame -->
   <div class="ui-layer">
     <!-- Top Header -->
     <div class="top-meta">
       <div id="brand-container">
         <div class="artist-brand">Bibi Lacoste</div>
+        <a href="#catalog-section" onclick="openIntegratedCatalog(); return false;" style="color:#D6A46A; font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; margin-top:3px; display:inline-block; opacity:0.85;">Ver Catálogo Directo &rarr;</a>
       </div>
       
       <!-- 4 Discovery Steps Indicator -->
@@ -2830,13 +2811,10 @@
         const curX = baseX + Math.sin(time * osc.speed + osc.phase) * osc.ampX + mouseParallaxX * 12 * (idx % 2 === 0 ? 1 : -1);
         const curY = baseY + Math.cos(time * osc.speed + osc.phase) * osc.ampY + mouseParallaxY * 12 * (idx < 2 ? 1 : -1);
 
-        const halfW = (node.offsetWidth || 110) / 2;
-        const safePad = 16;
-        const clampedX = Math.max(halfW + safePad, Math.min(w - halfW - safePad, curX));
-        node.style.left = `${clampedX}px`;
+        node.style.left = `${curX}px`;
         node.style.top = `${curY}px`;
 
-        points.push({ x: clampedX, y: curY + 22 });
+        points.push({ x: curX, y: curY + 24 });
       });
 
       const targetProgress = Math.max(0, currentStep - 1);
@@ -2892,17 +2870,10 @@
     let currentPitch = 0.0;
     let parallax = { x: 0, y: 0 };
 
-    // Touch gesture & inertia tracking
+    // Touch gesture tracking
     let isTouch = false;
-    let isTouching = false;
-    let isPinching = false;
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let prevTouchX = 0;
-    let prevTouchY = 0;
+    let touchStart = { x: 0, y: 0 };
     let touchMoveDist = 0;
-    let touchVelocityX = 0;
-    let touchVelocityY = 0;
     let initialPinchDist = null;
     let initialPinchZoom = null;
 
@@ -2913,53 +2884,6 @@
     const quoteCard = document.getElementById('cosmos-quote-card');
     const quoteTag = document.getElementById('quote-tag');
     const quoteText = document.getElementById('quote-text');
-
-    function triggerFragmentFocus(mesh) {
-      if (!mesh) return;
-      if (hoveredFragment && hoveredFragment !== mesh) {
-        hoveredFragment.userData.targetScale = 1.0;
-        hoveredFragment.userData.targetEmissive = 0.0;
-      }
-      hoveredFragment = mesh;
-      mesh.userData.targetScale = 1.18;
-      mesh.userData.targetEmissive = 0.50;
-
-      const data = mesh.userData.data;
-      quoteTag.textContent = `• ${data.concept.toUpperCase()} •`;
-      quoteText.textContent = `"${data.quote}"`;
-      quoteCard.classList.add('visible');
-
-      playFragmentChime(data.id);
-      if (navigator.vibrate) {
-        try { navigator.vibrate(20); } catch(e) {}
-      }
-
-      clearTimeout(quoteCardTimer);
-      quoteCardTimer = setTimeout(() => {
-        if (hoveredFragment === mesh) {
-          mesh.userData.targetScale = 1.0;
-          mesh.userData.targetEmissive = 0.0;
-          hoveredFragment = null;
-          quoteCard.classList.remove('visible');
-        }
-      }, 5000);
-    }
-
-    function checkFragmentInteraction() {
-      if (appState !== 'COSMOS' || isTouch) return;
-      raycaster.setFromCamera(mouseNorm, camera);
-      const intersects = raycaster.intersectObjects(fragmentMeshes);
-
-      if (intersects.length > 0) {
-        triggerFragmentFocus(intersects[0].object);
-      } else {
-        if (hoveredFragment) {
-          hoveredFragment.userData.targetScale = 1.0;
-          hoveredFragment.userData.targetEmissive = 0.0;
-          hoveredFragment = null;
-        }
-      }
-    }
 
     // MOUSE EVENTS (DESKTOP)
     window.addEventListener('mousedown', (e) => {
@@ -2999,13 +2923,6 @@
           prevMouse.y = e.clientY;
         }
       } else if (appState === 'COSMOS') {
-        // 5-second Cosmos exploration timer to reveal Assemble button
-        cosmosTime += delta;
-        if (cosmosTime >= 5.0 && !assembleBtnVisible) {
-          assembleBtnVisible = true;
-          const assembleBtn = document.getElementById('assemble-btn-container');
-          if (assembleBtn) assembleBtn.classList.add('visible');
-        }
         parallax.x = mouseNorm.x * 0.35;
         parallax.y = mouseNorm.y * 0.25;
 
@@ -3013,7 +2930,7 @@
           const dx = e.clientX - prevMouse.x;
           const dy = e.clientY - prevMouse.y;
           targetYaw -= dx * 0.0042;
-          targetPitch = Math.max(-0.55, Math.min(0.55, targetPitch + dy * 0.0035));
+          targetPitch = Math.max(-0.45, Math.min(0.45, targetPitch + dy * 0.0035));
           prevMouse.x = e.clientX;
           prevMouse.y = e.clientY;
         }
@@ -3034,27 +2951,21 @@
       targetZoom = Math.max(-2.8, Math.min(6.5, targetZoom + zoomStep));
     }, { passive: false });
 
-    // TOUCH EVENTS (MOBILE & TABLET: SILKY FLUID ORBIT, INERTIA GLIDE, PINCH & TAP)
-        window.addEventListener('touchstart', (e) => {
+    // TOUCH EVENTS (MOBILE & TABLET: DIRECT FLUID ORBIT & PINCH)
+    window.addEventListener('touchstart', (e) => {
       if (window.scrollY > 80 && appState === 'REVEALED') return;
       isTouch = true;
       initAudio();
 
       if (e.touches.length === 1) {
-        isTouching = true;
-        isPinching = false;
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        prevTouchX = e.touches[0].clientX;
-        prevTouchY = e.touches[0].clientY;
+        touchStart.x = e.touches[0].clientX;
+        touchStart.y = e.touches[0].clientY;
+        prevMouse.x = e.touches[0].clientX;
+        prevMouse.y = e.touches[0].clientY;
         touchMoveDist = 0;
-        touchVelocityX = 0;
-        touchVelocityY = 0;
+        isDragging = true;
       } else if (e.touches.length === 2 && appState === 'COSMOS') {
-        isTouching = false;
-        isPinching = true;
-        touchVelocityX = 0;
-        touchVelocityY = 0;
+        isDragging = false;
         const dx = e.touches[0].clientX - e.touches[1].clientX;
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         initialPinchDist = Math.hypot(dx, dy);
@@ -3062,86 +2973,95 @@
       }
     }, { passive: false });
 
-        window.addEventListener('touchmove', (e) => {
+    window.addEventListener('touchmove', (e) => {
       if (window.scrollY > 80 && appState === 'REVEALED') return;
-      // Eliminate mobile browser pull-to-refresh / scroll conflicts
-      if (e.cancelable) {
-        e.preventDefault();
-      }
-
-      if (e.touches.length === 1 && isTouching) {
+      if (e.cancelable) e.preventDefault();
+      if (e.touches.length === 1 && isDragging) {
         const cx = e.touches[0].clientX;
         const cy = e.touches[0].clientY;
-        const dx = cx - prevTouchX;
-        const dy = cy - prevTouchY;
+        const dx = cx - prevMouse.x;
+        const dy = cy - prevMouse.y;
         touchMoveDist += Math.hypot(dx, dy);
 
         if (appState === 'FASE1' && isUnlocked) {
           freeRotation.y += dx * 0.009;
           freeRotation.x += dy * 0.009;
         } else if (appState === 'COSMOS') {
-          // Direct, fluid 1-finger orbit
-          const vx = -dx * 0.0065;
-          const vy = dy * 0.0050;
-          targetYaw += vx;
-          targetPitch = Math.max(-0.62, Math.min(0.62, targetPitch + vy));
-
-          // Real-time velocity tracking for release inertia
-          touchVelocityX = touchVelocityX * 0.35 + vx * 0.65;
-          touchVelocityY = touchVelocityY * 0.35 + vy * 0.65;
+          // Direct 1-finger orbit without fighting parallax
+          targetYaw -= dx * 0.0060;
+          targetPitch = Math.max(-0.55, Math.min(0.55, targetPitch + dy * 0.0045));
         }
 
-        prevTouchX = cx;
-        prevTouchY = cy;
-      } else if (e.touches.length === 2 && isPinching && initialPinchDist !== null && appState === 'COSMOS') {
+        prevMouse.x = cx;
+        prevMouse.y = cy;
+      } else if (e.touches.length === 2 && initialPinchDist !== null && appState === 'COSMOS') {
         const dx = e.touches[0].clientX - e.touches[1].clientX;
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         const dist = Math.hypot(dx, dy);
-        const pinchDelta = (initialPinchDist - dist) * 0.018;
+        const pinchDelta = (initialPinchDist - dist) * 0.016;
         targetZoom = Math.max(-2.8, Math.min(7.0, initialPinchZoom + pinchDelta));
       }
     }, { passive: false });
 
     window.addEventListener('touchend', (e) => {
       if (e.touches.length === 0) {
-        isTouching = false;
-        isPinching = false;
-        initialPinchDist = null;
-
-        // Clean Tap Detection (thumb squish tolerant up to 18px)
-        if (touchMoveDist < 18) {
-          touchVelocityX = 0;
-          touchVelocityY = 0;
-
+        // Quick clean tap detection (finger didn't drag)
+        if (touchMoveDist < 9) {
           if (appState === 'FASE1') {
             advanceBurlapStep();
           } else if (appState === 'COSMOS') {
-            mouseNorm.x = (touchStartX / window.innerWidth) * 2 - 1;
-            mouseNorm.y = -(touchStartY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouseNorm, camera);
-            const hits = raycaster.intersectObjects(fragmentMeshes);
-            if (hits.length > 0) {
-              triggerFragmentFocus(hits[0].object);
-            } else {
-              // Tapped empty space: dismiss quote card
-              if (hoveredFragment) {
-                hoveredFragment.userData.targetScale = 1.0;
-                hoveredFragment.userData.targetEmissive = 0.0;
-                hoveredFragment = null;
-              }
-              quoteCard.classList.remove('visible');
-            }
+            mouseNorm.x = (touchStart.x / window.innerWidth) * 2 - 1;
+            mouseNorm.y = -(touchStart.y / window.innerHeight) * 2 + 1;
+            checkFragmentInteraction();
           }
         }
+        isDragging = false;
+        initialPinchDist = null;
       } else if (e.touches.length === 1) {
-        isPinching = false;
-        isTouching = true;
-        prevTouchX = e.touches[0].clientX;
-        prevTouchY = e.touches[0].clientY;
-        touchMoveDist = 100; // prevent false tap trigger on multi-touch release
+        initialPinchDist = null;
+        prevMouse.x = e.touches[0].clientX;
+        prevMouse.y = e.touches[0].clientY;
+        isDragging = true;
       }
     });
+
+    function checkFragmentInteraction() {
+      if (appState !== 'COSMOS') return;
+
+      raycaster.setFromCamera(mouseNorm, camera);
+      const intersects = raycaster.intersectObjects(fragmentMeshes);
+
+      if (intersects.length > 0) {
+        const hit = intersects[0].object;
+        if (hoveredFragment !== hit) {
+          if (hoveredFragment) {
+            hoveredFragment.userData.targetScale = 1.0;
+            hoveredFragment.userData.targetEmissive = 0.0;
+          }
+          hoveredFragment = hit;
+          hoveredFragment.userData.targetScale = 1.15;
+          hoveredFragment.userData.targetEmissive = 0.45;
+
+          const data = hit.userData.data;
+          quoteTag.textContent = `• ${data.concept.toUpperCase()} •`;
+          quoteText.textContent = `"${data.quote}"`;
+          quoteCard.classList.add('visible');
+
+          playFragmentChime(data.id);
+
+          clearTimeout(quoteCardTimer);
+          quoteCardTimer = setTimeout(() => {
+            if (!hoveredFragment) quoteCard.classList.remove('visible');
+          }, 4500);
+        }
+      } else {
+        if (hoveredFragment) {
+          hoveredFragment.userData.targetScale = 1.0;
+          hoveredFragment.userData.targetEmissive = 0.0;
+          hoveredFragment = null;
+        }
+      }
+    }
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -3400,18 +3320,13 @@
         }
       }
       else if (appState === 'COSMOS') {
-        // Silky touch momentum inertia glide when not actively dragging
-        if (!isTouching && !isPinching) {
-          if (Math.abs(touchVelocityX) > 0.0001) {
-            targetYaw += touchVelocityX;
-            touchVelocityX *= 0.91;
-          }
-          if (Math.abs(touchVelocityY) > 0.0001) {
-            targetPitch = Math.max(-0.62, Math.min(0.62, targetPitch + touchVelocityY));
-            touchVelocityY *= 0.91;
-          }
+        // 5-second Cosmos exploration timer to reveal Assemble button
+        cosmosTime += delta;
+        if (cosmosTime >= 5.0 && !assembleBtnVisible) {
+          assembleBtnVisible = true;
+          const assembleBtn = document.getElementById('assemble-btn-container');
+          if (assembleBtn) assembleBtn.classList.add('visible');
         }
-
         currentZoom += (targetZoom - currentZoom) * 0.085;
         currentYaw += (targetYaw - currentYaw) * 0.085;
         currentPitch += (targetPitch - currentPitch) * 0.085;
@@ -3493,7 +3408,7 @@
         fragmentMeshes.forEach((mesh, idx) => {
           const target = fragmentTargetLayout[idx];
           const start = fragmentStartTransforms[idx];
-          if (!start) return;
+          if (!start || !target) return;
 
           // Layered start times
           const layerDelay = (target.layer - 1) * 0.55;
@@ -3546,16 +3461,17 @@
         }
 
         // Swirl particles into center
-        if (particlePositions) {
+        if (particleSystem && particleSystem.geometry && particleSystem.geometry.attributes.position) {
+          const pArr = particleSystem.geometry.attributes.position.array;
           for (let i = 0; i < particleCount; i++) {
             const i3 = i * 3;
             if (p < 3.2) {
-              particlePositions[i3] *= 0.988; // inward pull
-              particlePositions[i3 + 1] *= 0.988;
-              particlePositions[i3 + 2] += (-4.2 - particlePositions[i3 + 2]) * 0.012;
+              pArr[i3] *= 0.988; // inward pull
+              pArr[i3 + 1] *= 0.988;
+              pArr[i3 + 2] += (-4.2 - pArr[i3 + 2]) * 0.012;
             }
           }
-          particleGeo.attributes.position.needsUpdate = true;
+          particleSystem.geometry.attributes.position.needsUpdate = true;
         }
 
         // End of Assemblage -> REVEALED
@@ -3585,8 +3501,7 @@
       renderer.render(scene, camera);
     }
 
-    animate();
-
+    
     /* ========================================================
        CATALOG CLIENT LOGIC & ARTWORKS DATA
        ======================================================== */
@@ -3856,6 +3771,11 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+
+    // Initialize catalog grid DOM immediately
+    renderArtGrid(artworks);
+
+    animate();
   </script>
 </body>
 </html>
