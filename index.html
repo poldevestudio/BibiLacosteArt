@@ -1,5 +1,4 @@
-<!DOC
-  <div id="experience-container" style="position:relative; width:100%; height:100vh; height:100dvh; overflow:hidden;">TYPE html>
+<!DOCTYPE html>
 <html lang="es" class="h-full">
 <head>
   <meta charset="UTF-8">
@@ -597,7 +596,7 @@
       box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.9);
     }
 
-    /* Sticky Navigation Bar */
+    /* Sticky Navigation Bar (ORIGEN | OBRAS | CONTACTO) */
     #catalog-nav {
       position: sticky;
       top: 0;
@@ -1199,6 +1198,7 @@
   </style>
 </head>
 <body class="h-full">
+  <div id="experience-container" style="position:relative; width:100%; height:100vh; height:100dvh; overflow:hidden;">
 
   <div id="ambient-background"></div>
   <div id="grain-overlay"></div>
@@ -1260,6 +1260,28 @@
     <div class="cosmos-quote-text" id="quote-text">"Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento."</div>
   </div>
 
+
+  <!-- Phase 2 -> 3 Trigger Button (Appears after 5s in Cosmos) -->
+  <div id="assemble-btn-container">
+    <button id="assemble-btn" onclick="startAssemblagePhase()" class="assemble-btn">
+      <span class="assemble-sparkle">&#10022;</span>
+      <span class="assemble-title">Ensamblar</span>
+    </button>
+  </div>
+
+  <!-- Phase 3 Climax: Consolidated Artwork Card -->
+  <div id="artwork-reveal-card">
+    <h2 class="reveal-title">Solapado</h2>
+    <div class="reveal-meta">2025 &bull; Acr&iacute;lico y t&eacute;cnica mixta &bull; 70 &times; 50 cm</div>
+    <p class="reveal-quote">&ldquo;Donde el desarraigo y la memoria familiar se convierten en permanencia.&rdquo;</p>
+    <div>
+      <button onclick="openIntegratedCatalog('biografia')" class="btn-open-catalog">
+        <span>Ingresar</span>
+      </button>
+    </div>
+  </div>
+
+
   <!-- Editorial UI Frame -->
   <div class="ui-layer">
     <!-- Top Header -->
@@ -1289,7 +1311,8 @@
     </div>
   </div>
 
-    </div><!-- /#experience-container -->
+  
+  </div><!-- /#experience-container -->
 
 
   <!-- ========================================================
@@ -2864,17 +2887,6 @@
           prevMouse.y = e.clientY;
         }
       } else if (appState === 'COSMOS') {
-        cosmosTime += delta;
-        
-        // Show assemble button after 5 seconds in cosmos
-        if (cosmosTime >= 5.0 && !assembleBtnVisible) {
-          assembleBtnVisible = true;
-          const assembleBtnContainer = document.getElementById('assemble-btn-container');
-          if (assembleBtnContainer) {
-            assembleBtnContainer.classList.add('visible');
-          }
-        }
-
         parallax.x = mouseNorm.x * 0.35;
         parallax.y = mouseNorm.y * 0.25;
 
@@ -3272,6 +3284,17 @@
         }
       }
       else if (appState === 'COSMOS') {
+        cosmosTime += delta;
+        
+        // Show assemble button after 5 seconds in cosmos
+        if (cosmosTime >= 5.0 && !assembleBtnVisible) {
+          assembleBtnVisible = true;
+          const assembleBtnContainer = document.getElementById('assemble-btn-container');
+          if (assembleBtnContainer) {
+            assembleBtnContainer.classList.add('visible');
+          }
+        }
+
         currentZoom += (targetZoom - currentZoom) * 0.085;
         currentYaw += (targetYaw - currentYaw) * 0.085;
         currentPitch += (targetPitch - currentPitch) * 0.085;
