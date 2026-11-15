@@ -63,6 +63,58 @@
       }
     }
 
+    
+    .nav-brand-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      line-height: 0;
+    }
+
+    .nav-brand-logo {
+      height: 48px;
+      width: auto;
+      max-height: 52px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+    }
+
+    .nav-brand-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 14px rgba(214, 164, 106, 0.5));
+    }
+
+    @media (min-width: 768px) {
+      .nav-brand-logo {
+        height: 54px;
+        max-height: 58px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        padding: 0.65rem 1.0rem;
+      }
+      .nav-brand-logo {
+        height: 40px;
+        max-height: 44px;
+      }
+      .btn-return-home {
+        font-size: 0.55rem;
+        padding: 0.45rem 0.85rem;
+      }
+    }
+
+    .btn-text-desktop { display: inline; }
+    .btn-text-mobile { display: none; }
+    @media (max-width: 640px) {
+      .btn-text-desktop { display: none; }
+      .btn-text-mobile { display: inline; }
+    }
+
     .nav-brand-title {
       font-family: 'Cinzel', serif;
       font-size: 0.95rem;
@@ -613,15 +665,15 @@
   <!-- Sticky Gallery Navigation -->
   <nav id="gallery-nav">
     <div class="nav-inner">
-      <a href="index.html#biografia" style="text-decoration:none; color:inherit; display:block;">
-        <div class="nav-brand-title">Bibi Lacoste</div>
-        <div class="nav-brand-sub">Cat&aacute;logo de Obras</div>
+      <a href="index.html#biografia" class="nav-brand-link" title="Bibi Lacoste &bull; Cat&aacute;logo de Obras">
+        <img src="assets/logo_bibi.png" alt="Bibi Lacoste" class="nav-brand-logo">
       </a>
 
       <div class="nav-actions">
         <a href="index.html#biografia" class="btn-return-home">
           <span>&#8592;</span>
-          <span>Volver al Inicio</span>
+          <span class="btn-text-desktop">Volver al Inicio</span>
+          <span class="btn-text-mobile">Inicio</span>
         </a>
       </div>
     </div>
