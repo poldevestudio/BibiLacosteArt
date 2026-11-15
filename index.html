@@ -579,8 +579,14 @@
     /* ========================================================
        INTEGRATED DARK CURATORIAL BIOGRAPHY & CONTACT STYLES
        ======================================================== */
-    html.catalog-unlocked, body.catalog-unlocked {
+    html.catalog-unlocked {
       overflow-y: auto !important;
+      overflow-x: clip !important;
+      height: auto !important;
+      touch-action: pan-y !important;
+    }
+    body.catalog-unlocked {
+      overflow: visible !important;
       height: auto !important;
       touch-action: pan-y !important;
     }
@@ -3155,7 +3161,10 @@
       document.documentElement.style.overflow = 'auto';
       document.body.style.overflow = 'auto';
       
-      const target = document.getElementById(targetId || 'biografia');
+      let tid = targetId || 'catalog-section';
+      if (tid === 'origen' || tid === 'biografia' || tid === 'inicio') tid = 'catalog-section';
+
+      const target = document.getElementById(tid);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -3173,13 +3182,18 @@
       // Reset full 3D experience
       resetExperienceToPhase1();
 
+      // Clear any hash so refresh stays at 3D top
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+
       // After arriving at top, lock overflow back to the 3D experience
       setTimeout(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
+        document.documentElement.classList.remove('catalog-unlocked');
+        document.body.classList.remove('catalog-unlocked');
       }, 550);
     }
 
@@ -3325,13 +3339,60 @@
     }
 
 
-    // Prevent browser from restoring scrolled position on page refresh
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    // Direct entry check: if hash or query requests biografia/origen/inicio, jump immediately without repeating 3D
+    const initHash = (window.location.hash || '').toLowerCase();
+    const initSearch = (window.location.search || '').toLowerCase();
+    const isDirectToContent = initHash.includes('bio') || 
+                             initHash.includes('origen') || 
+                             initHash.includes('catalog') || 
+                             initHash.includes('contacto') || 
+                             initHash.includes('inicio') ||
+                             initSearch.includes('inicio');
+
+    if (isDirectToContent) {
+      document.documentElement.classList.add('catalog-unlocked');
+      document.body.classList.add('catalog-unlocked');
+      document.documentElement.style.overflow = 'auto';
+      document.body.style.overflow = 'auto';
+
+      let targetId = 'catalog-section';
+      if (initHash.includes('contacto')) {
+        targetId = 'contacto-adquisicion';
+      } else {
+        targetId = 'catalog-section';
+      }
+
+      const executeJump = () => {
+        const el = document.getElementById(targetId) || document.getElementById('catalog-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      };
+
+      executeJump();
+      requestAnimationFrame(executeJump);
+      setTimeout(executeJump, 60);
+      setTimeout(executeJump, 250);
+    } else {
+      // Prevent browser from restoring scrolled position on normal 3D entry
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+
+    // Hashchange listener for smooth in-page transitions
+    window.addEventListener('hashchange', () => {
+      const h = (window.location.hash || '').toLowerCase();
+      if (h.includes('bio') || h.includes('origen') || h.includes('catalog') || h.includes('contacto') || h.includes('inicio')) {
+        let tid = 'catalog-section';
+        if (h.includes('contacto')) tid = 'contacto-adquisicion';
+        else tid = 'catalog-section';
+        openIntegratedCatalog(tid);
+      }
+    });
 
     // Immediately position constellation nodes before first frame
     if (typeof updateConstellation === 'function') {
