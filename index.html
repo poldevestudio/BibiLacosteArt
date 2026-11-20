@@ -184,12 +184,55 @@
       transition: all 0.8s ease;
     }
 
+    .intro-nav-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.40rem;
+      margin-top: 4px;
+      flex-wrap: nowrap;
+    }
+
+    .intro-nav-link {
+      color: #D6A46A;
+      font-size: 0.52rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      opacity: 0.88;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
+    }
+
+    .intro-nav-link:hover {
+      opacity: 1;
+      color: #FAF4ED;
+      text-shadow: 0 0 10px rgba(214, 164, 106, 0.45);
+    }
+
+    .intro-nav-sep {
+      color: rgba(214, 164, 106, 0.4);
+      font-size: 0.38rem;
+      line-height: 1;
+      user-select: none;
+    }
+
     @media (min-width: 768px) {
       .artist-brand {
         font-size: 0.82rem;
       }
       .artist-sub {
         font-size: 0.62rem;
+      }
+      .intro-nav-link {
+        font-size: 0.58rem;
+        letter-spacing: 0.18em;
+      }
+      .intro-nav-links {
+        gap: 0.55rem;
       }
     }
 
@@ -683,7 +726,7 @@
     .catalog-links {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.55rem;
     }
 
     @media (min-width: 768px) {
@@ -696,8 +739,8 @@
       font-family: 'Cinzel', 'Times New Roman', serif;
       color: #A39686;
       text-decoration: none;
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       transition: color 0.3s ease;
       position: relative;
@@ -716,6 +759,29 @@
     .catalog-links a:hover,
     .catalog-links a.active {
       color: #D6A46A;
+    }
+
+    @media (max-width: 480px) {
+      .catalog-nav-inner {
+        padding: 0.45rem 0.55rem;
+        gap: 0.35rem;
+      }
+      .nav-brand-logo {
+        height: 32px;
+      }
+      .catalog-links {
+        gap: 0.35rem;
+      }
+      .catalog-links a {
+        font-size: 0.50rem;
+        letter-spacing: 0.08em;
+      }
+      .btn-return-3d {
+        font-size: 0.50rem;
+        padding: 0.30rem 0.50rem;
+        letter-spacing: 0.08em;
+        gap: 0.25rem;
+      }
     }
 
     .catalog-links a::after {
@@ -780,6 +846,7 @@
     .bio-section {
       background: #0C0907;
       padding: 5.5rem 1.5rem;
+      scroll-margin-top: 80px;
     }
 
     @media (min-width: 768px) {
@@ -892,6 +959,111 @@
       font-weight: 300;
     }
 
+    /* Statement de la Artista Section */
+    .statement-section {
+      background: #090706;
+      background: radial-gradient(circle at 50% 30%, rgba(28, 21, 16, 0.85) 0%, rgba(9, 7, 6, 1) 100%);
+      padding: 5.5rem 1.5rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.14);
+      border-bottom: 1px solid rgba(214, 164, 106, 0.14);
+      scroll-margin-top: 80px;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .statement-section {
+        padding: 7.0rem 2.5rem;
+      }
+    }
+
+    .statement-container {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .statement-card {
+      background: rgba(18, 14, 11, 0.78);
+      border: 1px solid rgba(214, 164, 106, 0.24);
+      border-radius: 6px;
+      padding: 3.0rem 1.8rem 2.6rem;
+      position: relative;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 28px rgba(214, 164, 106, 0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-top: 2.0rem;
+    }
+
+    @media (min-width: 768px) {
+      .statement-card {
+        padding: 4.2rem 3.8rem 3.4rem;
+        margin-top: 2.5rem;
+      }
+    }
+
+    .statement-quote-mark {
+      font-family: 'Cinzel', serif;
+      font-size: 3.0rem;
+      line-height: 1;
+      color: #D6A46A;
+      opacity: 0.45;
+      margin-bottom: 1.2rem;
+      user-select: none;
+    }
+
+    .statement-p {
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+      line-height: 1.85;
+      color: #F5EBE1;
+      font-weight: 300;
+      text-align: justify;
+      text-justify: inter-word;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.01em;
+    }
+
+    @media (max-width: 640px) {
+      .statement-p {
+        text-align: left;
+      }
+    }
+
+    .statement-p:last-of-type {
+      margin-bottom: 2.8rem;
+    }
+
+    .statement-signature-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.20);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .statement-signature-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #FAF4ED;
+      font-weight: 600;
+    }
+
+    .statement-signature-desc {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #D6A46A;
+      opacity: 0.85;
+    }
+
     /* Obras Gateway to Dedicated obras.html */
     .catalog-gateway-section {
       max-width: 960px;
@@ -940,6 +1112,7 @@
       border-top: 1px solid rgba(214, 164, 106, 0.18);
       padding: 5.5rem 1.5rem 6.5rem;
       text-align: center;
+      scroll-margin-top: 80px;
     }
 
     .contact-cards-grid {
@@ -1110,7 +1283,13 @@
     <div class="top-meta">
       <div id="brand-container">
         <div class="artist-brand">Bibi Lacoste</div>
-        <a href="#catalog-section" onclick="openIntegratedCatalog(); return false;" style="color:#D6A46A; font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; margin-top:3px; display:inline-block; opacity:0.85;">Ver Biograf&iacute;a &rarr;</a>
+        <div class="intro-nav-links">
+          <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;" class="intro-nav-link">Biograf&iacute;a</a>
+          <span class="intro-nav-sep">&bull;</span>
+          <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;" class="intro-nav-link">Statement</a>
+          <span class="intro-nav-sep">&bull;</span>
+          <a href="obras.html" class="intro-nav-link">Cat&aacute;logo &rarr;</a>
+        </div>
       </div>
       
       <!-- 4 Discovery Steps Indicator -->
@@ -1151,9 +1330,10 @@
         </a>
 
         <div class="catalog-links">
-          <a href="#biografia">Origen</a>
+          <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;">Biograf&iacute;a</a>
+          <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;">Statement</a>
           <a href="obras.html">Obras</a>
-          <a href="#contacto-adquisicion">Contacto</a>
+          <a href="#contacto-adquisicion" onclick="openIntegratedCatalog('contacto-adquisicion'); return false;">Contacto</a>
         </div>
 
         <button onclick="returnTo3DExperience()" class="btn-return-3d">
@@ -1207,6 +1387,32 @@
           <div class="bio-pillar-card">
             <div class="bio-pillar-title">Memoria Viva</div>
             <div class="bio-pillar-desc">Recortes de correspondencia, estampillas de ultramar y huellas del litoral que resignifican el desarraigo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Artist Statement Section -->
+    <div id="statement" class="statement-section">
+      <div class="statement-container">
+        <div class="section-tag">&bull; STATEMENT &bull;</div>
+        <h2 class="section-title">Declaraci&oacute;n de la Artista</h2>
+        <div class="section-subtitle">El Tejido del Recuerdo &bull; Memoria, Tierra y Desarraigo</div>
+
+        <div class="statement-card">
+          <div class="statement-quote-mark">&ldquo;</div>
+          
+          <p class="statement-p">
+            Pinto la historia de mis ancestros, ligada a la de otros inmigrantes que transformaron el paisaje con su oficio y su esfuerzo. En mi obra convive la memoria de la tierra cultivada: las plantaciones de arroz y los paisajes de Taipas que sembraron mi abuelo y mi padre, y el cuidado de olivares, cepas y c&iacute;tricos. Busco rescatar del olvido las huellas de ese trabajo cotidiano.
+          </p>
+
+          <p class="statement-p">
+            En este proceso, uso el papel reciclado como una nueva capa, as&iacute; como la memoria se arma con fragmentos. Cada hoja que incorporo suma una dimensi&oacute;n f&iacute;sica y simb&oacute;lica que guarda el paso del tiempo, el desarraigo y las distancias recorridas. El papel deja de ser un simple soporte y se convierte en el tejido mismo del recuerdo.
+          </p>
+
+          <div class="statement-signature-block">
+            <span class="statement-signature-name">Bibiana Lacoste</span>
+            <span class="statement-signature-desc">Taller Tigre &bull; Buenos Aires</span>
           </div>
         </div>
       </div>
@@ -3101,7 +3307,14 @@
 
           const brandContainer = document.getElementById('brand-container');
           if (brandContainer) {
-            brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div><div class="artist-sub" style="color:#D6A46A; letter-spacing:0.24em; font-size:0.60rem; text-transform:uppercase; margin-top:3px;">Cosmos de la Materia</div>';
+            brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div>' +
+              '<div class="intro-nav-links">' +
+              '<a href="#biografia" onclick="openIntegratedCatalog(\'biografia\'); return false;" class="intro-nav-link">Biograf&iacute;a</a>' +
+              '<span class="intro-nav-sep">&bull;</span>' +
+              '<a href="#statement" onclick="openIntegratedCatalog(\'statement\'); return false;" class="intro-nav-link">Statement</a>' +
+              '<span class="intro-nav-sep">&bull;</span>' +
+              '<a href="obras.html" class="intro-nav-link">Cat&aacute;logo &rarr;</a>' +
+              '</div>';
           }
         }
       }
@@ -3284,6 +3497,7 @@
       
       let tid = targetId || 'catalog-section';
       if (tid === 'origen' || tid === 'biografia' || tid === 'inicio') tid = 'catalog-section';
+      else if (tid === 'contacto') tid = 'contacto-adquisicion';
 
       const target = document.getElementById(tid);
       if (target) {
@@ -3457,14 +3671,28 @@
 
       // Position constellation nodes immediately
       updateConstellation(0, 0, 0, 0);
+
+      // Restore initial top brand navigation
+      const brandContainer = document.getElementById('brand-container');
+      if (brandContainer) {
+        brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div>' +
+          '<div class="intro-nav-links">' +
+          '<a href="#biografia" onclick="openIntegratedCatalog(\'biografia\'); return false;" class="intro-nav-link">Biograf&iacute;a</a>' +
+          '<span class="intro-nav-sep">&bull;</span>' +
+          '<a href="#statement" onclick="openIntegratedCatalog(\'statement\'); return false;" class="intro-nav-link">Statement</a>' +
+          '<span class="intro-nav-sep">&bull;</span>' +
+          '<a href="obras.html" class="intro-nav-link">Cat&aacute;logo &rarr;</a>' +
+          '</div>';
+      }
     }
 
 
-    // Direct entry check: if hash or query requests biografia/origen/inicio, jump immediately without repeating 3D
+    // Direct entry check: if hash or query requests biografia/origen/statement/contacto/inicio, jump immediately without repeating 3D
     const initHash = (window.location.hash || '').toLowerCase();
     const initSearch = (window.location.search || '').toLowerCase();
     const isDirectToContent = initHash.includes('bio') || 
                              initHash.includes('origen') || 
+                             initHash.includes('statement') || 
                              initHash.includes('catalog') || 
                              initHash.includes('contacto') || 
                              initHash.includes('inicio') ||
@@ -3482,6 +3710,8 @@
       let targetId = 'catalog-section';
       if (initHash.includes('contacto')) {
         targetId = 'contacto-adquisicion';
+      } else if (initHash.includes('statement')) {
+        targetId = 'statement';
       } else {
         targetId = 'catalog-section';
       }
@@ -3510,9 +3740,10 @@
     // Hashchange listener for smooth in-page transitions
     window.addEventListener('hashchange', () => {
       const h = (window.location.hash || '').toLowerCase();
-      if (h.includes('bio') || h.includes('origen') || h.includes('catalog') || h.includes('contacto') || h.includes('inicio')) {
+      if (h.includes('bio') || h.includes('origen') || h.includes('statement') || h.includes('catalog') || h.includes('contacto') || h.includes('inicio')) {
         let tid = 'catalog-section';
         if (h.includes('contacto')) tid = 'contacto-adquisicion';
+        else if (h.includes('statement')) tid = 'statement';
         else tid = 'catalog-section';
         openIntegratedCatalog(tid);
       }
