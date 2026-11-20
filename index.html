@@ -184,12 +184,19 @@
       transition: all 0.8s ease;
     }
 
+    #brand-container {
+      pointer-events: auto !important;
+      position: relative;
+      z-index: 25;
+    }
+
     .intro-nav-links {
       display: inline-flex;
       align-items: center;
       gap: 0.40rem;
       margin-top: 4px;
       flex-wrap: nowrap;
+      pointer-events: auto !important;
     }
 
     .intro-nav-link {
@@ -205,6 +212,8 @@
       white-space: nowrap;
       font-family: 'Cinzel', serif;
       cursor: pointer;
+      pointer-events: auto !important;
+      touch-action: manipulation;
     }
 
     .intro-nav-link:hover {
@@ -218,6 +227,14 @@
       font-size: 0.38rem;
       line-height: 1;
       user-select: none;
+      pointer-events: none;
+    }
+
+    .intro-nav-desktop { display: inline; }
+    .intro-nav-mobile { display: none; }
+    @media (max-width: 640px) {
+      .intro-nav-desktop { display: none; }
+      .intro-nav-mobile { display: inline; }
     }
 
     @media (min-width: 768px) {
@@ -1281,14 +1298,14 @@
   <div class="ui-layer">
     <!-- Top Header -->
     <div class="top-meta">
-      <div id="brand-container">
+      <div id="brand-container" style="pointer-events: auto;">
         <div class="artist-brand">Bibi Lacoste</div>
-        <div class="intro-nav-links">
+        <div class="intro-nav-links" style="pointer-events: auto;">
           <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;" class="intro-nav-link">Biograf&iacute;a</a>
           <span class="intro-nav-sep">&bull;</span>
           <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;" class="intro-nav-link">Statement</a>
           <span class="intro-nav-sep">&bull;</span>
-          <a href="obras.html" class="intro-nav-link">Cat&aacute;logo &rarr;</a>
+          <a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile">Obras &rarr;</span></a>
         </div>
       </div>
       
@@ -2854,9 +2871,14 @@
     // Touch gesture tracking
     
     function isCatalogInteraction(e) {
+      if (!e) return false;
+      const target = e.target;
+      if (target && target.closest && target.closest('#brand-container, .intro-nav-links, .intro-nav-link, #catalog-nav, #catalog-section, .ui-layer a, .ui-layer button, .sound-toggle, #assemble-btn-container, #artwork-reveal-card, a, button')) {
+        return true;
+      }
       if (document.body.classList.contains('catalog-unlocked')) {
         if (window.scrollY > 10) return true;
-        if (e && e.target && e.target.closest('#catalog-section')) return true;
+        if (target && target.closest && target.closest('#catalog-section')) return true;
       }
       return false;
     }
@@ -2877,7 +2899,7 @@
 
     // MOUSE EVENTS (DESKTOP)
     window.addEventListener('mousedown', (e) => {
-      if (isTouch || isCatalogInteraction() || window.scrollY > 80) return;
+      if (isTouch || isCatalogInteraction(e) || window.scrollY > 80) return;
       initAudio();
 
       if (appState === 'FASE1') {
@@ -3308,12 +3330,12 @@
           const brandContainer = document.getElementById('brand-container');
           if (brandContainer) {
             brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div>' +
-              '<div class="intro-nav-links">' +
+              '<div class="intro-nav-links" style="pointer-events: auto;">' +
               '<a href="#biografia" onclick="openIntegratedCatalog(\'biografia\'); return false;" class="intro-nav-link">Biograf&iacute;a</a>' +
               '<span class="intro-nav-sep">&bull;</span>' +
               '<a href="#statement" onclick="openIntegratedCatalog(\'statement\'); return false;" class="intro-nav-link">Statement</a>' +
               '<span class="intro-nav-sep">&bull;</span>' +
-              '<a href="obras.html" class="intro-nav-link">Cat&aacute;logo &rarr;</a>' +
+              '<a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile">Obras &rarr;</span></a>' +
               '</div>';
           }
         }
@@ -3495,14 +3517,22 @@
       document.documentElement.style.overflowX = 'hidden';
       document.body.style.overflow = 'visible';
       
-      let tid = targetId || 'catalog-section';
-      if (tid === 'origen' || tid === 'biografia' || tid === 'inicio') tid = 'catalog-section';
+      let tid = targetId || 'biografia';
+      if (tid === 'origen' || tid === 'inicio') tid = 'biografia';
       else if (tid === 'contacto') tid = 'contacto-adquisicion';
 
-      const target = document.getElementById(tid);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      const doScroll = () => {
+        const target = document.getElementById(tid) || document.getElementById('catalog-section');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      doScroll();
+      requestAnimationFrame(() => {
+        doScroll();
+        setTimeout(doScroll, 80);
+      });
     }
 
     function returnTo3DExperience() {
@@ -3676,12 +3706,12 @@
       const brandContainer = document.getElementById('brand-container');
       if (brandContainer) {
         brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div>' +
-          '<div class="intro-nav-links">' +
+          '<div class="intro-nav-links" style="pointer-events: auto;">' +
           '<a href="#biografia" onclick="openIntegratedCatalog(\'biografia\'); return false;" class="intro-nav-link">Biograf&iacute;a</a>' +
           '<span class="intro-nav-sep">&bull;</span>' +
           '<a href="#statement" onclick="openIntegratedCatalog(\'statement\'); return false;" class="intro-nav-link">Statement</a>' +
           '<span class="intro-nav-sep">&bull;</span>' +
-          '<a href="obras.html" class="intro-nav-link">Cat&aacute;logo &rarr;</a>' +
+          '<a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile">Obras &rarr;</span></a>' +
           '</div>';
       }
     }
