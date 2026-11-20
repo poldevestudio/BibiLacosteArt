@@ -12,6 +12,8 @@
   
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Deckled Artwork Textures for 3D Cosmos (100% offline & zero CORS) -->
+  <script src="assets/artworks/deckled_textures.js"></script>
 
   <style>
     * {
@@ -1710,90 +1712,120 @@
     const cosmosFragmentsData = [
       {
         id: 0,
-        concept: "Materia & Estratos",
-        quote: "Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento.",
-        type: "solapado",
+        title: "Maracuyá",
+        concept: "Maracuyá",
+        technique: "Acrílico • 2025",
+        quote: "La vibración del color y la materia orgánica en su máxima plenitud.",
+        type: "maracuya",
+        imgSrc: "assets/artworks/deckled/deckled_0.webp",
         pos: { x: -3.2, y: 1.5, z: -3.5 },
         rot: { x: 0.12, y: 0.35, z: -0.08 },
         scale: { w: 1.7, h: 2.2 }
       },
       {
         id: 1,
-        concept: "Archivo & Distancia",
-        quote: "Las distancias de ultramar y la memoria que resiste al paso del tiempo.",
-        type: "prensa",
+        title: "Cancelado",
+        concept: "Cancelado",
+        technique: "Técnica mixta & collage • 2025",
+        quote: "Superposición de capas, veladuras y collage donde el pasado se resignifica.",
+        type: "cancelado",
+        imgSrc: "assets/artworks/deckled/deckled_1.webp",
         pos: { x: 3.4, y: 1.9, z: -4.8 },
         rot: { x: -0.15, y: -0.42, z: 0.12 },
         scale: { w: 1.7, h: 2.3 }
       },
       {
         id: 2,
-        concept: "Taipas del Litoral",
-        quote: "Las plantaciones de arroz sembradas por mi abuelo y mi padre en el litoral.",
-        type: "arrozales",
+        title: "Virapitá",
+        concept: "Virapitá",
+        technique: "Acrílico & textura • 2025",
+        quote: "Las memorias del litoral y la tierra convertidas en materia viva.",
+        type: "virapita",
+        imgSrc: "assets/artworks/deckled/deckled_2.webp",
         pos: { x: -1.8, y: -2.0, z: -3.0 },
         rot: { x: -0.28, y: 0.22, z: 0.18 },
         scale: { w: 2.0, h: 1.5 }
       },
       {
         id: 3,
-        concept: "Pulpa & Recuerdo",
-        quote: "El papel reciclado no es un soporte; es el cuerpo vivo de la memoria.",
-        type: "algodon",
+        title: "Sueños",
+        concept: "Sueños",
+        technique: "Técnica mixta • 2025",
+        quote: "Entretejer los vacíos del recuerdo para que la memoria tome presencia.",
+        type: "suenos",
+        imgSrc: "assets/artworks/deckled/deckled_3.webp",
         pos: { x: 2.4, y: -1.7, z: -3.8 },
         rot: { x: 0.24, y: -0.32, z: -0.14 },
         scale: { w: 1.5, h: 1.9 }
       },
       {
         id: 4,
-        concept: "La Siembra",
-        quote: "Olivares y cítricos que transformaron con paciencia el paisaje.",
-        type: "citricos",
+        title: "Chocolat d'Or",
+        concept: "Chocolat d'Or",
+        technique: "Técnica mixta & pan de oro • 2025",
+        quote: "Destellos de pan de oro y tierra que rescatan la permanencia del tiempo.",
+        type: "chocolat",
+        imgSrc: "assets/artworks/deckled/deckled_4.webp",
         pos: { x: -4.2, y: -0.3, z: -6.2 },
         rot: { x: 0.08, y: 0.45, z: -0.22 },
         scale: { w: 1.8, h: 2.4 }
       },
       {
         id: 5,
-        concept: "El Oficio",
-        quote: "Tres décadas de investigación empírica en el silencio del taller de Tigre.",
-        type: "arquitectura",
+        title: "El Inicio",
+        concept: "El Inicio",
+        technique: "Técnica mixta & grafismos • 2024",
+        quote: "Los primeros trazos y la búsqueda libre de la forma en el lienzo.",
+        type: "elinicio",
+        imgSrc: "assets/artworks/deckled/deckled_5.webp",
         pos: { x: 1.4, y: 2.7, z: -6.8 },
         rot: { x: -0.22, y: -0.18, z: 0.05 },
         scale: { w: 2.1, h: 1.6 }
       },
       {
         id: 6,
-        concept: "Rescate & Permanencia",
-        quote: "La huella cotidiana que se rescata y se transforma en permanencia.",
-        type: "chocolat",
+        title: "Verano",
+        concept: "Verano",
+        technique: "Acrílico sobre lienzo • 2025",
+        quote: "Fuerza lumínica y movimiento donde el color danza con vitalidad absoluta.",
+        type: "verano",
+        imgSrc: "assets/artworks/deckled/deckled_6.webp",
         pos: { x: 4.0, y: -0.6, z: -7.5 },
         rot: { x: 0.18, y: -0.48, z: 0.15 },
         scale: { w: 1.7, h: 2.2 }
       },
       {
         id: 7,
-        concept: "Trama & Ausencia",
-        quote: "Entretejer los vacíos para que la ausencia tome cuerpo y presencia.",
+        title: "Disgregado",
+        concept: "Disgregado",
+        technique: "Técnica mixta & papel desgarrado • 2025",
+        quote: "Papel desgarrado y memoria fragmentada que resiste al olvido.",
         type: "disgregado",
+        imgSrc: "assets/artworks/deckled/deckled_7.webp",
         pos: { x: -2.0, y: 2.4, z: -8.2 },
         rot: { x: -0.12, y: 0.28, z: -0.16 },
         scale: { w: 1.6, h: 2.0 }
       },
       {
         id: 8,
-        concept: "Estratigrafía",
-        quote: "Cada capa superpuesta oculta un secreto y devela otro rumbo.",
-        type: "acrilico",
+        title: "San Colombano",
+        concept: "San Colombano",
+        technique: "Acrílico & sedimentos • 2024",
+        quote: "Sedimentos minerales y silencio del río que evocan el origen.",
+        type: "sancolombano",
+        imgSrc: "assets/artworks/deckled/deckled_8.webp",
         pos: { x: 0.5, y: -2.5, z: -6.4 },
         rot: { x: 0.32, y: -0.12, z: 0.10 },
         scale: { w: 2.1, h: 1.7 }
       },
       {
         id: 9,
-        concept: "Raíz Viva",
-        quote: "La naturaleza como testigo mudo de las generaciones que pasaron.",
+        title: "Araucaria",
+        concept: "Araucaria",
+        technique: "Acrílico & fibras de lino • 2024",
+        quote: "Fibras de lino y pigmentos terrosos como testigo mudo de la naturaleza.",
         type: "araucaria",
+        imgSrc: "assets/artworks/deckled/deckled_9.webp",
         pos: { x: -3.5, y: -2.3, z: -7.8 },
         rot: { x: -0.20, y: 0.38, z: 0.08 },
         scale: { w: 1.8, h: 2.2 }
@@ -2028,6 +2060,28 @@
       const tex = new THREE.CanvasTexture(c);
       tex.anisotropy = 8;
       return tex;
+    }
+
+    const cosmosTexLoader = new THREE.TextureLoader();
+
+    function createArtworkFragmentTexture(data) {
+      const b64 = (window.COSMOS_ARTWORK_TEXTURES && window.COSMOS_ARTWORK_TEXTURES[data.type]) || null;
+      if (b64) {
+        const tex = cosmosTexLoader.load(b64, (loadedTex) => {
+          loadedTex.anisotropy = 8;
+          loadedTex.generateMipmaps = true;
+          loadedTex.minFilter = THREE.LinearMipmapLinearFilter;
+          loadedTex.magFilter = THREE.LinearFilter;
+        });
+        tex.anisotropy = 8;
+        return tex;
+      }
+      if (data && data.imgSrc) {
+        const tex = cosmosTexLoader.load(data.imgSrc);
+        tex.anisotropy = 8;
+        return tex;
+      }
+      return createFragmentTexture(data.type);
     }
 
     
@@ -2339,7 +2393,7 @@
       geo.computeVertexNormals();
 
       const mat = new THREE.MeshStandardMaterial({
-        map: createFragmentTexture(data.type),
+        map: createArtworkFragmentTexture(data),
         transparent: true,
         opacity: 0.0,
         roughness: 0.88,
@@ -2774,7 +2828,8 @@
           hoveredFragment.userData.targetEmissive = 0.45;
 
           const data = hit.userData.data;
-          quoteTag.textContent = `• ${data.concept.toUpperCase()} •`;
+          const displayTitle = (data.title || data.concept).toUpperCase();
+          quoteTag.textContent = `• ${displayTitle} •`;
           quoteText.textContent = `"${data.quote}"`;
           quoteCard.classList.add('visible');
 
