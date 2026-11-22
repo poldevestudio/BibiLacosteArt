@@ -1,0 +1,626 @@
+/**
+ * ====================================================================
+ * BIBI LACOSTE ART — EXPERIENCIA 3D & HUD OVERLAY
+ * Hoja de estilos para el canvas WebGL, constelación SVG y HUD
+ * ====================================================================
+ */
+
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 0;
+      padding: 0;
+      /* touch-action enabled */
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0C0A08;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #E6DFD5;
+    }
+
+    /* Ambient Warm Atmosphere */
+    #ambient-background {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 48%, #1E1610 0%, #100C09 58%, #050403 100%);
+      pointer-events: none;
+      z-index: 1;
+      transition: background 2.5s ease;
+    }
+
+    #grain-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(240, 215, 185, 0.035) 1px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.9;
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    #webgl-canvas.cosmos-mode {
+      cursor: grab;
+    }
+
+    #webgl-canvas.cosmos-mode:active {
+      cursor: grabbing;
+    }
+
+    /* Constellation Vector Layer (Connecting Thread) */
+    #constellation-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      transition: opacity 1.2s ease;
+    }
+
+    /* Floating Words Container */
+    #words-container {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .floating-word-node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translate(-50%, -50%) scale(0.9);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-word-node.revealed {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .word-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      color: #F4EAE0;
+      text-shadow: 0 0 25px rgba(226, 184, 134, 0.4), 0 3px 15px rgba(0, 0, 0, 0.95);
+      white-space: nowrap;
+      transition: all 0.5s ease;
+    }
+
+    @media (min-width: 640px) {
+      .word-text {
+        font-size: 1.45rem;
+        letter-spacing: 0.14em;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .word-text {
+        font-size: 1.85rem;
+      }
+    }
+
+    .node-pin {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #D6A46A;
+      box-shadow: 0 0 14px rgba(214, 164, 106, 0.9);
+      margin-top: 6px;
+      transition: all 0.5s ease;
+    }
+
+    /* Editorial UI Frame */
+    .ui-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.6rem 1.4rem;
+    }
+
+    @media (min-width: 768px) {
+      .ui-layer {
+        padding: 2.2rem 2.5rem;
+      }
+    }
+
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .artist-brand {
+      letter-spacing: 0.3em;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #C7B59D;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+    }
+
+    .artist-sub {
+      font-size: 0.55rem;
+      letter-spacing: 0.20em;
+      color: #7D7061;
+      text-transform: uppercase;
+      margin-top: 2px;
+      transition: all 0.8s ease;
+    }
+
+    #brand-container {
+      pointer-events: auto !important;
+      position: relative;
+      z-index: 25;
+    }
+
+    .intro-nav-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.40rem;
+      margin-top: 4px;
+      flex-wrap: nowrap;
+      pointer-events: auto !important;
+    }
+
+    .intro-nav-link {
+      color: #D6A46A;
+      font-size: 0.52rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      opacity: 0.88;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
+      pointer-events: auto !important;
+      touch-action: manipulation;
+    }
+
+    .intro-nav-link:hover {
+      opacity: 1;
+      color: #FAF4ED;
+      text-shadow: 0 0 10px rgba(214, 164, 106, 0.45);
+    }
+
+    .intro-nav-sep {
+      color: rgba(214, 164, 106, 0.4);
+      font-size: 0.38rem;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .intro-nav-desktop { display: inline; }
+    .intro-nav-mobile { display: none; }
+    @media (max-width: 640px) {
+      .intro-nav-desktop { display: none; }
+      .intro-nav-mobile { display: inline; }
+    }
+
+    @media (min-width: 768px) {
+      .artist-brand {
+        font-size: 0.82rem;
+      }
+      .artist-sub {
+        font-size: 0.62rem;
+      }
+      .intro-nav-link {
+        font-size: 0.58rem;
+        letter-spacing: 0.18em;
+      }
+      .intro-nav-links {
+        gap: 0.55rem;
+      }
+    }
+
+    .progress-pills {
+      display: flex;
+      align-items: center;
+      gap: 0.40rem;
+      transition: opacity 0.8s ease;
+    }
+
+    .progress-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid rgba(214, 164, 106, 0.35);
+      background: transparent;
+      transition: all 0.6s ease;
+    }
+
+    .progress-dot.active {
+      background: #D6A46A;
+      box-shadow: 0 0 10px rgba(214, 164, 106, 0.85);
+      border-color: #D6A46A;
+    }
+
+    /* Active Layer Narrative Feedback (Bottom Center) */
+    #layer-feedback {
+      position: absolute;
+      bottom: 5.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #D6A46A;
+      font-weight: 400;
+      pointer-events: none;
+      transition: all 0.5s ease;
+      white-space: nowrap;
+      text-shadow: 0 0 16px rgba(0, 0, 0, 0.95);
+      opacity: 0.95;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    @media (max-width: 640px) {
+      #layer-feedback {
+        bottom: 4.8rem;
+        white-space: normal;
+      }
+    }
+
+    /* Bottom Interactive Action */
+    .bottom-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      text-align: center;
+    }
+
+    .sound-toggle {
+      pointer-events: auto;
+      background: rgba(18, 14, 11, 0.4);
+      border: 1px solid rgba(163, 150, 134, 0.25);
+      color: #8C7F72;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sound-toggle:hover {
+      border-color: #D6A46A;
+      color: #E6DFD5;
+    }
+
+    /* Phase 2: Cosmos Navigation Cue (Responsive: Below header on mobile, Top-Center on desktop) */
+    #cosmos-nav-bar {
+      position: absolute;
+      top: 4.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 15;
+      width: 92%;
+      max-width: 460px;
+    }
+
+    @media (min-width: 768px) {
+      #cosmos-nav-bar {
+        top: 2.2rem;
+      }
+    }
+
+    #cosmos-nav-bar.visible {
+      opacity: 1;
+    }
+
+    .cosmos-nav-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #D6A46A;
+    }
+
+    @media (min-width: 768px) {
+      .cosmos-nav-title {
+        font-size: 0.68rem;
+        letter-spacing: 0.36em;
+      }
+    }
+
+    .cosmos-nav-sub {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.12em;
+      color: #9C8E7E;
+      text-transform: uppercase;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    @media (min-width: 768px) {
+      .cosmos-nav-sub {
+        font-size: 0.60rem;
+        letter-spacing: 0.18em;
+      }
+    }
+
+    /* Phase 2: Cosmos Quote Card (Glassmorphism Bottom) */
+    #cosmos-quote-card {
+      position: absolute;
+      bottom: 4.8rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 20;
+      width: calc(100% - 2.5rem);
+      max-width: 540px;
+      background: rgba(18, 14, 11, 0.78);
+      border: 1px solid rgba(214, 164, 106, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 0.9rem 1.25rem;
+      border-radius: 6px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (min-width: 768px) {
+      #cosmos-quote-card {
+        padding: 1.1rem 1.8rem;
+      }
+    }
+
+    #cosmos-quote-card.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cosmos-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: #D6A46A;
+      margin-bottom: 0.30rem;
+    }
+
+    .cosmos-quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.08rem;
+      color: #F8EFE4;
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+    }
+
+    @media (min-width: 768px) {
+      .cosmos-quote-text {
+        font-size: 1.25rem;
+        line-height: 1.4;
+      }
+    }
+
+    @keyframes pulseSlow {
+      0%, 100% { opacity: 0.35; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+  
+
+    /* Elevate quote card so it never collides with assemble button */
+    #cosmos-quote-card {
+      bottom: 7.2rem !important;
+    }
+
+    @media (max-width: 600px) {
+      #cosmos-quote-card {
+        bottom: 6.8rem !important;
+      }
+    }
+
+    /* Phase 2 -> 3 Assemble Button */
+    #assemble-btn-container {
+      position: absolute;
+      bottom: 3.8rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(25px);
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      width: auto;
+    }
+
+    #assemble-btn-container.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .assemble-btn {
+      background: rgba(14, 11, 9, 0.90);
+      border: 1px solid #D6A46A;
+      color: #F7EFE6;
+      padding: 0.65rem 1.8rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 0 35px rgba(214, 164, 106, 0.35), 0 8px 25px rgba(0, 0, 0, 0.85);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .assemble-btn:hover {
+      background: rgba(214, 164, 106, 0.22);
+      border-color: #F0C28A;
+      box-shadow: 0 0 45px rgba(214, 164, 106, 0.60), 0 10px 30px rgba(0, 0, 0, 0.9);
+      transform: scale(1.04);
+    }
+
+    .assemble-btn:active {
+      transform: scale(0.97);
+    }
+
+    .assemble-sparkle {
+      color: #D6A46A;
+      font-size: 1.05rem;
+      animation: pulseSparkle 2.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseSparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.85; }
+      50% { transform: scale(1.35) rotate(90deg); opacity: 1; filter: drop-shadow(0 0 10px #D6A46A); }
+    }
+
+    .assemble-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #FAF4ED;
+      font-weight: 600;
+    }
+
+    /* Climax: Consolidated Artwork Card (Semi-transparent Glassmorphism) */
+    #artwork-reveal-card {
+      position: absolute;
+      bottom: 2.0rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(35px);
+      z-index: 35;
+      width: calc(100% - 2.5rem);
+      max-width: 480px;
+      background: rgba(14, 10, 8, 0.32); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(214, 164, 106, 0.25);
+      border: 1px solid rgba(214, 164, 106, 0.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1.15rem 1.45rem;
+      border-radius: 8px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(214, 164, 106, 0.12);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #artwork-reveal-card.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .reveal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.15rem;
+      font-weight: 300;
+      color: #FAF4ED;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin: 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    .reveal-meta {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.60rem;
+      letter-spacing: 0.16em;
+      color: #C8BAA8;
+      text-transform: uppercase;
+      margin-top: 0.30rem;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .reveal-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.02rem;
+      color: #EDE4D8;
+      margin: 0.65rem 0 1.0rem;
+      line-height: 1.38;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+    }
+
+    .btn-open-catalog {
+      background: rgba(214, 164, 106, 0.90);
+      color: #0E0B09;
+      border: 1px solid rgba(255, 230, 195, 0.4);
+      padding: 0.72rem 1.6rem;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 164, 106, 0.35);
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-open-catalog:hover {
+      background: #E8BF8D;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(214, 164, 106, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      #artwork-reveal-card {
+        bottom: 1.0rem;
+        padding: 0.90rem 1.15rem;
+        width: calc(100% - 1.8rem);
+        background: rgba(10, 8, 6, 0.48);
+      }
+      .reveal-title {
+        font-size: 1.65rem;
+      }
+      .reveal-quote {
+        font-size: 0.85rem;
+        margin: 0.4rem 0 0.8rem;
+        line-height: 1.35;
+      }
+      .btn-open-catalog {
+        padding: 0.62rem 1.25rem;
+        font-size: 0.58rem;
+      }
+    }
+
+

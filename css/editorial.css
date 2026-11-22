@@ -1,0 +1,576 @@
+/**
+ * ====================================================================
+ * BIBI LACOSTE ART — SECCIONES EDITORIALES CURATORIALES
+ * Hoja de estilos para Biografía, Statement, Catálogo Gateway y Contacto
+ * ====================================================================
+ */
+
+    /* ========================================================
+       INTEGRATED DARK CURATORIAL BIOGRAPHY & CONTACT STYLES
+       ======================================================== */
+    #experience-container,
+    #webgl-canvas {
+      touch-action: none;
+    }
+
+    html.catalog-unlocked {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      height: auto !important;
+      min-height: 100% !important;
+      touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    body.catalog-unlocked {
+      overflow: visible !important;
+      height: auto !important;
+      min-height: 100% !important;
+      touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    #catalog-section,
+    #catalog-section * {
+      touch-action: pan-y !important;
+      user-select: auto;
+      -webkit-user-select: auto;
+    }
+
+    #catalog-section {
+      position: relative;
+      background: #090706;
+      color: #EDE4D8;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      border-top: 1px solid rgba(214, 164, 106, 0.35);
+      z-index: 20;
+      min-height: 100vh;
+      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Sticky Navigation Bar (ORIGEN | OBRAS | CONTACTO) */
+    #catalog-nav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(10, 8, 7, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(214, 164, 106, 0.20);
+      transition: all 0.3s ease;
+    }
+
+    .catalog-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.55rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      gap: 0.6rem;
+    }
+
+    @media (min-width: 768px) {
+      .catalog-nav-inner {
+        padding: 0.95rem 2.0rem;
+        gap: 1.5rem;
+      }
+    }
+
+    .nav-brand-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      line-height: 0;
+      flex-shrink: 0;
+    }
+
+    .nav-brand-logo {
+      height: 38px;
+      width: auto;
+      max-height: 42px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+    }
+
+    @media (min-width: 768px) {
+      .nav-brand-logo {
+        height: 52px;
+        max-height: 56px;
+      }
+    }
+
+    .nav-brand-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 14px rgba(214, 164, 106, 0.5));
+    }
+
+    .catalog-links {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    @media (min-width: 768px) {
+      .catalog-links {
+        gap: 2.0rem;
+      }
+    }
+
+    .catalog-links a {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      color: #A39686;
+      text-decoration: none;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      position: relative;
+      padding-bottom: 3px;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 768px) {
+      .catalog-links a {
+        font-size: 0.72rem;
+        letter-spacing: 0.24em;
+        padding-bottom: 4px;
+      }
+    }
+
+    .catalog-links a:hover,
+    .catalog-links a.active {
+      color: #D6A46A;
+    }
+
+    @media (max-width: 480px) {
+      .catalog-nav-inner {
+        padding: 0.45rem 0.55rem;
+        gap: 0.35rem;
+      }
+      .nav-brand-logo {
+        height: 32px;
+      }
+      .catalog-links {
+        gap: 0.35rem;
+      }
+      .catalog-links a {
+        font-size: 0.50rem;
+        letter-spacing: 0.08em;
+      }
+      .btn-return-3d {
+        font-size: 0.50rem;
+        padding: 0.30rem 0.50rem;
+        letter-spacing: 0.08em;
+        gap: 0.25rem;
+      }
+    }
+
+    .catalog-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #D6A46A;
+      transition: width 0.3s ease;
+    }
+
+    .catalog-links a:hover::after,
+    .catalog-links a.active::after {
+      width: 100%;
+    }
+
+    .btn-return-3d {
+      background: transparent;
+      border: 1px solid rgba(214, 164, 106, 0.45);
+      color: #D6A46A;
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.38rem 0.65rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) {
+      .btn-return-3d {
+        font-size: 0.65rem;
+        letter-spacing: 0.20em;
+        padding: 0.55rem 1.15rem;
+        gap: 0.5rem;
+      }
+    }
+
+    .btn-text-desktop { display: none; }
+    .btn-text-mobile { display: inline; }
+    @media (min-width: 768px) {
+      .btn-text-desktop { display: inline; }
+      .btn-text-mobile { display: none; }
+    }
+
+    .btn-return-3d:hover {
+      background: rgba(214, 164, 106, 0.15);
+      color: #FAF4ED;
+      border-color: #D6A46A;
+      box-shadow: 0 0 15px rgba(214, 164, 106, 0.25);
+    }
+
+    /* Biografia & Origen Section - Clean Curatorial Presentation */
+    .bio-section {
+      background: #0C0907;
+      padding: 5.5rem 1.5rem;
+      scroll-margin-top: 80px;
+    }
+
+    @media (min-width: 768px) {
+      .bio-section {
+        padding: 7.0rem 2.5rem;
+      }
+    }
+
+    .bio-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      color: #D6A46A;
+      font-size: 0.70rem;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: clamp(2.0rem, 3.8vw, 3.0rem);
+      color: #FAF4ED;
+      font-weight: 400;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .section-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #8C7E6E;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+
+    .bio-text-columns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.2rem;
+      margin-bottom: 3.0rem;
+    }
+
+    @media (min-width: 768px) {
+      .bio-text-columns {
+        grid-template-columns: 1fr 1fr;
+        gap: 3.5rem;
+      }
+    }
+
+    .bio-text {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-size: 0.96rem;
+      line-height: 1.9;
+      color: #BDB0A2;
+      margin-bottom: 1.4rem;
+      font-weight: 300;
+    }
+
+    .bio-quote {
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      color: #F0DFC8;
+      line-height: 1.6;
+      border-left: 2px solid #D6A46A;
+      padding-left: 1.8rem;
+      margin: 3.0rem 0;
+      max-width: 800px;
+    }
+
+    .bio-pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.15);
+    }
+
+    @media (min-width: 640px) {
+      .bio-pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .bio-pillar-card {
+      background: #130E0B;
+      border: 1px solid rgba(214, 164, 106, 0.18);
+      padding: 1.8rem 1.4rem;
+      border-radius: 4px;
+    }
+
+    .bio-pillar-title {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #D6A46A;
+      margin-bottom: 0.65rem;
+    }
+
+    .bio-pillar-desc {
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: #A39686;
+      font-weight: 300;
+    }
+
+    /* Statement de la Artista Section */
+    .statement-section {
+      background: #090706;
+      background: radial-gradient(circle at 50% 30%, rgba(28, 21, 16, 0.85) 0%, rgba(9, 7, 6, 1) 100%);
+      padding: 5.5rem 1.5rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.14);
+      border-bottom: 1px solid rgba(214, 164, 106, 0.14);
+      scroll-margin-top: 80px;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .statement-section {
+        padding: 7.0rem 2.5rem;
+      }
+    }
+
+    .statement-container {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .statement-card {
+      background: rgba(18, 14, 11, 0.78);
+      border: 1px solid rgba(214, 164, 106, 0.24);
+      border-radius: 6px;
+      padding: 3.0rem 1.8rem 2.6rem;
+      position: relative;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 28px rgba(214, 164, 106, 0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-top: 2.0rem;
+    }
+
+    @media (min-width: 768px) {
+      .statement-card {
+        padding: 4.2rem 3.8rem 3.4rem;
+        margin-top: 2.5rem;
+      }
+    }
+
+    .statement-quote-mark {
+      font-family: 'Cinzel', serif;
+      font-size: 3.0rem;
+      line-height: 1;
+      color: #D6A46A;
+      opacity: 0.45;
+      margin-bottom: 1.2rem;
+      user-select: none;
+    }
+
+    .statement-p {
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+      line-height: 1.85;
+      color: #F5EBE1;
+      font-weight: 300;
+      text-align: justify;
+      text-justify: inter-word;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.01em;
+    }
+
+    @media (max-width: 640px) {
+      .statement-p {
+        text-align: left;
+      }
+    }
+
+    .statement-p:last-of-type {
+      margin-bottom: 2.8rem;
+    }
+
+    .statement-signature-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(214, 164, 106, 0.20);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .statement-signature-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #FAF4ED;
+      font-weight: 600;
+    }
+
+    .statement-signature-desc {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #D6A46A;
+      opacity: 0.85;
+    }
+
+    /* Obras Gateway to Dedicated obras.html */
+    .catalog-gateway-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5.5rem;
+      text-align: center;
+    }
+
+    .catalog-gateway-card {
+      background: linear-gradient(145deg, rgba(22, 17, 13, 0.95), rgba(12, 9, 7, 0.98));
+      border: 1px solid rgba(214, 164, 106, 0.32);
+      padding: 3.5rem 2.0rem;
+      border-radius: 6px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(214, 164, 106, 0.10);
+    }
+
+    .catalog-gateway-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #D6A46A;
+      color: #0E0A08;
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.95rem 2.2rem;
+      border-radius: 9999px;
+      text-decoration: none !important;
+      margin-top: 1.8rem;
+      box-shadow: 0 6px 20px rgba(214, 164, 106, 0.3);
+      transition: all 0.35s ease;
+    }
+
+    .catalog-gateway-btn:hover {
+      background: #F0C28A;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(214, 164, 106, 0.45);
+      color: #0E0A08 !important;
+    }
+
+    /* Contact Section - Rich Palette, NO default blue links */
+    .contact-section {
+      background: #090706;
+      border-top: 1px solid rgba(214, 164, 106, 0.18);
+      padding: 5.5rem 1.5rem 6.5rem;
+      text-align: center;
+      scroll-margin-top: 80px;
+    }
+
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3.2rem;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 640px) {
+      .contact-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .contact-card {
+      background: #140F0C;
+      border: 1px solid rgba(214, 164, 106, 0.22);
+      padding: 2.2rem 1.4rem;
+      border-radius: 4px;
+      transition: all 0.35s ease;
+      text-decoration: none !important;
+      color: #FAF4ED !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-card:hover {
+      border-color: #D6A46A;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(214, 164, 106, 0.2);
+    }
+
+    .contact-card-icon {
+      font-size: 1.5rem;
+      color: #D6A46A;
+      margin-bottom: 0.85rem;
+    }
+
+    .contact-card-title {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
+      color: #FAF4ED;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .contact-card-sub {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-size: 0.84rem;
+      color: #B3A89F;
+      margin: 0.65rem 0 1.1rem;
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    .contact-card-action {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #D6A46A !important;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .contact-card:hover .contact-card-action {
+      color: #F0C28A !important;
+    }
+
