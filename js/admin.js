@@ -1,7 +1,7 @@
 /**
  * ====================================================================
  * BIBI LACOSTE ART — CONTROLADOR DEL PANEL DE ADMINISTRACIÓN
- * Sincronización transparente con GitHub + Experiencia minimalista
+ * Sincronización transparente con GitHub + Arquitectura para 100+ obras
  * ====================================================================
  */
 
@@ -11,9 +11,9 @@
 const DEFAULT_CONFIG = {
   owner: 'poldevestudio',
   repo: 'BibiLacosteArt',
-  branch: 'Backend+PanelAdm',
+  branch: 'main', // Rama de producción por defecto
   token: '',
-  pin: '1234' // PIN de acceso simple para Bibi
+  pin: '1234'
 };
 
 let config = { ...DEFAULT_CONFIG };
@@ -25,6 +25,9 @@ let editingArtworkId = null;
 let stagedImages = {};
 let logoClickCount = 0;
 let logoClickTimer = null;
+
+let displayedAdminCount = 24;
+let filteredArtworksList = [];
 
 // Cargar configuración guardada en localStorage
 function loadConfig() {
@@ -49,9 +52,8 @@ function loadConfig() {
     config.token = setupToken.trim();
     if (setupBranch) config.branch = setupBranch.trim();
     saveConfig(config);
-    // Limpiar inmediatamente la URL para que no quede el token expuesto en el navegador
     window.history.replaceState({}, document.title, window.location.pathname);
-    showToast('Conexión web configurada con éxito', 'success');
+    showToast('Conexión con GitHub configurada con éxito', 'success');
   }
 }
 
@@ -104,7 +106,9 @@ function verifyPin() {
   }
 }
 
-// Cargar catálogo (desde localStorage o desde artworks.js original)
+// -------------------------------------------------------------
+// 3. GESTIÓN DEL CATÁLOGO & CACHE
+// -------------------------------------------------------------
 function loadCatalog() {
   const cached = localStorage.getItem('bibi_artworks_cache');
   if (cached) {
@@ -158,7 +162,7 @@ function updatePendingUI() {
 }
 
 // -------------------------------------------------------------
-// 3. HELPERS GITHUB API
+// 4. HELPERS GITHUB API & CODIFICACIÓN
 // -------------------------------------------------------------
 function utf8ToBase64(str) {
   const bytes = new TextEncoder().encode(str);
@@ -232,7 +236,7 @@ async function putGitHubFile(path, contentBase64, commitMessage) {
 }
 
 // -------------------------------------------------------------
-// 4. GUARDAR CAMBIOS EN LA WEB
+// 5. PUBLICACIÓN DE CAMBIOS EN GITHUB
 // -------------------------------------------------------------
 async function publishToGitHub() {
   if (!config.token) {
@@ -248,7 +252,7 @@ async function publishToGitHub() {
   try {
     showToast('Publicando cambios en la web...', 'info');
 
-    // 1. Subir imágenes nuevas si existen
+    // 1. Subir imágenes nuevas optimizadas
     const stagedKeys = Object.keys(stagedImages);
     for (const filename of stagedKeys) {
       const base64Data = stagedImages[filename];
@@ -282,34 +286,42 @@ async function publishToGitHub() {
 }
 
 // -------------------------------------------------------------
-// 5. RENDERIZADO DE LA GRILLA
+// 6. RENDERIZADO ESCALABLE DE LA GRILLA (100+ OBRAS)
 // -------------------------------------------------------------
-function renderAdminGrid() {
+function renderAdminGrid(resetCount = true) {
   const grid = document.getElementById('admin-art-grid');
   if (!grid) return;
+
+  if (resetCount) {
+    displayedAdminCount = 24;
+    filteredArtworksList = catalog.filter(art => {
+      if (currentFilter === 'available' && !art.available) return false;
+      if (currentFilter === 'private' && art.available) return false;
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        const matchTitle = (art.title || '').toLowerCase().includes(q);
+        const matchTech = (art.technique || '').toLowerCase().includes(q);
+        const matchYear = (art.year || '').toString().includes(q);
+        if (!matchTitle && !matchTech && !matchYear) return false;
+      }
+
+      return true;
+    });
+  }
+
   grid.innerHTML = '';
-
-  const filtered = catalog.filter(art => {
-    if (currentFilter === 'available' && !art.available) return false;
-    if (currentFilter === 'private' && art.available) return false;
-
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      const matchTitle = (art.title || '').toLowerCase().includes(q);
-      const matchTech = (art.technique || '').toLowerCase().includes(q);
-      const matchYear = (art.year || '').toString().includes(q);
-      if (!matchTitle && !matchTech && !matchYear) return false;
-    }
-
-    return true;
-  });
 
   const countLabel = document.getElementById('catalog-count-label');
   if (countLabel) {
-    countLabel.innerText = `Mostrando ${filtered.length} de ${catalog.length} obra${catalog.length === 1 ? '' : 's'}`;
+    if (filteredArtworksList.length <= displayedAdminCount) {
+      countLabel.innerText = `Mostrando ${filteredArtworksList.length} de ${catalog.length} obras`;
+    } else {
+      countLabel.innerText = `Mostrando ${Math.min(displayedAdminCount, filteredArtworksList.length)} de ${filteredArtworksList.length} obras`;
+    }
   }
 
-  if (filtered.length === 0) {
+  if (filteredArtworksList.length === 0) {
     grid.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
         <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">No se encontraron obras con este criterio.</p>
@@ -319,7 +331,10 @@ function renderAdminGrid() {
     return;
   }
 
-  filtered.forEach(art => {
+  const visibleSlice = filteredArtworksList.slice(0, displayedAdminCount);
+  const fragment = document.createDocumentFragment();
+
+  visibleSlice.forEach(art => {
     const card = document.createElement('div');
     card.className = 'art-card';
     card.id = `card-${art.id}`;
@@ -330,7 +345,7 @@ function renderAdminGrid() {
 
     card.innerHTML = `
       <div class="art-card-img-container">
-        <img src="${art.image}" alt="${art.title}" class="art-card-img" onerror="this.src='assets/logo_bibi.png'">
+        <img src="${art.image}" alt="${art.title}" class="art-card-img" loading="lazy" decoding="async" onerror="this.src='assets/logo_bibi.png'">
         <span class="card-status-badge ${badgeClass}" id="badge-${art.id}">${badgeText}</span>
       </div>
       
@@ -360,12 +375,33 @@ function renderAdminGrid() {
       </div>
     `;
 
-    grid.appendChild(card);
+    fragment.appendChild(card);
   });
+
+  grid.appendChild(fragment);
+
+  // Botón "Cargar más obras" si supera las 24
+  if (filteredArtworksList.length > displayedAdminCount) {
+    const remaining = filteredArtworksList.length - displayedAdminCount;
+    const loadMoreBox = document.createElement('div');
+    loadMoreBox.className = 'load-more-container';
+    loadMoreBox.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem 1rem;';
+    loadMoreBox.innerHTML = `
+      <button class="btn-action" onclick="loadMoreAdminArtworks()" style="padding: 0.85rem 2rem; font-size: 0.85rem;">
+        Cargar más obras (+${Math.min(24, remaining)}) &darr;
+      </button>
+    `;
+    grid.appendChild(loadMoreBox);
+  }
+}
+
+function loadMoreAdminArtworks() {
+  displayedAdminCount += 24;
+  renderAdminGrid(false);
 }
 
 // -------------------------------------------------------------
-// 6. ACCIONES (TOGGLE, EDIT, DELETE, ADD)
+// 7. ACCIONES (TOGGLE, EDIT, DELETE, ADD)
 // -------------------------------------------------------------
 function toggleAvailability(id, isAvailable) {
   const art = catalog.find(a => a.id === id);
@@ -479,7 +515,7 @@ function saveArtworkFromForm() {
 
   saveLocalCache();
   closeModal('modal-artwork');
-  renderAdminGrid();
+  renderAdminGrid(true);
 }
 
 function confirmDeleteArtwork(id) {
@@ -489,24 +525,24 @@ function confirmDeleteArtwork(id) {
   if (confirm(`¿Estás segura de retirar la obra "${art.title}" del catálogo?`)) {
     catalog = catalog.filter(a => a.id !== id);
     saveLocalCache();
-    renderAdminGrid();
+    renderAdminGrid(true);
     showToast(`Obra "${art.title}" retirada del catálogo`, 'info');
   }
 }
 
-function handleImageFileSelect(file) {
+// -------------------------------------------------------------
+// 8. OPTIMIZACIÓN Y COMPRESIÓN DE IMÁGENES EN EL CLIENTE
+// -------------------------------------------------------------
+async function handleImageFileSelect(file) {
   if (!file || !file.type.startsWith('image/')) {
     showToast('Selecciona un archivo de imagen válido', 'error');
     return;
   }
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const dataUrl = e.target.result;
-    const base64Data = dataUrl.split(',')[1];
-    
-    const ext = file.name.split('.').pop().toLowerCase();
-    const cleanName = file.name.toLowerCase().replace(/[^a-z0-9]/g, '_') + '.' + ext;
+  showToast('Optimizando fotografía...', 'info');
+
+  try {
+    const { cleanName, base64Data, dataUrl } = await compressAndOptimizeImage(file);
     const localAssetPath = `assets/artworks/${cleanName}`;
 
     stagedImages[cleanName] = base64Data;
@@ -515,13 +551,58 @@ function handleImageFileSelect(file) {
     const preview = document.getElementById('dropzone-preview');
     preview.src = dataUrl;
     preview.style.display = 'inline-block';
-    showToast(`Imagen "${file.name}" cargada con éxito`, 'info');
-  };
-  reader.readAsDataURL(file);
+    showToast(`Fotografía optimizada y lista (~${Math.round(base64Data.length * 0.75 / 1024)} KB)`, 'success');
+  } catch (err) {
+    console.error('Error optimizando imagen:', err);
+    showToast('No se pudo procesar la imagen seleccionada', 'error');
+  }
+}
+
+function compressAndOptimizeImage(file, maxWidth = 1600, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        let format = 'image/webp';
+        let ext = 'webp';
+        let dataUrl = canvas.toDataURL(format, quality);
+        if (!dataUrl.startsWith('data:image/webp')) {
+          format = 'image/jpeg';
+          ext = 'jpg';
+          dataUrl = canvas.toDataURL(format, quality);
+        }
+
+        const base64Data = dataUrl.split(',')[1];
+        const rawName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+        const cleanName = rawName.toLowerCase().replace(/[^a-z0-9]/g, '_') + '_' + Date.now().toString().slice(-4) + '.' + ext;
+
+        resolve({ cleanName, base64Data, dataUrl });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 // -------------------------------------------------------------
-// 7. ACCESO TÉCNICO OCULTO (PARA EL DESARROLLADOR)
+// 9. ACCESO TÉCNICO OCULTO
 // -------------------------------------------------------------
 function handleLogoDevClick() {
   logoClickCount++;
@@ -556,14 +637,14 @@ function saveSettingsFromForm() {
 }
 
 // -------------------------------------------------------------
-// 8. HELPERS UI
+// 10. HELPERS UI
 // -------------------------------------------------------------
 function setFilter(filterType) {
   currentFilter = filterType;
   document.querySelectorAll('.filter-pill').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.filter === filterType);
   });
-  renderAdminGrid();
+  renderAdminGrid(true);
 }
 
 function resetFilters() {
@@ -608,20 +689,20 @@ function showToast(message, type = 'info') {
 }
 
 // -------------------------------------------------------------
-// 9. INICIALIZACIÓN
+// 11. INICIALIZACIÓN
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   loadConfig();
   checkPinProtection();
   loadCatalog();
   updatePendingUI();
-  renderAdminGrid();
+  renderAdminGrid(true);
 
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.trim();
-      renderAdminGrid();
+      renderAdminGrid(true);
     });
   }
 

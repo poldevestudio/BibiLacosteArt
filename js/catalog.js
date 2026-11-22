@@ -2,8 +2,12 @@
  * ====================================================================
  * BIBI LACOSTE ART — CONTROLADOR DE CATÁLOGO & MODAL LIGHTBOX
  * Lógica de renderizado dinámico, filtros por técnica y consulta de obras
+ * Arquitectura escalable para 100+ obras con renderizado por lotes y lazy loading
  * ====================================================================
  */
+
+    let displayedCatalogCount = 24;
+    let currentRenderList = [];
 
     // Obtener catálogo activo (con soporte de vista previa si se editó desde admin)
     function getActiveArtworks() {
@@ -19,17 +23,29 @@
       return typeof artworks !== 'undefined' ? artworks : [];
     }
 
-    function renderArtGrid(list) {
+    function renderArtGrid(list, resetCount = true) {
       const grid = document.getElementById('art-grid');
       if (!grid) return;
+      
+      if (resetCount) {
+        displayedCatalogCount = 24;
+        currentRenderList = list;
+      }
       grid.innerHTML = '';
 
       const countLabel = document.getElementById('art-count-label');
       if (countLabel) {
-        countLabel.innerText = `Mostrando ${list.length} obra${list.length === 1 ? '' : 's'}`;
+        if (list.length <= displayedCatalogCount) {
+          countLabel.innerText = `Mostrando ${list.length} obra${list.length === 1 ? '' : 's'}`;
+        } else {
+          countLabel.innerText = `Mostrando ${Math.min(displayedCatalogCount, list.length)} de ${list.length} obras`;
+        }
       }
 
-      list.forEach(art => {
+      const visibleSlice = list.slice(0, displayedCatalogCount);
+      const fragment = document.createDocumentFragment();
+
+      visibleSlice.forEach(art => {
         const card = document.createElement('div');
         card.className = 'art-card';
         card.onclick = () => openModal(art.id);
@@ -40,7 +56,7 @@
 
         card.innerHTML = `
           <div class="art-img-wrapper">
-            <img src="${art.image}" alt="${art.title}" class="art-card-img" loading="lazy">
+            <img src="${art.image}" alt="${art.title}" class="art-card-img" loading="lazy" decoding="async">
             ${statusTag}
           </div>
           <div class="art-card-info">
@@ -52,8 +68,29 @@
             </div>
           </div>
         `;
-        grid.appendChild(card);
+        fragment.appendChild(card);
       });
+
+      grid.appendChild(fragment);
+
+      // Si hay más obras de las visibles, agregar botón de carga progresiva
+      if (list.length > displayedCatalogCount) {
+        const remaining = list.length - displayedCatalogCount;
+        const loadMoreBox = document.createElement('div');
+        loadMoreBox.className = 'load-more-container';
+        loadMoreBox.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem 1rem;';
+        loadMoreBox.innerHTML = `
+          <button class="btn-load-more" onclick="loadMoreCatalogArtworks()" style="background:#1B1714; border:1px solid rgba(214,164,106,0.3); color:#FAF4ED; padding:0.85rem 2rem; border-radius:8px; font-family:'Cinzel',serif; font-size:0.82rem; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease;">
+            Ver más obras (+${Math.min(24, remaining)}) &darr;
+          </button>
+        `;
+        grid.appendChild(loadMoreBox);
+      }
+    }
+
+    function loadMoreCatalogArtworks() {
+      displayedCatalogCount += 24;
+      renderArtGrid(currentRenderList, false);
     }
 
     function filterWorks(category) {
@@ -73,7 +110,7 @@
         filtered = currentList.filter(a => a.category === 'acrilico');
       }
 
-      renderArtGrid(filtered);
+      renderArtGrid(filtered, true);
     }
 
     function openModal(id) {
@@ -118,4 +155,4 @@
     }
 
     // Render immediately
-    renderArtGrid(getActiveArtworks());
+    renderArtGrid(getActiveArtworks(), true);
