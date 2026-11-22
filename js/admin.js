@@ -13,7 +13,7 @@ const DEFAULT_CONFIG = {
   repo: 'BibiLacosteArt',
   branch: 'main', // Rama de producción por defecto
   token: '',
-  pin: '1234'
+  pin: '1357'
 };
 
 let config = { ...DEFAULT_CONFIG };
@@ -90,7 +90,7 @@ function verifyPin() {
   if (!input) return;
   const entered = input.value.trim();
 
-  if (entered === config.pin || entered === '1234') {
+  if (entered === config.pin || entered === '1357') {
     sessionStorage.setItem('bibi_admin_unlocked', 'true');
     const gate = document.getElementById('pin-gate');
     if (gate) {
@@ -620,7 +620,7 @@ function openSettingsModal() {
   document.getElementById('cfg-repo').value = config.repo;
   document.getElementById('cfg-branch').value = config.branch;
   document.getElementById('cfg-token').value = config.token || '';
-  document.getElementById('cfg-pin').value = config.pin || '1234';
+  document.getElementById('cfg-pin').value = config.pin || '1357';
   openModal('modal-settings');
 }
 
@@ -629,7 +629,7 @@ function saveSettingsFromForm() {
   const repo = document.getElementById('cfg-repo').value.trim();
   const branch = document.getElementById('cfg-branch').value.trim();
   const token = document.getElementById('cfg-token').value.trim();
-  const pin = document.getElementById('cfg-pin').value.trim() || '1234';
+  const pin = document.getElementById('cfg-pin').value.trim() || '1357';
 
   saveConfig({ owner, repo, branch, token, pin });
   closeModal('modal-settings');
