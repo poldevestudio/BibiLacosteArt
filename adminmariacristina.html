@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Curaduría &amp; Catálogo — Bibi Lacoste</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- PIN Protection Gate (Bloqueo de seguridad para que nadie ajeno acceda) -->
+  <div class="pin-gate-screen" id="pin-gate">
+    <div class="pin-gate-box">
+      <img src="assets/logo_bibi.png" alt="Bibi Lacoste" class="pin-logo">
+      <h2 class="pin-title">BIBI LACOSTE</h2>
+      <p class="pin-sub">Panel de Curaduría &amp; Obras</p>
+
+      <input type="password" id="pin-input" class="pin-input" placeholder="••••" maxlength="6" autofocus>
+      <button class="btn-action btn-primary" onclick="verifyPin()" style="width: 100%; padding: 0.75rem; font-size: 0.9rem;">
+        Ingresar al Panel
+      </button>
+    </div>
+  </div>
+
+  <!-- Top Header Navigation (Ultra limpio para Bibi) -->
+  <header class="admin-header">
+    <div class="header-inner">
+      <div class="brand-section" onclick="handleLogoDevClick()" title="Bibi Lacoste Art">
+        <img src="assets/logo_bibi.png" alt="Bibi Lacoste" class="brand-logo">
+        <div class="brand-title-group">
+          <span class="brand-title">BIBI LACOSTE</span>
+          <span class="brand-subtitle">Panel de Curaduría &amp; Obras</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Ver Catálogo -->
+        <a href="obras.html" target="_blank" class="btn-action" title="Abrir catálogo público de obras">
+          <span>👁️</span>
+          <span>Ver Catálogo</span>
+        </a>
+
+        <!-- Botón Principal: Guardar en la Web -->
+        <button class="btn-action btn-primary" id="btn-publish-github" onclick="publishToGitHub()" title="Guardar cambios en la web pública">
+          <span>✨</span>
+          <span>Guardar en la Web</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+    <!-- Hero / Header Section -->
+    <div class="hero-section">
+      <h1 class="hero-title">Gestión de Obras &amp; Disponibilidad</h1>
+      <p class="hero-desc">
+        Cambiá con un clic el estado de cualquier obra entre Disponible o Colección Privada, o agregá nuevas piezas al catálogo.
+      </p>
+    </div>
+
+    <!-- Pending Changes Banner -->
+    <div class="pending-banner" id="pending-banner">
+      <div class="pending-banner-text">
+        <span>⚠️</span>
+        <span id="pending-count">1 cambio pendiente de guardar</span>
+      </div>
+      <button class="btn-action btn-primary" onclick="publishToGitHub()" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
+        Guardar ahora &rarr;
+      </button>
+    </div>
+
+    <!-- Toolbar: Search, Filters & Actions -->
+    <div class="admin-toolbar">
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="search-input" class="search-input" placeholder="Buscar obra por nombre o técnica...">
+      </div>
+
+      <div class="filter-group">
+        <button class="filter-pill active" data-filter="all" onclick="setFilter('all')">Todas</button>
+        <button class="filter-pill" data-filter="available" onclick="setFilter('available')">Disponibles</button>
+        <button class="filter-pill" data-filter="private" onclick="setFilter('private')">Colección Privada</button>
+      </div>
+
+      <div class="toolbar-actions">
+        <span id="catalog-count-label" style="font-size: 0.78rem; color: var(--text-dim); margin-right: 0.5rem;"></span>
+        
+        <button class="btn-action btn-primary" onclick="openCreateModal()">
+          <span>+</span>
+          <span>Nueva Obra</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Artworks Grid -->
+    <div class="art-grid" id="admin-art-grid">
+      <!-- Inyectado dinámicamente por js/admin.js -->
+    </div>
+
+    <!-- Footer Discreto -->
+    <footer class="admin-footer">
+      <span>Bibi Lacoste &bull; El Rumbo del Recuerdo</span>
+      &bull;
+      <a class="dev-secret-link" onclick="openSettingsModal()" title="Configuración de Enlace Técnico">⚙️</a>
+    </footer>
+  </main>
+
+  <!-- Modal: Crear / Editar Obra -->
+  <div class="modal-overlay" id="modal-artwork">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-artwork-title">Editar Obra</h3>
+        <button class="modal-close" onclick="closeModal('modal-artwork')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="form-art-title">Título de la Obra *</label>
+          <input type="text" id="form-art-title" class="form-input" placeholder="Ej: Solapado">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-art-technique">Técnica *</label>
+            <input type="text" id="form-art-technique" class="form-input" placeholder="Ej: Acrílico &amp; Técnica Mixta">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-art-dimensions">Dimensiones *</label>
+            <input type="text" id="form-art-dimensions" class="form-input" placeholder="Ej: 70 &times; 50 cm">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-art-year">Año de Creación</label>
+            <input type="text" id="form-art-year" class="form-input" placeholder="Ej: 2025">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-art-category">Categoría</label>
+            <select id="form-art-category" class="form-select">
+              <option value="acrilico">Acrílico</option>
+              <option value="mixta">Técnica Mixta &amp; Collage</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-art-available">Disponibilidad</label>
+          <select id="form-art-available" class="form-select">
+            <option value="true">Disponible para Adquisición</option>
+            <option value="false">Colección Privada (Vendida)</option>
+          </select>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label class="form-label">Fotografía de la Obra</label>
+          <div class="image-dropzone">
+            <img id="dropzone-preview" class="dropzone-preview" alt="Vista previa">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">
+              <strong>Hacé clic acá</strong> para seleccionar una foto desde tu celular o computadora
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-dim);">Formatos: WebP, JPG, PNG</p>
+            <input type="file" id="form-art-file" accept="image/*">
+          </div>
+          <input type="text" id="form-art-image-url" class="form-input" placeholder="Ruta del archivo (automática al seleccionar foto)" style="margin-top: 0.5rem; font-size: 0.75rem;">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-action" onclick="closeModal('modal-artwork')">Cancelar</button>
+        <button class="btn-action btn-primary" onclick="saveArtworkFromForm()">Guardar Obra</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Configuración de Conexión (Oculto para el desarrollador) -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Configuración Técnica</h3>
+        <button class="modal-close" onclick="closeModal('modal-settings')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="cfg-token">GitHub Personal Access Token</label>
+          <input type="password" id="cfg-token" class="form-input" placeholder="ghp_...">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cfg-owner">Usuario / Org</label>
+            <input type="text" id="cfg-owner" class="form-input" value="poldevestudio">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cfg-repo">Repositorio</label>
+            <input type="text" id="cfg-repo" class="form-input" value="BibiLacosteArt">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cfg-branch">Rama (Branch)</label>
+            <input type="text" id="cfg-branch" class="form-input" value="Backend+PanelAdm">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cfg-pin">PIN de Acceso</label>
+            <input type="text" id="cfg-pin" class="form-input" value="1234">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-action" onclick="closeModal('modal-settings')">Cerrar</button>
+        <button class="btn-action btn-primary" onclick="saveSettingsFromForm()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data/artworks.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

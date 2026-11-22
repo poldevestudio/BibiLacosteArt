@@ -5,6 +5,20 @@
  * ====================================================================
  */
 
+    // Obtener catálogo activo (con soporte de vista previa si se editó desde admin)
+    function getActiveArtworks() {
+      const cached = localStorage.getItem('bibi_artworks_cache');
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch (e) {
+          console.warn('Cache local inválido:', e);
+        }
+      }
+      return typeof artworks !== 'undefined' ? artworks : [];
+    }
+
     function renderArtGrid(list) {
       const grid = document.getElementById('art-grid');
       if (!grid) return;
@@ -49,20 +63,22 @@
       });
       if (activeBtn) activeBtn.classList.add('active');
 
-      let filtered = artworks;
+      const currentList = getActiveArtworks();
+      let filtered = currentList;
       if (category === 'available') {
-        filtered = artworks.filter(a => a.available);
+        filtered = currentList.filter(a => a.available);
       } else if (category === 'mixta') {
-        filtered = artworks.filter(a => a.category === 'mixta');
+        filtered = currentList.filter(a => a.category === 'mixta');
       } else if (category === 'acrilico') {
-        filtered = artworks.filter(a => a.category === 'acrilico');
+        filtered = currentList.filter(a => a.category === 'acrilico');
       }
 
       renderArtGrid(filtered);
     }
 
     function openModal(id) {
-      const art = artworks.find(a => a.id === id);
+      const currentList = getActiveArtworks();
+      const art = currentList.find(a => a.id === id);
       if (!art) return;
 
       document.getElementById('modal-img').src = art.image;
@@ -102,4 +118,4 @@
     }
 
     // Render immediately
-    renderArtGrid(artworks);
+    renderArtGrid(getActiveArtworks());
