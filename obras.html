@@ -13,6 +13,7 @@
 
   <!-- Hoja de Estilo Modular de Catálogo -->
   <link rel="stylesheet" href="css/catalog.css">
+  <link rel="stylesheet" href="css/i18n.css">
 </head>
 <body>
 
@@ -24,10 +25,11 @@
       </a>
 
       <div class="nav-actions">
+        <div class="lang-dropdown-placeholder"></div>
         <a href="index.html#biografia" class="btn-return-home">
           <span>&#8592;</span>
-          <span class="btn-text-desktop">Volver al Inicio</span>
-          <span class="btn-text-mobile">Inicio</span>
+          <span class="btn-text-desktop" data-i18n="nav.backHome">Volver al Inicio</span>
+          <span class="btn-text-mobile" data-i18n="nav.backHomeShort">Inicio</span>
         </a>
       </div>
     </div>
@@ -36,30 +38,30 @@
   <!-- Hero Header Section -->
   <header class="catalog-header-section">
     <div class="header-breadcrumb">
-      <a href="index.html#biografia">Inicio</a> &nbsp;/&nbsp; Cat&aacute;logo de Obras
+      <a href="index.html#biografia" data-i18n="nav.backHomeShort">Inicio</a> &nbsp;/&nbsp; <span data-i18n="catalogPage.title">Cat&aacute;logo de Obras</span>
     </div>
-    <span class="header-tag">&#10022; COLECCI&Oacute;N DISPONIBLE &amp; TALLER TIGRE &#10022;</span>
-    <h1 class="header-title">Cat&aacute;logo de Obras</h1>
-    <p class="header-lead">
-      Quince piezas originales donde la materia, el lino, el acr&iacute;lico y las memorias del litoral se transforman en permanencia. Cada obra es de confecci&oacute;n &uacute;nica, realizada sobre bastidor o soporte artesanal con certificado de autenticidad emitido por el taller.
+    <span class="header-tag" data-i18n="catalogPage.tag">&#10022; COLECCI&Oacute;N DISPONIBLE &amp; TALLER TIGRE &#10022;</span>
+    <h1 class="header-title" data-i18n="catalogPage.title">Cat&aacute;logo de Obras</h1>
+    <p class="header-lead" data-i18n="catalogPage.lead">
+      Quince piezas originales donde la materia, el lino, el acr&iacute;lico y las memorias del litoral se transforman en permanencia. Cada obra es de confecci&oacute;n &uacute;nica, sobre soporte Passe Partout con certificado de autenticidad emitido por el taller.
     </p>
 
     <div class="stats-bar">
       <div class="stat-item">
-        <span class="stat-number">15</span>
-        <span class="stat-label">Obras en Cat&aacute;logo</span>
+        <span class="stat-number" id="stat-total-count">15</span>
+        <span class="stat-label" data-i18n="catalogPage.statArtworks">Obras en Cat&aacute;logo</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">12</span>
-        <span class="stat-label">Disponibles para Adquisici&oacute;n</span>
+        <span class="stat-number" id="stat-avail-count">13</span>
+        <span class="stat-label" data-i18n="catalogPage.statAvailable">Disponibles para Adquisici&oacute;n</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">2023–2025</span>
-        <span class="stat-label">Per&iacute;odo de Producci&oacute;n</span>
+        <span class="stat-number">2023–2026</span>
+        <span class="stat-label" data-i18n="catalogPage.statPeriod">Per&iacute;odo de Producci&oacute;n</span>
       </div>
       <div class="stat-item">
         <span class="stat-number">Tigre &amp; Escobar</span>
-        <span class="stat-label">Ubicaci&oacute;n de Taller</span>
+        <span class="stat-label" data-i18n="catalogPage.statLocation">Ubicaci&oacute;n de Taller</span>
       </div>
     </div>
   </header>
@@ -70,7 +72,8 @@
       <div class="filter-count" id="art-count-label">Mostrando 15 obras</div>
       <div class="filter-tabs">
         <button onclick="filterWorks('all')" class="filter-tab active" data-filter="all">Todas (15)</button>
-        <button onclick="filterWorks('available')" class="filter-tab" data-filter="available">Disponibles (12)</button>
+        <button onclick="filterWorks('available')" class="filter-tab" data-filter="available">Disponibles (13)</button>
+        <button onclick="filterWorks('sold')" class="filter-tab" data-filter="sold">Vendidas (2)</button>
         <button onclick="filterWorks('mixta')" class="filter-tab" data-filter="mixta">T&eacute;cnica Mixta (6)</button>
         <button onclick="filterWorks('acrilico')" class="filter-tab" data-filter="acrilico">Acr&iacute;licos (9)</button>
       </div>
@@ -95,20 +98,20 @@
             <div id="modal-status-container"></div>
             <h2 id="modal-title" class="modal-title"></h2>
             <div class="modal-spec-list">
-              <div><strong style="color:#EDE4D8;">T&eacute;cnica:</strong> <span id="modal-technique"></span></div>
-              <div><strong style="color:#EDE4D8;">Dimensiones:</strong> <span id="modal-dimensions"></span></div>
-              <div><strong style="color:#EDE4D8;">A&ntilde;o:</strong> <span id="modal-year"></span></div>
-              <div><strong style="color:#EDE4D8;">Soporte:</strong> Bastidor entelado / papel de algod&oacute;n artesanal</div>
-              <div><strong style="color:#EDE4D8;">Autenticidad:</strong> Certificado de autor firmado por Bibi Lacoste</div>
+              <div><strong style="color:#EDE4D8;" data-i18n="catalogPage.modalTechnique">T&eacute;cnica:</strong> <span id="modal-technique"></span></div>
+              <div><strong style="color:#EDE4D8;" data-i18n="catalogPage.modalDimensions">Dimensiones:</strong> <span id="modal-dimensions"></span></div>
+              <div><strong style="color:#EDE4D8;" data-i18n="catalogPage.modalYear">A&ntilde;o:</strong> <span id="modal-year"></span></div>
+              <div><strong style="color:#EDE4D8;" data-i18n="catalogPage.modalSupport">Soporte:</strong> <span data-i18n="catalogPage.modalSupportValue">Soporte Passe Partout / papel de algod&oacute;n artesanal</span></div>
+              <div><strong style="color:#EDE4D8;" data-i18n="catalogPage.modalAuthenticity">Autenticidad:</strong> <span data-i18n="catalogPage.modalAuthenticityValue">Certificado de autor firmado por Bibi Lacoste</span></div>
             </div>
-            <p id="modal-desc" style="color:#A39686; font-size:0.82rem; line-height:1.6; margin-top:1.2rem; font-weight:300;">
+            <p id="modal-desc" style="color:#A39686; font-size:0.82rem; line-height:1.6; margin-top:1.2rem; font-weight:300;" data-i18n="catalogPage.modalDesc">
               Obra original realizada a mano con capas superpuestas de materia, grafismos y recortes de archivo. Lista para montaje.
             </p>
           </div>
 
           <div>
             <a id="modal-wa-btn" href="#" target="_blank" class="modal-inquire-btn">
-              <span>Consultar Adquisici&oacute;n v&iacute;a WhatsApp</span>
+              <span data-i18n="catalogPage.modalInquire">Consultar Adquisici&oacute;n v&iacute;a WhatsApp</span>
               <span>&#8594;</span>
             </a>
           </div>
@@ -120,19 +123,22 @@
   <!-- Footer -->
   <footer id="gallery-footer">
     <div class="footer-inner">
-      <div class="footer-brand">Bibi Lacoste</div>
+      <div class="footer-brand" data-i18n="footer.brand">Bibi Lacoste</div>
       <div class="footer-links">
-        <a href="index.html#biografia">&#8592; Volver al Inicio</a>
-        <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20consultar%20por%20obras%20disponibles" target="_blank">WhatsApp Directo</a>
+        <a href="index.html#biografia" data-i18n="nav.backHome">&#8592; Volver al Inicio</a>
+        <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20consultar%20por%20obras%20disponibles" target="_blank" data-i18n="contact.waTitle">WhatsApp Directo</a>
         <a href="mailto:lacostebibiana08@gmail.com?subject=Consulta%20de%20Obras">lacostebibiana08@gmail.com</a>
         <a href="https://instagram.com/lacoste_bi" target="_blank">@lacoste_bi</a>
       </div>
-      <div class="footer-copy">
+      <div class="footer-copy" data-i18n="footer.copy">
         &copy; 2025 Bibi Lacoste &bull; El Rumbo del Recuerdo &bull; Todos los derechos reservados.
       </div>
     </div>
   </footer>
 
+  <!-- Internacionalización (i18n) -->
+  <script src="js/data/translations.js"></script>
+  <script src="js/i18n.js"></script>
 
   <!-- Módulos de Catálogo -->
   <script src="js/data/artworks.js"></script>

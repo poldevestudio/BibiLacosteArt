@@ -8,9 +8,15 @@
 
     let displayedCatalogCount = 24;
     let currentRenderList = [];
+    const CATALOG_VERSION = '2026.2';
 
     // Obtener catálogo activo (con soporte de vista previa si se editó desde admin)
     function getActiveArtworks() {
+      const cachedVer = localStorage.getItem('bibi_artworks_cache_version');
+      if (cachedVer !== CATALOG_VERSION) {
+        localStorage.removeItem('bibi_artworks_cache');
+        localStorage.setItem('bibi_artworks_cache_version', CATALOG_VERSION);
+      }
       const cached = localStorage.getItem('bibi_artworks_cache');
       if (cached) {
         try {
@@ -27,6 +33,8 @@
       const grid = document.getElementById('art-grid');
       if (!grid) return;
       
+      const t = window.t || ((k, f) => f);
+
       if (resetCount) {
         displayedCatalogCount = 24;
         currentRenderList = list;
@@ -35,10 +43,13 @@
 
       const countLabel = document.getElementById('art-count-label');
       if (countLabel) {
+        const showing = t('catalogPage.showing', 'Mostrando');
+        const of = t('catalogPage.of', 'de');
+        const artworksLbl = t('catalogPage.artworksLabel', 'obras');
         if (list.length <= displayedCatalogCount) {
-          countLabel.innerText = `Mostrando ${list.length} obra${list.length === 1 ? '' : 's'}`;
+          countLabel.innerText = `${showing} ${list.length} ${artworksLbl}`;
         } else {
-          countLabel.innerText = `Mostrando ${Math.min(displayedCatalogCount, list.length)} de ${list.length} obras`;
+          countLabel.innerText = `${showing} ${Math.min(displayedCatalogCount, list.length)} ${of} ${list.length} ${artworksLbl}`;
         }
       }
 
@@ -51,8 +62,8 @@
         card.onclick = () => openModal(art.id);
 
         const statusTag = art.available 
-          ? '<span class="art-tag tag-available">Disponible</span>' 
-          : '<span class="art-tag tag-private">Colección Privada</span>';
+          ? `<span class="art-tag tag-available">${t('catalogPage.tagAvailableShort', 'Disponible')}</span>` 
+          : `<span class="art-tag tag-private">${t('catalogPage.tagPrivateShort', 'Colección Privada')}</span>`;
 
         card.innerHTML = `
           <div class="art-img-wrapper">
@@ -64,7 +75,7 @@
             <div class="art-card-technique">${art.technique}</div>
             <div class="art-card-dimensions">${art.dimensions} • ${art.year}</div>
             <div class="art-card-footer">
-              <span class="art-card-cta">Examinar obra &rarr;</span>
+              <span class="art-card-cta">${t('catalogPage.examineBtn', 'Examinar obra →')}</span>
             </div>
           </div>
         `;
@@ -81,7 +92,7 @@
         loadMoreBox.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem 1rem;';
         loadMoreBox.innerHTML = `
           <button class="btn-load-more" onclick="loadMoreCatalogArtworks()" style="background:#1B1714; border:1px solid rgba(214,164,106,0.3); color:#FAF4ED; padding:0.85rem 2rem; border-radius:8px; font-family:'Cinzel',serif; font-size:0.82rem; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease;">
-            Ver más obras (+${Math.min(24, remaining)}) &darr;
+            ${t('catalogPage.loadMoreBtn', 'Ver más obras')} (+${Math.min(24, remaining)}) &darr;
           </button>
         `;
         grid.appendChild(loadMoreBox);
@@ -104,6 +115,8 @@
       let filtered = currentList;
       if (category === 'available') {
         filtered = currentList.filter(a => a.available);
+      } else if (category === 'sold' || category === 'private') {
+        filtered = currentList.filter(a => !a.available);
       } else if (category === 'mixta') {
         filtered = currentList.filter(a => a.category === 'mixta');
       } else if (category === 'acrilico') {
@@ -118,6 +131,8 @@
       const art = currentList.find(a => a.id === id);
       if (!art) return;
 
+      const t = window.t || ((k, f) => f);
+
       document.getElementById('modal-img').src = art.image;
       document.getElementById('modal-title').innerText = art.title;
       document.getElementById('modal-technique').innerText = art.technique;
@@ -126,8 +141,8 @@
 
       const tagContainer = document.getElementById('modal-status-container');
       tagContainer.innerHTML = art.available 
-        ? '<span class="art-tag tag-available">Disponible para Adquisición</span>' 
-        : '<span class="art-tag tag-private">Colección Privada</span>';
+        ? `<span class="art-tag tag-available">${t('catalogPage.tagAvailable', 'Disponible para Adquisición')}</span>` 
+        : `<span class="art-tag tag-private">${t('catalogPage.tagPrivate', 'Colección Privada')}</span>`;
 
       const waMsg = encodeURIComponent(`Hola Bibi, me interesa consultar por la obra "${art.title}" (${art.dimensions}, ${art.year}).`);
       document.getElementById('modal-wa-btn').href = `https://wa.me/5491100000000?text=${waMsg}`;
@@ -154,5 +169,43 @@
       });
     }
 
-    // Render immediately
+    function updateFilterTabLabels() {
+      const allArtworks = getActiveArtworks();
+      const total = allArtworks.length;
+      const avail = allArtworks.filter(a => a.available).length;
+      const sold = allArtworks.filter(a => !a.available).length;
+      const mixta = allArtworks.filter(a => a.category === 'mixta').length;
+      const acrilico = allArtworks.filter(a => a.category === 'acrilico').length;
+      const t = window.t || ((k, f) => f);
+
+      const btnAll = document.querySelector('.filter-tab[data-filter="all"]');
+      if (btnAll) btnAll.innerText = `${t('catalogPage.filterAll', 'Todas')} (${total})`;
+
+      const btnAvail = document.querySelector('.filter-tab[data-filter="available"]');
+      if (btnAvail) btnAvail.innerText = `${t('catalogPage.filterAvailable', 'Disponibles')} (${avail})`;
+
+      const btnSold = document.querySelector('.filter-tab[data-filter="sold"]');
+      if (btnSold) btnSold.innerText = `${t('catalogPage.filterSold', 'Vendidas')} (${sold})`;
+
+      const btnMixta = document.querySelector('.filter-tab[data-filter="mixta"]');
+      if (btnMixta) btnMixta.innerText = `${t('catalogPage.filterMixta', 'Técnica Mixta')} (${mixta})`;
+
+      const btnAcrilico = document.querySelector('.filter-tab[data-filter="acrilico"]');
+      if (btnAcrilico) btnAcrilico.innerText = `${t('catalogPage.filterAcrilico', 'Acrílicos')} (${acrilico})`;
+
+      const statTotal = document.getElementById('stat-total-count');
+      if (statTotal) statTotal.innerText = total;
+      const statAvail = document.getElementById('stat-avail-count');
+      if (statAvail) statAvail.innerText = avail;
+    }
+
+    function refreshCatalogI18n() {
+      updateFilterTabLabels();
+      renderArtGrid(currentRenderList && currentRenderList.length > 0 ? currentRenderList : getActiveArtworks(), false);
+    }
+    window.refreshCatalogI18n = refreshCatalogI18n;
+    window.addEventListener('languagechange', refreshCatalogI18n);
+
+    // Initial load
+    updateFilterTabLabels();
     renderArtGrid(getActiveArtworks(), true);

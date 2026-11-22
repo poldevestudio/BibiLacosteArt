@@ -18,6 +18,7 @@
   <!-- Hojas de Estilo Modulares -->
   <link rel="stylesheet" href="css/experience.css">
   <link rel="stylesheet" href="css/editorial.css">
+  <link rel="stylesheet" href="css/i18n.css">
 </head>
 <body class="h-full" style="background-color: #0C0A08; margin: 0; padding: 0;">
   <div id="experience-container" style="position:relative; width:100%; height:100vh; height:100dvh; overflow:hidden;">
@@ -47,33 +48,33 @@
   <div id="words-container">
     <!-- Node 0: Touch 1 -->
     <div class="floating-word-node" id="node-0">
-      <span class="word-text">Toda memoria</span>
+      <span class="word-text" data-i18n="words.node0">Toda memoria</span>
       <span class="node-pin"></span>
     </div>
 
     <!-- Node 1: Touch 2 -->
     <div class="floating-word-node" id="node-1">
-      <span class="word-text">es un viaje</span>
+      <span class="word-text" data-i18n="words.node1">es un viaje</span>
       <span class="node-pin"></span>
     </div>
 
     <!-- Node 2: Touch 3 -->
     <div class="floating-word-node" id="node-2">
-      <span class="word-text">que busca</span>
+      <span class="word-text" data-i18n="words.node2">que busca</span>
       <span class="node-pin"></span>
     </div>
 
     <!-- Node 3: Touch 4 -->
     <div class="floating-word-node" id="node-3">
-      <span class="word-text">su rumbo.</span>
+      <span class="word-text" data-i18n="words.node3">su rumbo.</span>
       <span class="node-pin"></span>
     </div>
   </div>
 
   <!-- Phase 2: Cosmos Navigation Cue -->
   <div id="cosmos-nav-bar">
-    <div class="cosmos-nav-title">• COSMOS DE LA MATERIA •</div>
-    <div class="cosmos-nav-sub">Arrastra para orbitar • Ruedita o pellizco para zoom • Toca un fragmento</div>
+    <div class="cosmos-nav-title" data-i18n="cosmos.title">• COSMOS DE LA MATERIA •</div>
+    <div class="cosmos-nav-sub" data-i18n="cosmos.sub">Arrastra para orbitar • Ruedita o pellizco para zoom • Toca un fragmento</div>
   </div>
 
   <!-- Phase 2: Cosmos Quote Card -->
@@ -87,18 +88,18 @@
   <div id="assemble-btn-container">
     <button id="assemble-btn" onclick="startAssemblagePhase()" class="assemble-btn">
       <span class="assemble-sparkle">&#10022;</span>
-      <span class="assemble-title">Ensamblar</span>
+      <span class="assemble-title" data-i18n="cosmos.assembleBtn">Ensamblar</span>
     </button>
   </div>
 
   <!-- Phase 3 Climax: Consolidated Artwork Card -->
   <div id="artwork-reveal-card">
-    <h2 class="reveal-title">Solapado</h2>
-    <div class="reveal-meta">2025 &bull; Acr&iacute;lico y t&eacute;cnica mixta &bull; 70 &times; 50 cm</div>
-    <p class="reveal-quote">&ldquo;Donde el desarraigo y la memoria familiar se convierten en permanencia.&rdquo;</p>
+    <h2 class="reveal-title" data-i18n="reveal.title">Solapado</h2>
+    <div class="reveal-meta" data-i18n="reveal.meta">2025 &bull; Acr&iacute;lico y t&eacute;cnica mixta &bull; 70 &times; 50 cm</div>
+    <p class="reveal-quote" data-i18n-html="reveal.quote">&ldquo;Donde el desarraigo y la memoria familiar se convierten en permanencia.&rdquo;</p>
     <div>
       <button onclick="openIntegratedCatalog('biografia')" class="btn-open-catalog">
-        <span>Ingresar</span>
+        <span data-i18n="reveal.btnEnter">Ingresar</span>
       </button>
     </div>
   </div>
@@ -111,20 +112,23 @@
       <div id="brand-container" style="pointer-events: auto;">
         <div class="artist-brand">Bibi Lacoste</div>
         <div class="intro-nav-links" style="pointer-events: auto;">
-          <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;" class="intro-nav-link">Biograf&iacute;a</a>
+          <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;" class="intro-nav-link" data-i18n="nav.bio">Biograf&iacute;a</a>
           <span class="intro-nav-sep">&bull;</span>
-          <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;" class="intro-nav-link">Statement</a>
+          <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;" class="intro-nav-link" data-i18n="nav.statement">Statement</a>
           <span class="intro-nav-sep">&bull;</span>
-          <a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile">Obras &rarr;</span></a>
+          <a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop" data-i18n="nav.catalog">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile" data-i18n="nav.catalogShort">Obras &rarr;</span></a>
         </div>
       </div>
       
-      <!-- 4 Discovery Steps Indicator -->
-      <div class="progress-pills">
-        <div class="progress-dot" id="dot-0"></div>
-        <div class="progress-dot" id="dot-1"></div>
-        <div class="progress-dot" id="dot-2"></div>
-        <div class="progress-dot" id="dot-3"></div>
+      <!-- Right Header Actions (4 Steps Indicator & Language Selector) -->
+      <div class="top-meta-right" style="display:flex; align-items:center; gap:0.75rem; pointer-events:auto;">
+        <div class="progress-pills">
+          <div class="progress-dot" id="dot-0"></div>
+          <div class="progress-dot" id="dot-1"></div>
+          <div class="progress-dot" id="dot-2"></div>
+          <div class="progress-dot" id="dot-3"></div>
+        </div>
+        <div class="lang-dropdown-placeholder"></div>
       </div>
     </div>
 
@@ -133,7 +137,7 @@
 
     <!-- Bottom Action Bar -->
     <div class="bottom-bar">
-      <button class="sound-toggle" id="soundBtn" onclick="toggleAudioFeedback()">
+      <button class="sound-toggle" id="soundBtn" onclick="toggleAudioFeedback()" data-i18n="intro.soundTexture">
         Sonido: Textura
       </button>
     </div>
@@ -157,63 +161,66 @@
         </a>
 
         <div class="catalog-links">
-          <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;">Biograf&iacute;a</a>
-          <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;">Statement</a>
-          <a href="obras.html">Obras</a>
-          <a href="#contacto-adquisicion" onclick="openIntegratedCatalog('contacto-adquisicion'); return false;">Contacto</a>
+          <a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;" data-i18n="nav.bio">Biograf&iacute;a</a>
+          <a href="#statement" onclick="openIntegratedCatalog('statement'); return false;" data-i18n="nav.statement">Statement</a>
+          <a href="obras.html" data-i18n="nav.catalogShort">Obras</a>
+          <a href="#contacto-adquisicion" onclick="openIntegratedCatalog('contacto-adquisicion'); return false;" data-i18n="nav.contact">Contacto</a>
         </div>
 
-        <button onclick="returnTo3DExperience()" class="btn-return-3d">
-          <span>&#8634;</span>
-          <span class="btn-text-desktop">Volver a la Br&uacute;jula 3D</span>
-          <span class="btn-text-mobile">Br&uacute;jula 3D</span>
-        </button>
+        <div class="catalog-nav-actions" style="display:flex; align-items:center; gap:0.5rem; flex-shrink:0;">
+          <div class="lang-dropdown-placeholder"></div>
+          <button onclick="returnTo3DExperience()" class="btn-return-3d">
+            <span>&#8634;</span>
+            <span class="btn-text-desktop" data-i18n="nav.back3d">Volver a la Br&uacute;jula 3D</span>
+            <span class="btn-text-mobile" data-i18n="nav.back3dShort">Br&uacute;jula 3D</span>
+          </button>
+        </div>
       </div>
     </nav>
 
     <!-- Biography, Origins & Territory (Sección Origen - Limpia y Editorial) -->
     <div id="biografia" class="bio-section">
       <div class="bio-container">
-        <div class="section-tag">&bull; BIOGRAF&Iacute;A &amp; TRAYECTORIA &bull;</div>
-        <h2 class="section-title">Bibi Lacoste</h2>
-        <div class="section-subtitle">Tigre &amp; Bel&eacute;n de Escobar, Buenos Aires</div>
+        <div class="section-tag" data-i18n="bio.tag">&bull; BIOGRAF&Iacute;A &amp; TRAYECTORIA &bull;</div>
+        <h2 class="section-title" data-i18n="bio.title">Bibi Lacoste</h2>
+        <div class="section-subtitle" data-i18n="bio.subtitle">Tigre &amp; Bel&eacute;n de Escobar, Buenos Aires</div>
 
         <div class="bio-text-columns">
           <div>
-            <div class="bio-text">
+            <div class="bio-text" data-i18n-html="bio.p1">
               <strong>Bibiana Mar&iacute;a Cristina Lacoste</strong> (Bel&eacute;n de Escobar, Buenos Aires, 1967) es una artista visual que explora el arte abstracto a trav&eacute;s de la experimentaci&oacute;n constante con diferentes materiales. Su camino en el arte ha sido libre y autodidacta: se ha construido a lo largo de m&aacute;s de tres d&eacute;cadas de investigaci&oacute;n independiente, un tiempo en el que ha profundizado en el lenguaje de las formas, los colores y el espacio con la presencia de collage.
             </div>
-            <div class="bio-text">
+            <div class="bio-text" data-i18n-html="bio.p2">
               Durante este recorrido, Bibiana no solo ha creado su propia obra, sino que tambi&eacute;n ha compartido su pasi&oacute;n a trav&eacute;s de la docencia y de laboratorios de experimentaci&oacute;n art&iacute;stica no formales. Estos espacios de ense&ntilde;anza han sido para ella un motor de aprendizaje continuo y una forma de entender c&oacute;mo nos conectamos con lo que vemos y sentimos.
             </div>
           </div>
 
           <div>
-            <div class="bio-text">
+            <div class="bio-text" data-i18n-html="bio.p3">
               Su compromiso con el arte va m&aacute;s all&aacute; del taller. Entre 2012 y 2014, form&oacute; parte de un equipo interdisciplinario en el Proyecto CESAJ (perteneciente a la Direcci&oacute;n General de Cultura y Educaci&oacute;n), donde coordin&oacute; talleres art&iacute;sticos pensados para acompa&ntilde;ar y ayudar a revincularse socialmente a j&oacute;venes en situaci&oacute;n de vulnerabilidad. Esta experiencia reafirm&oacute; su creencia en el arte como una herramienta poderosa de transformaci&oacute;n e inclusi&oacute;n social.
             </div>
-            <div class="bio-text">
+            <div class="bio-text" data-i18n-html="bio.p4">
               En la actualidad, Bibiana vive y trabaja de forma exclusiva en su taller de General Pacheco (Tigre) Buenos Aires Argentina.
             </div>
           </div>
         </div>
 
-        <div class="bio-quote">
+        <div class="bio-quote" data-i18n="bio.quote">
           &ldquo;Para m&iacute;, el papel no es un mero soporte: es el cuerpo vivo de la memoria que resiste al olvido.&rdquo;
         </div>
 
         <div class="bio-pillars-grid">
           <div class="bio-pillar-card">
-            <div class="bio-pillar-title">Materia &amp; Textura</div>
-            <div class="bio-pillar-desc">Papel de algod&oacute;n artesanal, fibras de lino, gasas quir&uacute;rgicas y pulpa reciclada elaborada en su taller.</div>
+            <div class="bio-pillar-title" data-i18n="bio.pillar1Title">Materia &amp; Textura</div>
+            <div class="bio-pillar-desc" data-i18n="bio.pillar1Desc">Papel de algod&oacute;n artesanal, fibras de lino, gasas quir&uacute;rgicas y pulpa reciclada elaborada en su taller.</div>
           </div>
           <div class="bio-pillar-card">
-            <div class="bio-pillar-title">Estratigraf&iacute;a</div>
-            <div class="bio-pillar-desc">Capas superpuestas de acr&iacute;lico, pigmentos terrosos, veladuras y &oacute;leos minerales de formulaci&oacute;n propia.</div>
+            <div class="bio-pillar-title" data-i18n="bio.pillar2Title">Estratigraf&iacute;a</div>
+            <div class="bio-pillar-desc" data-i18n="bio.pillar2Desc">Capas superpuestas de acr&iacute;lico, pigmentos terrosos, veladuras y &oacute;leos minerales de formulaci&oacute;n propia.</div>
           </div>
           <div class="bio-pillar-card">
-            <div class="bio-pillar-title">Memoria Viva</div>
-            <div class="bio-pillar-desc">Recortes de correspondencia, estampillas de ultramar y huellas del litoral que resignifican el desarraigo.</div>
+            <div class="bio-pillar-title" data-i18n="bio.pillar3Title">Memoria Viva</div>
+            <div class="bio-pillar-desc" data-i18n="bio.pillar3Desc">Recortes de correspondencia, estampillas de ultramar y huellas del litoral que resignifican el desarraigo.</div>
           </div>
         </div>
       </div>
@@ -222,24 +229,24 @@
     <!-- Artist Statement Section -->
     <div id="statement" class="statement-section">
       <div class="statement-container">
-        <div class="section-tag">&bull; STATEMENT &bull;</div>
-        <h2 class="section-title">Declaraci&oacute;n de la Artista</h2>
-        <div class="section-subtitle">El Tejido del Recuerdo &bull; Memoria, Tierra y Desarraigo</div>
+        <div class="section-tag" data-i18n="statement.tag">&bull; STATEMENT &bull;</div>
+        <h2 class="section-title" data-i18n="statement.title">Declaraci&oacute;n de la Artista</h2>
+        <div class="section-subtitle" data-i18n="statement.subtitle">El Tejido del Recuerdo &bull; Memoria, Tierra y Desarraigo</div>
 
         <div class="statement-card">
           <div class="statement-quote-mark">&ldquo;</div>
           
-          <p class="statement-p">
+          <p class="statement-p" data-i18n="statement.p1">
             Pinto la historia de mis ancestros, ligada a la de otros inmigrantes que transformaron el paisaje con su oficio y su esfuerzo. En mi obra convive la memoria de la tierra cultivada: las plantaciones de arroz y los paisajes de Taipas que sembraron mi abuelo y mi padre, y el cuidado de olivares, cepas y c&iacute;tricos. Busco rescatar del olvido las huellas de ese trabajo cotidiano.
           </p>
 
-          <p class="statement-p">
+          <p class="statement-p" data-i18n="statement.p2">
             En este proceso, uso el papel reciclado como una nueva capa, as&iacute; como la memoria se arma con fragmentos. Cada hoja que incorporo suma una dimensi&oacute;n f&iacute;sica y simb&oacute;lica que guarda el paso del tiempo, el desarraigo y las distancias recorridas. El papel deja de ser un simple soporte y se convierte en el tejido mismo del recuerdo.
           </p>
 
           <div class="statement-signature-block">
-            <span class="statement-signature-name">Bibiana Lacoste</span>
-            <span class="statement-signature-desc">Taller Tigre &bull; Buenos Aires</span>
+            <span class="statement-signature-name" data-i18n="statement.signatureName">Bibiana Lacoste</span>
+            <span class="statement-signature-desc" data-i18n="statement.signatureDesc">Taller Tigre &bull; Buenos Aires</span>
           </div>
         </div>
       </div>
@@ -248,13 +255,13 @@
     <!-- Direct Gateway to Dedicated obras.html Catalog Page -->
     <div class="catalog-gateway-section">
       <div class="catalog-gateway-card">
-        <span class="section-tag">&#10022; CAT&Aacute;LOGO COMPLETO &#10022;</span>
-        <h2 class="section-title" style="margin-bottom:1.0rem;">Colecci&oacute;n de Obras Originales</h2>
-        <p style="color:#BDB0A2; font-size:1.0rem; max-width:620px; margin:0 auto; line-height:1.7; font-weight:300;">
+        <span class="section-tag" data-i18n="gateway.tag">&#10022; CAT&Aacute;LOGO COMPLETO &#10022;</span>
+        <h2 class="section-title" style="margin-bottom:1.0rem;" data-i18n="gateway.title">Colecci&oacute;n de Obras Originales</h2>
+        <p style="color:#BDB0A2; font-size:1.0rem; max-width:620px; margin:0 auto; line-height:1.7; font-weight:300;" data-i18n="gateway.desc">
           Las quince obras originales de la colecci&oacute;n se encuentran catalogadas en su p&aacute;gina dedicada, con filtros por t&eacute;cnica y visualizador de alta resoluci&oacute;n.
         </p>
         <a href="obras.html" class="catalog-gateway-btn">
-          <span>Ingresar al Cat&aacute;logo de Obras (15)</span>
+          <span data-i18n="gateway.btn">Ingresar al Cat&aacute;logo de Obras (15)</span>
           <span>&rarr;</span>
         </a>
       </div>
@@ -262,40 +269,40 @@
 
     <!-- Contact & Acquisition Section -->
     <div id="contacto-adquisicion" class="contact-section">
-      <div class="section-tag">&bull; CONTACTO &amp; ADQUISICI&Oacute;N &bull;</div>
-      <h2 class="section-title">Coordinar visita al taller o consulta de obras</h2>
-      <p style="color:#B3A89F; font-size:0.95rem; max-width:650px; margin:0.8rem auto 0; font-weight:300; line-height:1.6;">
+      <div class="section-tag" data-i18n="contact.tag">&bull; CONTACTO &amp; ADQUISICI&Oacute;N &bull;</div>
+      <h2 class="section-title" data-i18n="contact.title">Coordinar visita al taller o consulta de obras</h2>
+      <p style="color:#B3A89F; font-size:0.95rem; max-width:650px; margin:0.8rem auto 0; font-weight:300; line-height:1.6;" data-i18n="contact.desc">
         Las obras originales pueden ser visitadas de forma privada en el atelier de Tigre o enviadas con embalaje curatorial a todo el pa&iacute;s y el exterior.
       </p>
 
       <div class="contact-cards-grid">
         <a href="https://wa.me/5491100000000?text=Hola%20Bibi,%20quisiera%20coordinar%20una%20visita%20o%20consultar%20por%20obras" target="_blank" class="contact-card">
           <div class="contact-card-icon">&#128172;</div>
-          <div class="contact-card-title">WhatsApp Directo</div>
-          <div class="contact-card-sub">Atenci&oacute;n personalizada de la artista para cotizaciones y env&iacute;os.</div>
-          <div class="contact-card-action">Iniciar conversaci&oacute;n &rarr;</div>
+          <div class="contact-card-title" data-i18n="contact.waTitle">WhatsApp Directo</div>
+          <div class="contact-card-sub" data-i18n="contact.waSub">Atenci&oacute;n personalizada de la artista para cotizaciones y env&iacute;os.</div>
+          <div class="contact-card-action" data-i18n="contact.waAction">Iniciar conversaci&oacute;n &rarr;</div>
         </a>
 
         <a href="mailto:lacostebibiana08@gmail.com?subject=Consulta%20de%20Obras%20-%20Bibi%20Lacoste" class="contact-card">
           <div class="contact-card-icon">&#9993;</div>
-          <div class="contact-card-title">Correo Electr&oacute;nico</div>
-          <div class="contact-card-sub">lacostebibiana08@gmail.com</div>
-          <div class="contact-card-action">Escribir email &rarr;</div>
+          <div class="contact-card-title" data-i18n="contact.mailTitle">Correo Electr&oacute;nico</div>
+          <div class="contact-card-sub" data-i18n="contact.mailSub">lacostebibiana08@gmail.com</div>
+          <div class="contact-card-action" data-i18n="contact.mailAction">Escribir email &rarr;</div>
         </a>
 
         <a href="https://instagram.com/lacoste_bi" target="_blank" class="contact-card">
           <div class="contact-card-icon">&#9672;</div>
-          <div class="contact-card-title">Instagram del Taller</div>
-          <div class="contact-card-sub">@lacoste_bi &bull; Registros de procesos, texturas y nuevos lienzos.</div>
-          <div class="contact-card-action">Seguir cuenta &rarr;</div>
+          <div class="contact-card-title" data-i18n="contact.igTitle">Instagram del Taller</div>
+          <div class="contact-card-sub" data-i18n="contact.igSub">@lacoste_bi &bull; Registros de procesos, texturas y nuevos lienzos.</div>
+          <div class="contact-card-action" data-i18n="contact.igAction">Seguir cuenta &rarr;</div>
         </a>
       </div>
     </div>
 
     <!-- Editorial Footer -->
     <footer style="background:#070504; border-top:1px solid rgba(214, 164, 106, 0.15); padding:2.5rem 1.5rem; text-align:center;">
-      <div style="font-family:'Cinzel', serif; font-size:0.85rem; letter-spacing:0.22em; color:#FAF4ED; margin-bottom:0.4rem;">BIBI LACOSTE</div>
-      <div style="font-size:0.68rem; color:#8C7E6E; letter-spacing:0.16em; text-transform:uppercase;">
+      <div style="font-family:'Cinzel', serif; font-size:0.85rem; letter-spacing:0.22em; color:#FAF4ED; margin-bottom:0.4rem;" data-i18n="footer.brand">BIBI LACOSTE</div>
+      <div style="font-size:0.68rem; color:#8C7E6E; letter-spacing:0.16em; text-transform:uppercase;" data-i18n="footer.copy">
         El Rumbo del Recuerdo &bull; Tigre &amp; Bel&eacute;n de Escobar &bull; 2025
       </div>
     </footer>
@@ -303,6 +310,10 @@
   </section>
 
 
+
+  <!-- Internacionalización (i18n) -->
+  <script src="js/data/translations.js"></script>
+  <script src="js/i18n.js"></script>
 
   <!-- Módulos de Scripting -->
   <script src="js/audio.js"></script>

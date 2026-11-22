@@ -952,8 +952,10 @@
       const cosmosNav = document.getElementById('cosmos-nav-bar');
       if (cosmosNav) cosmosNav.classList.remove('visible');
 
+      currentActiveFragmentData = null;
       const quoteCard = document.getElementById('cosmos-quote-card');
       if (quoteCard) quoteCard.classList.remove('visible');
+      if (typeof updateCosmosCardContent === 'function') updateCosmosCardContent(null);
 
       playMagneticThudSound();
       if (navigator.vibrate) {
@@ -1093,10 +1095,14 @@
         playBurlapTearSound(currentStep);
         drawBurlapLayer(currentStep + 1);
 
-        const currentData = layersData[currentStep];
+        const stepIdx = currentStep;
         currentStep++;
 
-        feedbackEl.innerHTML = `<span style="color:#D6A46A; letter-spacing:0.24em; font-size:0.75rem; font-family:'Cinzel', serif;">• ${currentData.title.toUpperCase()} •</span><br><span style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#EBD9C8; letter-spacing:0.04em;">${currentData.desc}</span>`;
+        const t = window.t || ((k, f) => f);
+        const title = t(`experience.step${stepIdx}Title`, layersData[stepIdx].title);
+        const desc = t(`experience.step${stepIdx}Desc`, layersData[stepIdx].desc);
+
+        feedbackEl.innerHTML = `<span style="color:#D6A46A; letter-spacing:0.24em; font-size:0.75rem; font-family:'Cinzel', serif;">• ${title.toUpperCase()} •</span><br><span style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#EBD9C8; letter-spacing:0.04em;">${desc}</span>`;
 
         if (currentStep === 4) {
           isUnlocked = true;
@@ -1105,7 +1111,9 @@
 
           setTimeout(() => {
             if (appState === 'FASE1') {
-              feedbackEl.innerHTML = `<span style="color:#E2B886; letter-spacing:0.28em; font-size:0.75rem; font-family:'Cinzel', serif;">• EL RUMBO ESTÁ TRAZADO •</span><br><span style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#FFF0D4; letter-spacing:0.04em;">Toca para abrir el cosmos</span>`;
+              const readyTitle = t('experience.readyTitle', '• EL RUMBO ESTÁ TRAZADO •');
+              const readyDesc = t('experience.readyDesc', 'Toca para abrir el cosmos');
+              feedbackEl.innerHTML = `<span style="color:#E2B886; letter-spacing:0.28em; font-size:0.75rem; font-family:'Cinzel', serif;">${readyTitle}</span><br><span style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#FFF0D4; letter-spacing:0.04em;">${readyDesc}</span>`;
             }
           }, 1600);
         }
@@ -1303,10 +1311,27 @@
     const raycaster = new THREE.Raycaster();
     let hoveredFragment = null;
     let quoteCardTimer = null;
+    let currentActiveFragmentData = null;
 
     const quoteCard = document.getElementById('cosmos-quote-card');
     const quoteTag = document.getElementById('quote-tag');
     const quoteText = document.getElementById('quote-text');
+
+    function updateCosmosCardContent(data) {
+      if (!quoteCard || !quoteTag || !quoteText) return;
+      const t = window.t || ((k, f) => f);
+      if (!data) {
+        quoteTag.textContent = t('cosmos.tag', '• MATERIA & ESTRATOS •');
+        quoteText.textContent = `"${t('cosmos.quote', 'Pinceladas minerales de turquesa y tierra donde el óleo encuentra su asiento.')}"`;
+        return;
+      }
+      const key = data.type || data.id;
+      const translatedTitle = t(`cosmosFragments.${key}.title`, data.title || data.concept);
+      const translatedQuote = t(`cosmosFragments.${key}.quote`, data.quote);
+
+      quoteTag.textContent = `• ${translatedTitle.toUpperCase()} •`;
+      quoteText.textContent = `"${translatedQuote}"`;
+    }
 
     // MOUSE EVENTS (DESKTOP)
     window.addEventListener('mousedown', (e) => {
@@ -1467,9 +1492,8 @@
           hoveredFragment.userData.targetEmissive = 0.45;
 
           const data = hit.userData.data;
-          const displayTitle = (data.title || data.concept).toUpperCase();
-          quoteTag.textContent = `• ${displayTitle} •`;
-          quoteText.textContent = `"${data.quote}"`;
+          currentActiveFragmentData = data;
+          updateCosmosCardContent(data);
           quoteCard.classList.add('visible');
 
           playFragmentChime(data.id);
@@ -1597,14 +1621,7 @@
 
           const brandContainer = document.getElementById('brand-container');
           if (brandContainer) {
-            brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div>' +
-              '<div class="intro-nav-links" style="pointer-events: auto;">' +
-              '<a href="#biografia" onclick="openIntegratedCatalog(\'biografia\'); return false;" class="intro-nav-link">Biograf&iacute;a</a>' +
-              '<span class="intro-nav-sep">&bull;</span>' +
-              '<a href="#statement" onclick="openIntegratedCatalog(\'statement\'); return false;" class="intro-nav-link">Statement</a>' +
-              '<span class="intro-nav-sep">&bull;</span>' +
-              '<a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile">Obras &rarr;</span></a>' +
-              '</div>';
+            brandContainer.innerHTML = getTopBrandHtml();
           }
         }
       }
@@ -1773,6 +1790,18 @@
     }
 
 
+    function getTopBrandHtml() {
+      const t = window.t || ((k, f) => f);
+      return '<div class="artist-brand">Bibi Lacoste</div>' +
+        '<div class="intro-nav-links" style="pointer-events: auto;">' +
+        `<a href="#biografia" onclick="openIntegratedCatalog('biografia'); return false;" class="intro-nav-link" data-i18n="nav.bio">${t('nav.bio', 'Biografía')}</a>` +
+        '<span class="intro-nav-sep">&bull;</span>' +
+        `<a href="#statement" onclick="openIntegratedCatalog('statement'); return false;" class="intro-nav-link" data-i18n="nav.statement">${t('nav.statement', 'Statement')}</a>` +
+        '<span class="intro-nav-sep">&bull;</span>' +
+        `<a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop" data-i18n="nav.catalog">${t('nav.catalog', 'Catálogo de Obras &rarr;')}</span><span class="intro-nav-mobile" data-i18n="nav.catalogShort">${t('nav.catalogShort', 'Obras &rarr;')}</span></a>` +
+        '</div>';
+    }
+
     function resetExperienceToPhase1() {
       // Reset state machine
       appState = 'FASE1';
@@ -1796,8 +1825,10 @@
       const cosmosNav = document.getElementById('cosmos-nav-bar');
       if (cosmosNav) cosmosNav.classList.remove('visible');
 
+      currentActiveFragmentData = null;
       const quoteCard = document.getElementById('cosmos-quote-card');
       if (quoteCard) quoteCard.classList.remove('visible');
+      if (typeof updateCosmosCardContent === 'function') updateCosmosCardContent(null);
 
       const canvasEl = document.getElementById('webgl-canvas');
       if (canvasEl) canvasEl.classList.remove('cosmos-mode');
@@ -1821,7 +1852,10 @@
         feedback.style.opacity = '1';
         feedback.style.transform = '';
         feedback.style.transition = '';
-        feedback.innerHTML = '<span style="color:#D6A46A; letter-spacing:0.24em;">FASE 1 &bull; LA BR&Uacute;JULA</span><br>Toca el papel para revelar el rumbo';
+        const t = window.t || ((k, f) => f);
+        const compassTitle = t('experience.compassTitle', 'FASE 1 • LA BRÚJULA');
+        const compassDesc = t('experience.compassDesc', 'Toca el papel para revelar el rumbo');
+        feedback.innerHTML = `<span style="color:#D6A46A; letter-spacing:0.24em;">${compassTitle}</span><br>${compassDesc}`;
       }
 
       const pills = document.querySelector('.progress-pills');
@@ -1916,14 +1950,7 @@
       // Restore initial top brand navigation
       const brandContainer = document.getElementById('brand-container');
       if (brandContainer) {
-        brandContainer.innerHTML = '<div class="artist-brand">Bibi Lacoste</div>' +
-          '<div class="intro-nav-links" style="pointer-events: auto;">' +
-          '<a href="#biografia" onclick="openIntegratedCatalog(\'biografia\'); return false;" class="intro-nav-link">Biograf&iacute;a</a>' +
-          '<span class="intro-nav-sep">&bull;</span>' +
-          '<a href="#statement" onclick="openIntegratedCatalog(\'statement\'); return false;" class="intro-nav-link">Statement</a>' +
-          '<span class="intro-nav-sep">&bull;</span>' +
-          '<a href="obras.html" class="intro-nav-link"><span class="intro-nav-desktop">Cat&aacute;logo de Obras &rarr;</span><span class="intro-nav-mobile">Obras &rarr;</span></a>' +
-          '</div>';
+        brandContainer.innerHTML = getTopBrandHtml();
       }
     }
 
@@ -1932,5 +1959,17 @@
     if (typeof updateConstellation === 'function') {
       updateConstellation(0, 0, 0, 0);
     }
+
+    window.addEventListener('languagechange', () => {
+      const brandContainer = document.getElementById('brand-container');
+      if (brandContainer && typeof getTopBrandHtml === 'function') {
+        brandContainer.innerHTML = getTopBrandHtml();
+      }
+
+      // Actualizar tarjeta del cosmos en tiempo real según el idioma activo
+      if (typeof updateCosmosCardContent === 'function') {
+        updateCosmosCardContent(currentActiveFragmentData);
+      }
+    });
 
     animate();

@@ -109,7 +109,14 @@ function verifyPin() {
 // -------------------------------------------------------------
 // 3. GESTIÓN DEL CATÁLOGO & CACHE
 // -------------------------------------------------------------
+const ADMIN_CATALOG_VERSION = '2026.2';
+
 function loadCatalog() {
+  const cachedVer = localStorage.getItem('bibi_artworks_cache_version');
+  if (cachedVer !== ADMIN_CATALOG_VERSION) {
+    localStorage.removeItem('bibi_artworks_cache');
+    localStorage.setItem('bibi_artworks_cache_version', ADMIN_CATALOG_VERSION);
+  }
   const cached = localStorage.getItem('bibi_artworks_cache');
   if (cached) {
     try {
@@ -127,6 +134,7 @@ function loadCatalog() {
 
 function saveLocalCache() {
   localStorage.setItem('bibi_artworks_cache', JSON.stringify(catalog));
+  localStorage.setItem('bibi_artworks_cache_version', ADMIN_CATALOG_VERSION);
   markPendingChanges();
 }
 

@@ -33,7 +33,7 @@
         dimensions: "70 × 50 cm",
         year: "2025",
         image: "assets/artworks/cancelado_3.webp",
-        available: false,
+        available: true,
         category: "mixta"
       },
       {
@@ -43,7 +43,7 @@
         dimensions: "50 × 35 cm",
         year: "2025",
         image: "assets/artworks/verano_4.webp",
-        available: false,
+        available: true,
         category: "acrilico"
       },
       {
@@ -93,7 +93,7 @@
         dimensions: "50 × 35 cm",
         year: "2024",
         image: "assets/artworks/sobriedad_9.webp",
-        available: false,
+        available: true,
         category: "acrilico"
       },
       {
@@ -113,7 +113,7 @@
         dimensions: "60 × 50 cm",
         year: "2025",
         image: "assets/artworks/aquiles_11.webp",
-        available: true,
+        available: false,
         category: "acrilico"
       },
       {
@@ -123,7 +123,7 @@
         dimensions: "70 × 50 cm",
         year: "2025",
         image: "assets/artworks/disgregado_12.webp",
-        available: false,
+        available: true,
         category: "mixta"
       },
       {
@@ -153,7 +153,7 @@
         dimensions: "70 × 50 cm",
         year: "2025",
         image: "assets/artworks/virapit__15.webp",
-        available: true,
+        available: false,
         category: "acrilico"
       }
     ];

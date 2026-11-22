@@ -20,13 +20,28 @@
       }
     }
 
+    function updateSoundBtnText() {
+      const btn = document.getElementById('soundBtn');
+      if (!btn) return;
+      const t = window.t || ((k, f) => f);
+      btn.textContent = soundEnabled 
+        ? t('intro.soundActive', "Sonido: Textura") 
+        : t('intro.soundInactive', "Sonido: Silencio");
+    }
+
     function toggleAudioFeedback() {
       initAudio();
       soundEnabled = !soundEnabled;
       const btn = document.getElementById('soundBtn');
-      btn.textContent = soundEnabled ? "Sonido: Textura" : "Sonido: Silencio";
-      btn.style.borderColor = soundEnabled ? "#D6A46A" : "rgba(163, 150, 134, 0.2)";
+      if (btn) {
+        updateSoundBtnText();
+        btn.style.borderColor = soundEnabled ? "#D6A46A" : "rgba(163, 150, 134, 0.2)";
+      }
     }
+
+    window.addEventListener('languagechange', () => {
+      updateSoundBtnText();
+    });
 
     function playBurlapTearSound(step) {
       if (!soundEnabled || !audioCtx) return;
