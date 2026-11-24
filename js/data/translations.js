@@ -183,6 +183,7 @@ const translations = {
       modalSupportValue: "Soporte Passe Partout / papel de algodón artesanal",
       modalAuthenticity: "Autenticidad:",
       modalAuthenticityValue: "Certificado de autor firmado por Bibi Lacoste",
+      modalPrice: "Valor:",
       modalDesc: "Obra original realizada a mano con capas superpuestas de materia, grafismos y recortes de archivo. Lista para montaje.",
       modalInquire: "Consultar por esta obra vía WhatsApp"
     }
@@ -365,6 +366,7 @@ const translations = {
       modalSupportValue: "Passe Partout support / artisanal handmade cotton paper",
       modalAuthenticity: "Authenticity:",
       modalAuthenticityValue: "Certificate of authorship signed by Bibi Lacoste",
+      modalPrice: "Price:",
       modalDesc: "Original handmade artwork with layered matter, calligraphic graphisms, and archival fragments. Ready to hang.",
       modalInquire: "Inquire about this artwork via WhatsApp"
     }
@@ -547,6 +549,7 @@ const translations = {
       modalSupportValue: "Supporto Passe Partout / carta di cotone artigianale",
       modalAuthenticity: "Autenticità:",
       modalAuthenticityValue: "Certificato di autenticità firmato da Bibi Lacoste",
+      modalPrice: "Prezzo:",
       modalDesc: "Opera originale realizzata a mano con strati sovrapposti di materia, grafismi e ritagli d'archivio. Pronta per l'esposizione.",
       modalInquire: "Richiedi informazioni su WhatsApp"
     }
@@ -729,6 +732,7 @@ const translations = {
       modalSupportValue: "Support Passe Partout / papier de coton artisanal",
       modalAuthenticity: "Authenticité :",
       modalAuthenticityValue: "Certificat d'auteur signé par Bibi Lacoste",
+      modalPrice: "Prix :",
       modalDesc: "Œuvre originale façonnée à la main, alliant strates de matière, graphismes et fragments d'archives. Prête pour accrochage.",
       modalInquire: "Demander des informations sur WhatsApp"
     }
@@ -911,6 +915,7 @@ const translations = {
       modalSupportValue: "Suporte Passe Partout / papel de algodão artesanal",
       modalAuthenticity: "Autenticidade:",
       modalAuthenticityValue: "Certificado de autoria assinado por Bibi Lacoste",
+      modalPrice: "Preço:",
       modalDesc: "Obra original feita à mão com camadas sobrepostas de matéria, grafismos e recortes de arquivo. Pronta para montagem.",
       modalInquire: "Consultar por esta obra via WhatsApp"
     }

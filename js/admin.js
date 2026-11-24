@@ -109,7 +109,12 @@ function verifyPin() {
 // -------------------------------------------------------------
 // 3. GESTIÓN DEL CATÁLOGO & CACHE
 // -------------------------------------------------------------
-const ADMIN_CATALOG_VERSION = '2026.2';
+const ADMIN_CATALOG_VERSION = '2026.3';
+
+function formatPriceUSD(price) {
+  const num = (typeof price !== 'undefined' && price !== null && !isNaN(price)) ? Number(price) : 0;
+  return `USD $${num.toLocaleString('en-US')}`;
+}
 
 function loadCatalog() {
   const cachedVer = localStorage.getItem('bibi_artworks_cache_version');
@@ -358,7 +363,12 @@ function renderAdminGrid(resetCount = true) {
       </div>
       
       <div class="art-card-body">
-        <h3 class="art-card-title">${art.title}</h3>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:0.5rem; margin-bottom:0.25rem;">
+          <h3 class="art-card-title" style="margin:0;">${art.title}</h3>
+          <span style="font-family:'Cinzel',serif; font-size:0.88rem; font-weight:600; color:var(--accent-gold); white-space:nowrap; flex-shrink:0;">
+            ${formatPriceUSD(art.price)}
+          </span>
+        </div>
         <div class="art-card-technique">${art.technique}</div>
         <div class="art-card-meta">${art.dimensions} &bull; ${art.year} &bull; Cat: ${art.category || 'general'}</div>
 
@@ -445,6 +455,7 @@ function openCreateModal() {
   document.getElementById('form-art-year').value = new Date().getFullYear().toString();
   document.getElementById('form-art-category').value = 'acrilico';
   document.getElementById('form-art-available').value = 'true';
+  document.getElementById('form-art-price').value = '0';
   document.getElementById('form-art-image-url').value = '';
   
   const preview = document.getElementById('dropzone-preview');
@@ -466,6 +477,7 @@ function openEditModal(id) {
   document.getElementById('form-art-year').value = art.year || '';
   document.getElementById('form-art-category').value = art.category || 'acrilico';
   document.getElementById('form-art-available').value = art.available ? 'true' : 'false';
+  document.getElementById('form-art-price').value = (typeof art.price !== 'undefined' && art.price !== null) ? art.price : 0;
   document.getElementById('form-art-image-url').value = art.image || '';
 
   const preview = document.getElementById('dropzone-preview');
@@ -486,6 +498,9 @@ function saveArtworkFromForm() {
   const year = document.getElementById('form-art-year').value.trim();
   const category = document.getElementById('form-art-category').value;
   const available = document.getElementById('form-art-available').value === 'true';
+  const rawPrice = document.getElementById('form-art-price').value;
+  // Sanitización y validación estricta de precio para seguridad
+  const price = Math.max(0, parseInt(rawPrice, 10) || 0);
   let image = document.getElementById('form-art-image-url').value.trim();
 
   if (!title) {
@@ -502,6 +517,7 @@ function saveArtworkFromForm() {
       art.year = year;
       art.category = category;
       art.available = available;
+      art.price = price;
       if (image) art.image = image;
       showToast(`Obra "${title}" actualizada`, 'success');
     }
@@ -515,7 +531,8 @@ function saveArtworkFromForm() {
       year: year || '2025',
       image: image || 'assets/artworks/solapado_1.webp',
       available: available,
-      category: category
+      category: category,
+      price: price
     };
     catalog.unshift(newArt);
     showToast(`Obra "${title}" agregada al catálogo`, 'success');

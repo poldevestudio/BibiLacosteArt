@@ -8,7 +8,12 @@
 
     let displayedCatalogCount = 24;
     let currentRenderList = [];
-    const CATALOG_VERSION = '2026.2';
+    const CATALOG_VERSION = '2026.3';
+
+    function formatPriceUSD(price) {
+      const num = (typeof price !== 'undefined' && price !== null && !isNaN(price)) ? Number(price) : 0;
+      return `USD $${num.toLocaleString('en-US')}`;
+    }
 
     // Obtener catálogo activo (con soporte de vista previa si se editó desde admin)
     function getActiveArtworks() {
@@ -65,13 +70,18 @@
           ? `<span class="art-tag tag-available">${t('catalogPage.tagAvailableShort', 'Disponible')}</span>` 
           : `<span class="art-tag tag-private">${t('catalogPage.tagPrivateShort', 'Colección Privada')}</span>`;
 
+        const priceLabel = formatPriceUSD(art.price);
+
         card.innerHTML = `
           <div class="art-img-wrapper">
             <img src="${art.image}" alt="${art.title}" class="art-card-img" loading="lazy" decoding="async">
             ${statusTag}
           </div>
           <div class="art-card-info">
-            <h3 class="art-card-title">${art.title}</h3>
+            <div class="art-card-header">
+              <h3 class="art-card-title">${art.title}</h3>
+              <span class="art-card-price">${priceLabel}</span>
+            </div>
             <div class="art-card-technique">${art.technique}</div>
             <div class="art-card-dimensions">${art.dimensions} • ${art.year}</div>
             <div class="art-card-footer">
@@ -144,7 +154,13 @@
         ? `<span class="art-tag tag-available">${t('catalogPage.tagAvailable', 'Disponible para Adquisición')}</span>` 
         : `<span class="art-tag tag-private">${t('catalogPage.tagPrivate', 'Colección Privada')}</span>`;
 
-      const waMsg = encodeURIComponent(`Hola Bibi, me interesa consultar por la obra "${art.title}" (${art.dimensions}, ${art.year}).`);
+      const priceElem = document.getElementById('modal-price');
+      if (priceElem) {
+        priceElem.innerText = formatPriceUSD(art.price);
+      }
+
+      const priceTxt = (art.price && Number(art.price) > 0) ? ` - Valor: USD $${Number(art.price).toLocaleString('en-US')}` : '';
+      const waMsg = encodeURIComponent(`Hola Bibi, me interesa consultar por la obra "${art.title}" (${art.dimensions}, ${art.year}${priceTxt}).`);
       document.getElementById('modal-wa-btn').href = `https://wa.me/5491100000000?text=${waMsg}`;
 
       const modal = document.getElementById('art-modal');

@@ -403,6 +403,14 @@
       flex-grow: 1;
     }
 
+    .art-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
     .art-card-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.65rem;
@@ -410,6 +418,18 @@
       color: #FAF4ED;
       margin: 0;
       letter-spacing: 0.02em;
+      flex-grow: 1;
+    }
+
+    .art-card-price {
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #D6A46A;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: right;
     }
 
     .art-card-technique {
