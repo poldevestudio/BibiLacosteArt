@@ -314,9 +314,7 @@ function renderAdminGrid(resetCount = true) {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         const matchTitle = (art.title || '').toLowerCase().includes(q);
-        const matchTech = (art.technique || '').toLowerCase().includes(q);
-        const matchYear = (art.year || '').toString().includes(q);
-        if (!matchTitle && !matchTech && !matchYear) return false;
+        if (!matchTitle) return false;
       }
 
       return true;
