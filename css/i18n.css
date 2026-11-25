@@ -16,6 +16,9 @@
 
 /* Botón Cápsula Selector */
 .lang-selector-btn {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  outline: none !important;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;

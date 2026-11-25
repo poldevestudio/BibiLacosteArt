@@ -8,6 +8,25 @@
     /* ========================================================
        INTEGRATED DARK CURATORIAL BIOGRAPHY & CONTACT STYLES
        ======================================================== */
+    *, *::before, *::after {
+      -webkit-touch-callout: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+      outline: none;
+    }
+
+    button, a, input, select, textarea {
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+      outline: none !important;
+    }
+
+    *:focus, *:active, *:focus-visible {
+      outline: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    }
+
     #experience-container,
     #webgl-canvas {
       touch-action: none;

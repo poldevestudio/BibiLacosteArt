@@ -9,6 +9,28 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-touch-callout: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+      outline: none;
+    }
+
+    html, body, button, a, img, .art-card, .filter-tab, .btn-action, .modal-window {
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+      -webkit-touch-callout: none !important;
+      outline: none !important;
+    }
+
+    *:focus, *:active, *:focus-visible {
+      outline: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    }
+
+    ::selection {
+      background: rgba(214, 164, 106, 0.35);
+      color: #FFF;
     }
 
     html, body {
