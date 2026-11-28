@@ -109,7 +109,7 @@ function verifyPin() {
 // -------------------------------------------------------------
 // 3. GESTIÓN DEL CATÁLOGO & CACHE
 // -------------------------------------------------------------
-const ADMIN_CATALOG_VERSION = '2026.3';
+const ADMIN_CATALOG_VERSION = '2026.4';
 
 function formatPriceUSD(price) {
   const num = (typeof price !== 'undefined' && price !== null && !isNaN(price)) ? Number(price) : 0;

@@ -9,6 +9,7 @@
   const LANGUAGES = {
     es: { code: 'es', label: 'Español', short: 'ES', flag: '🇪🇸' },
     en: { code: 'en', label: 'English', short: 'EN', flag: '🇬🇧' },
+    de: { code: 'de', label: 'Deutsch', short: 'DE', flag: '🇩🇪' },
     it: { code: 'it', label: 'Italiano', short: 'IT', flag: '🇮🇹' },
     fr: { code: 'fr', label: 'Français', short: 'FR', flag: '🇫🇷' },
     pt: { code: 'pt', label: 'Português', short: 'PT', flag: '🇧🇷' }

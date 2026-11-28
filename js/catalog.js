@@ -8,7 +8,7 @@
 
     let displayedCatalogCount = 24;
     let currentRenderList = [];
-    const CATALOG_VERSION = '2026.3';
+    const CATALOG_VERSION = '2026.4';
 
     function formatPriceUSD(price) {
       const num = (typeof price !== 'undefined' && price !== null && !isNaN(price)) ? Number(price) : 0;

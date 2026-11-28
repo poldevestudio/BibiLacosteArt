@@ -1,7 +1,7 @@
 /**
  * ====================================================================
  * BIBI LACOSTE ART — DICCIONARIO DE INTERNACIONALIZACIÓN (i18n)
- * Traducciones curatoriales en 5 idiomas (ES, EN, IT, FR, PT)
+ * Traducciones curatoriales en 6 idiomas (ES, EN, DE, IT, FR, PT)
  * ====================================================================
  */
 
@@ -919,7 +919,190 @@ const translations = {
       modalDesc: "Obra original feita à mão com camadas sobrepostas de matéria, grafismos e recortes de arquivo. Pronta para montagem.",
       modalInquire: "Consultar por esta obra via WhatsApp"
     }
+  },
+  // -------------------------------------------------------------
+  // DEUTSCH (DE) — Deutsche Übersetzung
+  // -------------------------------------------------------------
+  de: {
+    nav: {
+      bio: "Biografie",
+      statement: "Statement",
+      catalog: "Werkkatalog →",
+      catalogShort: "Werke →",
+      contact: "Kontakt",
+      back3d: "Zurück zum 3D-Kompass",
+      back3dShort: "3D-Kompass",
+      backHome: "Zurück zum Anfang",
+      backHomeShort: "Start"
+    },
+    intro: {
+      title: "ERDE UND URSPRUNG",
+      subtitle: "Reis-Taipas",
+      soundTexture: "Klang: Textur",
+      soundMute: "Klang: Stumm",
+      soundActive: "Klang: Textur",
+      soundInactive: "Klang: Stumm"
+    },
+    words: {
+      node0: "Jede Erinnerung",
+      node1: "ist eine Reise,",
+      node2: "die ihre Richtung",
+      node3: "sucht."
+    },
+    experience: {
+      step0Title: "Erde und Ursprung",
+      step0Desc: "Reis-Taipas",
+      step1Title: "Entwurzelung",
+      step1Desc: "Überseeische Weiten",
+      step2Title: "Handwerk & Berufe",
+      step2Desc: "Zitrusfrüchte, die Landschaften wandeln",
+      step3Title: "Erinnerung",
+      step3Desc: "Das Papier als Gedenken",
+      readyTitle: "• DER KURS IST BESTIMMT •",
+      readyDesc: "Berühren, um den Kosmos zu öffnen",
+      compassTitle: "PHASE 1 • DER KOMPASS",
+      compassDesc: "Berühre das Papier, um den Kurs zu enthüllen"
+    },
+    cosmos: {
+      title: "• KOSMOS DER MATERIE •",
+      sub: "Ziehen zum Drehen • Rad oder Geste für Zoom • Fragment berühren",
+      tag: "• MATERIE & SCHICHTEN •",
+      quote: "Mineralische Pinselstriche aus Türkis und Erde, wo das Öl mit organischen Texturen verschmilzt.",
+      assembleBtn: "Zusammenfügen"
+    },
+    cosmosFragments: {
+      maracuya: {
+        title: "Maracuyá",
+        quote: "Das Schwingen von Farbe und organischer Materie in ihrer reinsten Fülle."
+      },
+      cancelado: {
+        title: "Cancelando",
+        quote: "Überlagerung von Schichten, Lasuren und Collage, in der die Vergangenheit neue Bedeutung gewinnt."
+      },
+      virapita: {
+        title: "Virapitá",
+        quote: "Die Erinnerungen an das Flussufer und die Erde, verwandelt in lebendige Materie."
+      },
+      suenos: {
+        title: "Sueños",
+        quote: "Die Hohlräume des Erinnerns verweben, damit das Gedächtnis Gestalt annimmt."
+      },
+      chocolat: {
+        title: "Chocolat d'Or",
+        quote: "Glanzlichter aus Blattgold und Erde, die das Fortbestehen der Zeit bewahren."
+      },
+      elinicio: {
+        title: "El Inicio",
+        quote: "Die ersten Pinselstriche und die freie Suche nach Form auf der Leinwand."
+      },
+      verano: {
+        title: "Verano",
+        quote: "Lichtkraft und Bewegung, in denen die Farbe mit reiner Lebendigkeit tanzt."
+      },
+      disgregado: {
+        title: "Disgregado",
+        quote: "Zerrissenes Papier und fragmentierte Erinnerung, die dem Vergessen trotzt."
+      },
+      sancolombano: {
+        title: "San Colombano",
+        quote: "Mineralsedimente und die Stille des Flusses, die an den Ursprung erinnern."
+      },
+      araucaria: {
+        title: "Araucaria",
+        quote: "Leinenfasern und erdige Pigmente als stummer Zeuge der Natur."
+      }
+    },
+    reveal: {
+      title: "Solapado",
+      meta: "2025 • Acryl und Mischtechnik • 70 × 50 cm",
+      quote: "Wo Entwurzelung und familiäre Erinnerung zu bleibender Dauer werden.",
+      btnEnter: "Eintreten"
+    },
+    bio: {
+      tag: "• BIOGRAFIE & WERDEGANG •",
+      title: "Bibi Lacoste",
+      subtitle: "Tigre & Belén de Escobar, Buenos Aires",
+      p1: "<strong>Bibiana María Cristina Lacoste</strong> (Belén de Escobar, Buenos Aires, 1967) ist eine bildende Künstlerin, die abstrakte Kunst durch kontinuierliches Experimentieren mit greifbaren Materialien erforscht. Ihr künstlerischer Werdegang verlief autodidaktisch und autonom: geprägt von mehr als drei Jahrzehnten eigenständiger Forschung, die sich intensiv mit der Sprache der Formen, Pigmente und räumlichen Ausgewogenheit im Zusammenspiel mit der Collage befasst.",
+      p2: "Auf diesem Weg hat Bibiana nicht nur ihr eigenes Werk geschaffen, sondern ihr Wissen auch in der Lehre und in non-formalen experimentellen Werkstätten weitergegeben. Diese pädagogischen Räume dienten als Katalysator für ständige Neuentdeckungen und als Medium, um zu verstehen, wie wir uns mit dem verbinden, was wir wahrnehmen und fühlen.",
+      p3: "Ihr künstlerisches Engagement reicht weit über das Atelier hinaus. Zwischen 2012 und 2014 war sie Teil eines interdisziplinären Teams im Rahmen des Projekts CESAJ (Generaldirektion für Kultur und Bildung) und leitete Kreativwerkstätten, die auf die Begleitung und soziale Wiedereingliederung junger Menschen in schwierigen Lebenslagen abzielten. Diese Erfahrung bestärkte ihre Überzeugung, dass Kunst ein kraftvolles Instrument für gesellschaftlichen Wandel und Inklusion ist.",
+      p4: "Gegenwärtig lebt und arbeitet Bibiana ausschließlich in ihrem Atelier in General Pacheco (Tigre), Buenos Aires, Argentinien.",
+      quote: "„Für mich ist Papier niemals nur ein Träger: Es ist der lebendige Körper der Erinnerung, der dem Vergessen widersteht.“",
+      pillar1Title: "Materie & Textur",
+      pillar1Desc: "Handgeschöpftes Baumwollpapier, Leinenfasern, Verbandmulle und im Atelier recycelter Pflanzenzellstoff.",
+      pillar2Title: "Stratigrafie",
+      pillar2Desc: "Übereinanderliegende Schichten aus Acryl, Erdpigmenten, Lasuren und eigens hergestellten Mineralölen.",
+      pillar3Title: "Lebendige Erinnerung",
+      pillar3Desc: "Ausschnitte historischer Korrespondenz, Überseebriefmarken und Flussspuren, die Entwurzelung neu deuten."
+    },
+    statement: {
+      tag: "• STATEMENT •",
+      title: "Künstlerisches Statement",
+      subtitle: "Das Gewebe des Gedenkens • Erinnerung, Erde und Entwurzelung",
+      p1: "Ich male die Geschichte meiner Vorfahren, verknüpft mit jener anderer Einwanderer, die die Landschaft durch ihr Handwerk und ihren Fleiß verwandelten. In meinem Werk lebt die Erinnerung an das bestellte Land weiter: die Reisfelder und die von meinem Großvater und Vater angelegten Taipas, ebenso wie die Pflege der Olivenhaine, Weinreben und Zitrusbäume. Ich suche danach, die Spuren dieser täglichen Hingabe vor dem Vergessen zu bewahren.",
+      p2: "In diesem Prozess verwende ich recyceltes Papier als neue Schicht, so wie auch die Erinnerung aus Fragmenten gefügt ist. Jedes eingearbeitete Blatt verleiht eine physische und symbolische Dimension, die das Vergehen der Zeit, die Entwurzelung und die durchmessenen Distanzen in sich trägt. Das Papier hört auf, bloßer Bildträger zu sein, und wird zum eigentlichen Gewebe des Erinnerns.",
+      signatureName: "Bibiana Lacoste",
+      signatureDesc: "Atelier Tigre • Buenos Aires"
+    },
+    gateway: {
+      tag: "✦ GESAMTKATALOG ✦",
+      title: "Sammlung von Originalwerken",
+      desc: "Die Originalwerke der Kollektion sind in unserem interaktiven Katalog zur Betrachtung und zum Erwerb versammelt.",
+      btn: "Werkkatalog betreten"
+    },
+    contact: {
+      tag: "• KONTAKT & ERWERB •",
+      title: "Atelierbesuch vereinbaren oder Werke anfragen",
+      desc: "Die Originalwerke können nach Vereinbarung im Atelier in Tigre besichtigt oder sorgfältig verpackt weltweit versendet werden.",
+      waTitle: "Direkter WhatsApp-Kontakt",
+      waSub: "Persönliche Betreuung durch die Künstlerin für Preisauskünfte, Beratung und weltweiten Versand.",
+      waAction: "Gespräch beginnen →",
+      mailTitle: "E-Mail-Anfrage",
+      mailSub: "lacostebibiana08@gmail.com",
+      mailAction: "E-Mail schreiben →",
+      igTitle: "Instagram des Ateliers",
+      igSub: "@lacoste_bi • Einblicke in Prozesse, Texturen und neue Leinwände.",
+      igAction: "Account folgen →"
+    },
+    footer: {
+      brand: "BIBI LACOSTE",
+      copy: "El Rumbo del Recuerdo • Tigre & Belén de Escobar • 2025"
+    },
+    catalogPage: {
+      breadcrumb: "Start / Werkkatalog",
+      tag: "✦ VERFÜGBARE SAMMLUNG & ATELIER TIGRE ✦",
+      title: "Werkkatalog",
+      lead: "Originalwerke, in denen Materie, Leinen, Acryl und die Erinnerungen an das Flussdelta zu bleibender Dauer verschmelzen. Jedes Werk ist ein Unikat auf Passepartout-Träger, versehen mit einem vom Atelier ausgestellten Echtheitszertifikat.",
+      statArtworks: "Werke im Katalog",
+      statAvailable: "Verfügbar zum Erwerb",
+      statPeriod: "Schaffensperiode",
+      statLocation: "Atelierstandort",
+      showing: "Zeige",
+      of: "von",
+      artworksLabel: "Werken",
+      filterAll: "Alle",
+      filterAvailable: "Verfügbar",
+      filterSold: "Privatsammlung",
+      filterMixta: "Mischtechnik",
+      filterAcrilico: "Acryl",
+      tagAvailable: "Verfügbar zum Erwerb",
+      tagPrivate: "Privatsammlung",
+      tagAvailableShort: "Verfügbar",
+      tagPrivateShort: "Privatsammlung",
+      examineBtn: "Werk betrachten →",
+      loadMoreBtn: "Mehr Werke anzeigen",
+      modalTechnique: "Technik:",
+      modalDimensions: "Maße:",
+      modalYear: "Jahr:",
+      modalSupport: "Träger:",
+      modalSupportValue: "Passepartout-Träger / handgeschöpftes Baumwollpapier",
+      modalAuthenticity: "Authentizität:",
+      modalAuthenticityValue: "Von Bibi Lacoste handsigniertes Autorenzertifikat",
+      modalPrice: "Wert:",
+      modalDesc: "Handgefertigtes Originalwerk mit überlagerten Materialschichten, grafischen Elementen und Archivfragmenten. Bereit zur Rahmung.",
+      modalInquire: "Werk via WhatsApp anfragen"
+    }
   }
+
 };
 
 // Exportar para Node / módulos si es necesario
